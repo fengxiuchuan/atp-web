@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/jqgrid/css/trirand/ui.jqgrid-bootstrap.css">
+</head>
+<body>
+
+<div class="container">
+    <form id="cityForm">
+        <div class="col-xs-10">
+            <div class="col-xs-4">
+                <div class="form-control">
+                    <label class="col-xs-4 ">城市名称</label>
+                    <div class="col-xs-7">
+                        <input type="text" name="cityName" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-control">
+                    <label class="col-xs-4 ">描述</label>
+                    <div class="col-xs-7">
+                        <input type="text" name="description" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="operation-btn">
+            <button type="button" class="btn btn-confirm btn-search" onclick="searchReloadGrid(cityGrid, 'cityForm')">搜索</button>
+        </div>-->
+        <div class="panel panel-default">
+            <div>
+                <table id="cityGrid"></table>
+                <div id="cityPager"></div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/static/js/common/jquery.min.js"></script>
+<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/plugins/jqgrid/js/trirand/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="/static/plugins/jqgrid/js/trirand/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript" src="/static/js/common/form-common.js"></script>
+<script type="text/javascript">
+    var cityGrid;
+    var url = "/city/queryCityList.json";
+    function f_init_city_list(){
+        cityGrid = aui.grid.init("cityGrid",{
+            url:url,
+            jsonReader : {
+                root : "data.rows",
+                total : "data.page",
+                records : "data.total",
+            },
+            colModel:[
+                {label:"id",name:'id',index:'id', width:55},
+                {
+                    label:"省份编号",
+                    name:'provinceId',
+                    index:'province_id',
+                    width:90},
+                {label:"城市名称",name:'cityName',index:'city_name', width:100},
+                {label:"描述",name:'description',index:'description', width:80, align:"right"},
+            ],
+            shrinkToFit:false,
+            multiselect:false,
+        })
+    }
+    $(function(){
+        f_init_city_list();
+    })
+</script>
+
+</body>
+</html>

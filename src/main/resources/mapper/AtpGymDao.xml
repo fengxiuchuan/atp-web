@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codingworld.time.dao.base.AtpGymDao">
+
+    <resultMap id="AtpGymMap" type="org.codingworld.time.dto.base.AtpGymDTO">
+        <result property="id" column="id"/>
+        <result property="gymName" column="gym_name"/>
+        <result property="manager" column="manager"/>
+        <result property="phone" column="m_phone"/>
+        <result property="address" column="address"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdName" column="created_name"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="lastUpdatedBy" column="last_updated_by"/>
+        <result property="lastUpdatedName" column="last_updated_name"/>
+        <result property="lastUpdatedTime" column="last_updated_time"/>
+    </resultMap>
+    
+    <sql id="columns">
+        <![CDATA[
+        	id ,
+        	gym_name ,
+        	manager ,
+        	m_phone ,
+        	address ,
+        	created_by ,
+        	created_name ,
+        	created_time ,
+        	last_updated_by ,
+        	last_updated_name ,
+        	last_updated_time 
+        ]]>
+    </sql>
+    
+    <sql id="where">
+    	<where>
+           	<if test="@Ognl@isNotEmpty(id)">
+            	<![CDATA[ AND id = #{id} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(gymName)">
+            	<![CDATA[ AND gym_name = #{gymName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(manager)">
+            	<![CDATA[ AND manager = #{manager} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(phone)">
+            	<![CDATA[ AND m_phone = #{phone} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(address)">
+            	<![CDATA[ AND address = #{address} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(createdBy)">
+            	<![CDATA[ AND created_by = #{createdBy} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(createdName)">
+            	<![CDATA[ AND created_name = #{createdName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(createdTime)">
+           		<![CDATA[ AND created_time = #{createdTime} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(createdTimeBegin)">
+           		<![CDATA[ AND created_time >= #{createdTimeBegin} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(createdTimeEnd)">
+            	<![CDATA[ AND created_time <= #{createdTimeEnd} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedBy)">
+            	<![CDATA[ AND last_updated_by = #{lastUpdatedBy} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedName)">
+            	<![CDATA[ AND last_updated_name = #{lastUpdatedName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedTime)">
+           		<![CDATA[ AND last_updated_time = #{lastUpdatedTime} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedTimeBegin)">
+           		<![CDATA[ AND last_updated_time >= #{lastUpdatedTimeBegin} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedTimeEnd)">
+            	<![CDATA[ AND last_updated_time <= #{lastUpdatedTimeEnd} ]]>
+           	</if>
+        </where>
+    </sql>
+    
+
+    <select id="queryList" resultMap="AtpGymMap">
+        SELECT
+            <include refid="columns" />
+        FROM
+            atp_gym 
+        <include refid="where"/>
+    </select>
+        
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO atp_gym (
+	        gym_name,
+	        manager,
+	        m_phone,
+	        address,
+	        created_by,
+	        created_name,
+	        created_time,
+	        last_updated_by,
+	        last_updated_name,
+	        last_updated_time
+	    ) VALUES (
+	        #{gymName},
+	        #{manager},
+	        #{phone},
+	        #{address},
+	        #{createdBy},
+	        #{createdName},
+	        #{createdTime},
+	        #{lastUpdatedBy},
+	        #{lastUpdatedName},
+	        #{lastUpdatedTime}
+	    )
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO atp_gym (
+            gym_name,
+            manager,
+            m_phone,
+            address,
+            created_by,
+            created_name,
+            created_time,
+            last_updated_by,
+            last_updated_name,
+            last_updated_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                                #{item.gymName},
+                #{item.manager},
+                #{item.phone},
+                #{item.address},
+                #{item.createdBy},
+                #{item.createdName},
+                #{item.createdTime},
+                #{item.lastUpdatedBy},
+                #{item.lastUpdatedName},
+                #{item.lastUpdatedTime}
+            )
+        </foreach>
+    </insert>
+    
+
+    <delete id="deleteBatchByIds">
+        DELETE 
+        FROM
+            atp_gym
+        WHERE
+            id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+#{item}        </foreach>
+    </delete>
+
+
+
+    <update id="updateById">
+            UPDATE
+            atp_gym
+            <set>
+                    <if test="gymName != null">
+                        <![CDATA[ gym_name = #{gymName} ]]>,
+                     </if>
+                    <if test="manager != null">
+                        <![CDATA[ manager = #{manager} ]]>,
+                     </if>
+                    <if test="phone != null">
+                        <![CDATA[ m_phone = #{phone} ]]>,
+                     </if>
+                    <if test="address != null">
+                        <![CDATA[ address = #{address} ]]>,
+                     </if>
+                    <if test="createdBy != null">
+                        <![CDATA[ created_by = #{createdBy} ]]>,
+                     </if>
+                    <if test="createdName != null">
+                        <![CDATA[ created_name = #{createdName} ]]>,
+                     </if>
+                    <if test="createdTime != null">
+                        <![CDATA[ created_time = #{createdTime} ]]>,
+                     </if>
+                    <if test="lastUpdatedBy != null">
+                        <![CDATA[ last_updated_by = #{lastUpdatedBy} ]]>,
+                     </if>
+                    <if test="lastUpdatedName != null">
+                        <![CDATA[ last_updated_name = #{lastUpdatedName} ]]>,
+                     </if>
+                    <if test="lastUpdatedTime != null">
+                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>
+                     </if>
+            </set>
+            <where>
+                id = #{id}
+        </where>
+        </update>
+</mapper>
+

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codingworld.time.dao.base.AtpGymProgramDao">
+
+    <resultMap id="AtpGymProgramMap" type="org.codingworld.time.dto.base.AtpGymProgramDTO">
+        <result property="id" column="id"/>
+        <result property="gymId" column="gym_id"/>
+        <result property="courseId" column="course_id"/>
+    </resultMap>
+    
+    <sql id="columns">
+        <![CDATA[
+        	id ,
+        	gym_id ,
+        	course_id 
+        ]]>
+    </sql>
+    
+    <sql id="where">
+    	<where>
+           	<if test="@Ognl@isNotEmpty(id)">
+            	<![CDATA[ AND id = #{id} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(gymId)">
+            	<![CDATA[ AND gym_id = #{gymId} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(courseId)">
+            	<![CDATA[ AND course_id = #{courseId} ]]>
+            </if>
+        </where>
+    </sql>
+    
+
+    <select id="queryList" resultMap="AtpGymProgramMap">
+        SELECT
+            <include refid="columns" />
+        FROM
+            atp_gym_program 
+        <include refid="where"/>
+    </select>
+        
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO atp_gym_program (
+	        gym_id,
+	        course_id
+	    ) VALUES (
+	        #{gymId},
+	        #{courseId}
+	    )
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO atp_gym_program (
+            gym_id,
+            course_id
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                                #{item.gymId},
+                #{item.courseId}
+            )
+        </foreach>
+    </insert>
+    
+
+    <delete id="deleteBatchByIds">
+        DELETE 
+        FROM
+            atp_gym_program
+        WHERE
+            id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+#{item}        </foreach>
+    </delete>
+
+
+
+    <update id="updateById">
+            UPDATE
+            atp_gym_program
+            <set>
+                    <if test="gymId != null">
+                        <![CDATA[ gym_id = #{gymId} ]]>,
+                     </if>
+                    <if test="courseId != null">
+                        <![CDATA[ course_id = #{courseId} ]]>
+                     </if>
+            </set>
+            <where>
+                id = #{id}
+        </where>
+        </update>
+</mapper>
+

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codingworld.time.dao.coach.AtpCoachDao">
+
+    <resultMap id="AtpCoachMap" type="org.codingworld.time.dto.coach.AtpCoachDTO">
+        <result property="id" column="id"/>
+        <result property="coachNo" column="coach_no"/>
+        <result property="coachName" column="coach_name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="gymId" column="gym_id"/>
+        <result property="jobState" column="job_state"/>
+        <result property="userAccount" column="user_account"/>
+        <result property="userPasswd" column="user_passwd"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdName" column="created_name"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="lastUpdatedBy" column="last_updated_by"/>
+        <result property="lastUpdatedName" column="last_updated_name"/>
+        <result property="lastUpdatedTime" column="last_updated_time"/>
+    </resultMap>
+    
+    <sql id="columns">
+        <![CDATA[
+        	id ,
+        	coach_no ,
+        	coach_name ,
+        	sex ,
+        	age ,
+        	gym_id ,
+        	job_state ,
+        	user_account ,
+        	user_passwd ,
+        	created_by ,
+        	created_name ,
+        	created_time ,
+        	last_updated_by ,
+        	last_updated_name ,
+        	last_updated_time 
+        ]]>
+    </sql>
+    
+    <sql id="where">
+    	<where>
+           	<if test="@Ognl@isNotEmpty(id)">
+            	<![CDATA[ AND id = #{id} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(coachNo)">
+            	<![CDATA[ AND coach_no = #{coachNo} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(coachName)">
+            	<![CDATA[ AND coach_name = #{coachName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(sex)">
+            	<![CDATA[ AND sex = #{sex} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(age)">
+            	<![CDATA[ AND age = #{age} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(gymId)">
+            	<![CDATA[ AND gym_id = #{gymId} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(jobState)">
+            	<![CDATA[ AND job_state = #{jobState} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(userAccount)">
+            	<![CDATA[ AND user_account = #{userAccount} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(userPasswd)">
+            	<![CDATA[ AND user_passwd = #{userPasswd} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(createdBy)">
+            	<![CDATA[ AND created_by = #{createdBy} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(createdName)">
+            	<![CDATA[ AND created_name = #{createdName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(createdTime)">
+           		<![CDATA[ AND created_time = #{createdTime} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(createdTimeBegin)">
+           		<![CDATA[ AND created_time >= #{createdTimeBegin} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(createdTimeEnd)">
+            	<![CDATA[ AND created_time <= #{createdTimeEnd} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedBy)">
+            	<![CDATA[ AND last_updated_by = #{lastUpdatedBy} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedName)">
+            	<![CDATA[ AND last_updated_name = #{lastUpdatedName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedTime)">
+           		<![CDATA[ AND last_updated_time = #{lastUpdatedTime} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedTimeBegin)">
+           		<![CDATA[ AND last_updated_time >= #{lastUpdatedTimeBegin} ]]>
+           	</if>
+           	<if test="@Ognl@isNotEmpty(lastUpdatedTimeEnd)">
+            	<![CDATA[ AND last_updated_time <= #{lastUpdatedTimeEnd} ]]>
+           	</if>
+        </where>
+    </sql>
+    
+
+    <select id="queryList" resultMap="AtpCoachMap">
+        SELECT
+            <include refid="columns" />
+        FROM
+            atp_coach 
+        <include refid="where"/>
+    </select>
+        
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO atp_coach (
+	        coach_no,
+	        coach_name,
+	        sex,
+	        age,
+	        gym_id,
+	        job_state,
+	        user_account,
+	        user_passwd,
+	        created_by,
+	        created_name,
+	        created_time,
+	        last_updated_by,
+	        last_updated_name,
+	        last_updated_time
+	    ) VALUES (
+	        #{coachNo},
+	        #{coachName},
+	        #{sex},
+	        #{age},
+	        #{gymId},
+	        #{jobState},
+	        #{userAccount},
+	        #{userPasswd},
+	        #{createdBy},
+	        #{createdName},
+	        #{createdTime},
+	        #{lastUpdatedBy},
+	        #{lastUpdatedName},
+	        #{lastUpdatedTime}
+	    )
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO atp_coach (
+            coach_no,
+            coach_name,
+            sex,
+            age,
+            gym_id,
+            job_state,
+            user_account,
+            user_passwd,
+            created_by,
+            created_name,
+            created_time,
+            last_updated_by,
+            last_updated_name,
+            last_updated_time
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                                #{item.coachNo},
+                #{item.coachName},
+                #{item.sex},
+                #{item.age},
+                #{item.gymId},
+                #{item.jobState},
+                #{item.userAccount},
+                #{item.userPasswd},
+                #{item.createdBy},
+                #{item.createdName},
+                #{item.createdTime},
+                #{item.lastUpdatedBy},
+                #{item.lastUpdatedName},
+                #{item.lastUpdatedTime}
+            )
+        </foreach>
+    </insert>
+    
+
+    <delete id="deleteBatchByIds">
+        DELETE 
+        FROM
+            atp_coach
+        WHERE
+            id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+#{item}        </foreach>
+    </delete>
+
+
+
+    <update id="updateById">
+            UPDATE
+            atp_coach
+            <set>
+                    <if test="coachNo != null">
+                        <![CDATA[ coach_no = #{coachNo} ]]>,
+                     </if>
+                    <if test="coachName != null">
+                        <![CDATA[ coach_name = #{coachName} ]]>,
+                     </if>
+                    <if test="sex != null">
+                        <![CDATA[ sex = #{sex} ]]>,
+                     </if>
+                    <if test="age != null">
+                        <![CDATA[ age = #{age} ]]>,
+                     </if>
+                    <if test="gymId != null">
+                        <![CDATA[ gym_id = #{gymId} ]]>,
+                     </if>
+                    <if test="jobState != null">
+                        <![CDATA[ job_state = #{jobState} ]]>,
+                     </if>
+                    <if test="userAccount != null">
+                        <![CDATA[ user_account = #{userAccount} ]]>,
+                     </if>
+                    <if test="userPasswd != null">
+                        <![CDATA[ user_passwd = #{userPasswd} ]]>,
+                     </if>
+                    <if test="createdBy != null">
+                        <![CDATA[ created_by = #{createdBy} ]]>,
+                     </if>
+                    <if test="createdName != null">
+                        <![CDATA[ created_name = #{createdName} ]]>,
+                     </if>
+                    <if test="createdTime != null">
+                        <![CDATA[ created_time = #{createdTime} ]]>,
+                     </if>
+                    <if test="lastUpdatedBy != null">
+                        <![CDATA[ last_updated_by = #{lastUpdatedBy} ]]>,
+                     </if>
+                    <if test="lastUpdatedName != null">
+                        <![CDATA[ last_updated_name = #{lastUpdatedName} ]]>,
+                     </if>
+                    <if test="lastUpdatedTime != null">
+                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>
+                     </if>
+            </set>
+            <where>
+                id = #{id}
+        </where>
+        </update>
+</mapper>
+
