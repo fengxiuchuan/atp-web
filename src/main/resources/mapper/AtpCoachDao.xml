@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.codingworld.time.dao.coach.AtpCoachDao">
+<mapper namespace="com.atp.dao.coach.AtpCoachDao">
 
-    <resultMap id="AtpCoachMap" type="org.codingworld.time.dto.coach.AtpCoachDTO">
+    <resultMap id="AtpCoachMap" type="com.atp.dto.coach.AtpCoachDTO">
         <result property="id" column="id"/>
         <result property="coachNo" column="coach_no"/>
         <result property="coachName" column="coach_name"/>
@@ -248,5 +248,37 @@
                 id = #{id}
         </where>
         </update>
+
+    <select id="queryAllList" resultMap="AtpCoachMap">
+        SELECT <include refid="columns"/>
+        FROM atp_coach
+        <where>
+            1 = 1
+          <if test="coachNo != null and coachNo != ''">
+            AND coach_no like concat('%,', #{coachNo}, ',%')
+          </if>
+          <if test="coachName != null and coachName != ''">
+              AND  coach_name like concat('%,', #{coachName}, ',%')
+          </if>
+        </where>
+    </select>
+
+    <select id="queryByNoOrName" resultMap="AtpCoachMap">
+        SELECT <include refid="columns"/>
+        FROM atp_coach
+        <where>
+            ( coach_no = #{coachNo} OR  coach_name = #{coachName})
+            <if test="id != null">
+                <![CDATA[ AND id <> !{id}]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCourseListByCoachId" resultMap="com.atp.dao.base.AtpCourseDao.AtpCourseMap">
+        SELECT <include refid="com.atp.dao.base.AtpCourseDao.columns"/>
+         FROM  atp_coach_course acc
+        LEFT JOIN atp_course course ON (acc.`coach_id` = course.`id`)
+        WHERE acc.`coach_id` = #{coachId}
+    </select>
 </mapper>
 

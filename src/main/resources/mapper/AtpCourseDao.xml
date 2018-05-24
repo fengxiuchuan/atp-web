@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.codingworld.time.dao.base.AtpCourseDao">
+<mapper namespace="com.atp.dao.base.AtpCourseDao">
 
-    <resultMap id="AtpCourseMap" type="org.codingworld.time.dto.base.AtpCourseDTO">
+    <resultMap id="AtpCourseMap" type="com.atp.dto.base.AtpCourseDTO">
         <result property="id" column="id"/>
         <result property="courseName" column="course_name"/>
         <result property="courseNo" column="course_no"/>
@@ -188,5 +188,30 @@
                 id = #{id}
         </where>
         </update>
+
+    <select id="queryByNoOrName" resultMap="AtpCourseMap">
+        SELECT <include refid="columns"/>
+        FROM  atp_course
+        <where>
+          (course_no = #{courseNo} OR course_name = #{courseName})
+          <if test="id != null">
+              <![CDATA[ id <> #{id}]]>
+          </if>
+        </where>
+    </select>
+
+    <select id="queryAllList" resultMap="AtpCourseMap">
+        SELECT <include refid="columns"/>
+        FROM  atp_course
+        <where>
+            1 = 1
+            <if test="courseNo != null and courseNo != ''">
+                AND course_no like concat('%,', #{courseNo}, ',%')
+            </if>
+            <if test="courseName != null and courseName != ''">
+                AND course_name like concat('%,', #{courseName}, ',%')
+            </if>
+        </where>
+    </select>
 </mapper>
 

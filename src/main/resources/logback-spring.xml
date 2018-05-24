@@ -2,12 +2,12 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <springProfile name="dev,staging">
-        <logger name="org.codingworld.time.controller" level="DEBUG" additivity="false">
+        <logger name="com.atp.controller" level="DEBUG" additivity="false">
             <appender-ref ref="CONSOLE" />
         </logger>>
     </springProfile>
     <springProfile name="production">
-        <logger name="org.codingworld.time.controller" level="WARN" additivity="false">
+        <logger name="com.atp.controller" level="WARN" additivity="false">
             <appender-ref ref="FILE" />
         </logger>
     </springProfile>

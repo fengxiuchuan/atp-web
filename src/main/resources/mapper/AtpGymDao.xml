@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.codingworld.time.dao.base.AtpGymDao">
+<mapper namespace="com.atp.dao.base.AtpGymDao">
 
-    <resultMap id="AtpGymMap" type="org.codingworld.time.dto.base.AtpGymDTO">
+    <resultMap id="AtpGymMap" type="com.atp.dto.base.AtpGymDTO">
         <result property="id" column="id"/>
         <result property="gymName" column="gym_name"/>
         <result property="manager" column="manager"/>
@@ -200,5 +200,59 @@
                 id = #{id}
         </where>
         </update>
+
+    <select id="queryAllList" resultMap="AtpGymMap">
+        SELECT <include refid="columns"/>
+        FROM atp_gym
+        <where>
+            1 = 1
+            <if test="gymName != null and gymName != ''">
+                AND gym_name  like concat('%,', #{gymName}, ',%')
+            </if>
+            <if test="manager != null and manager != ''">
+                AND  manager  like concat('%,', #{manager}, ',%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND  m_phone  like concat('%,', #{phone}, ',%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryByGymName" resultMap="AtpGymMap">
+        SELECT <include refid="columns"/>
+        FROM atp_gym
+        <where>
+            1 = 1
+            <if test="gymName != null and gymName != ''">
+                AND gym_name = #{gymName}
+            </if>
+            <if test="id != null ">
+                <![CDATA[ AND id <> #{id}]]>
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCourseListByGymId" resultMap="com.atp.dao.base.AtpCourseDao.AtpCourseMap">
+            SELECT course.*
+            FROM atp_gym_program gp
+            LEFT JOIN atp_course course ON(gp.`course_id` = course.`id`)
+            <where>
+                gp.`gym_id` = #{gymId}
+            </where>
+    </select>
+
+    <select id="queryCoachListByGymId" resultMap="com.atp.dao.coach.AtpCoachDao.AtpCoachMap">
+        SELECT <include refid="com.atp.dao.coach.AtpCoachDao.columns"/>
+        FROM atp_coach
+        WHERE gym_id = #{gymId}
+    </select>
+
+    <select id="queryDetailById" resultMap="AtpGymMap">
+        SELECT <include refid="columns"/>
+        FROM atp_gym
+        <where>
+            gym_id = #{gymId}
+        </where>
+    </select>
 </mapper>
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.codingworld.time.dao.member.AtpMemberDao">
+<mapper namespace="com.atp.dao.member.AtpMemberDao">
 
-    <resultMap id="AtpMemberMap" type="org.codingworld.time.dto.member.AtpMemberDTO">
+    <resultMap id="AtpMemberMap" type="com.atp.dto.member.AtpMemberDTO">
         <result property="id" column="id"/>
         <result property="name" column="m_name"/>
         <result property="sex" column="sex"/>

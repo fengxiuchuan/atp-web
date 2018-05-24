@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.codingworld.time.dao.base.AtpGymProgramDao">
+<mapper namespace="com.atp.dao.base.AtpGymProgramDao">
 
-    <resultMap id="AtpGymProgramMap" type="org.codingworld.time.dto.base.AtpGymProgramDTO">
+    <resultMap id="AtpGymProgramMap" type="com.atp.dto.base.AtpGymProgramDTO">
         <result property="id" column="id"/>
         <result property="gymId" column="gym_id"/>
         <result property="courseId" column="course_id"/>
