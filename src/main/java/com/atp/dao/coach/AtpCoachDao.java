@@ -74,7 +74,7 @@ public interface AtpCoachDao extends MyMapper<AtpCoach> {
 
     List<AtpCoachDTO> queryAllList(AtpCoachDTO atpCoachDTO);
 
-    List<AtpCoachDTO> queryByNoOrName(@Param("coachNo") String coachNo, @Param("coachName") String coachName,@Param("id") Long id);
+    List<AtpCoachDTO> queryByNoOrName(@Param("coachNo") String coachNo, @Param("coachName") String coachName,@Param("excludId") Long id);
 
     List<AtpCourseDTO> queryCourseListByCoachId(Long coachId);
 

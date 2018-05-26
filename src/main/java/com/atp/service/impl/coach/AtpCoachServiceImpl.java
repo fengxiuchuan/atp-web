@@ -53,6 +53,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int save(AtpCoach record)  {
         if (record == null) {
             return 0;
@@ -61,6 +62,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int saveBatch(List<AtpCoach> recordList)  {
         if (CollectionUtils.isEmpty(recordList)) {
             return 0;
@@ -69,6 +71,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateById(AtpCoach record)  {
         if (record == null) {
             return 0;
@@ -77,6 +80,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteById(Long id)  {
         if (id == null) {
             return 0;
@@ -85,6 +89,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteBatchByIds(List<Long> ids)  {
         if (CollectionUtils.isEmpty(ids)) {
             return 0;
@@ -145,6 +150,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addCoach(AtpCoachDTO atpCoachDTO) throws ATPException {
         //1 校验
         validateForm(atpCoachDTO,GlobalConstants.SUBMIT_FORM_TYPE.ADD.getCode());
@@ -153,6 +159,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateCoach(AtpCoachDTO atpCoachDTO) throws ATPException {
         //1 校验
         validateForm(atpCoachDTO,GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode());

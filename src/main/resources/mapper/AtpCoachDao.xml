@@ -268,8 +268,8 @@
         FROM atp_coach
         <where>
             ( coach_no = #{coachNo} OR  coach_name = #{coachName})
-            <if test="id != null">
-                <![CDATA[ AND id <> !{id}]]>
+            <if test="excludId != null">
+                <![CDATA[ AND id <> !{excludId}]]>
             </if>
         </where>
     </select>
@@ -279,6 +279,14 @@
          FROM  atp_coach_course acc
         LEFT JOIN atp_course course ON (acc.`coach_id` = course.`id`)
         WHERE acc.`coach_id` = #{coachId}
+    </select>
+
+    <select id="queryDetailById" resultMap="AtpCoachMap">
+        SELECT <include refid="columns"/>
+        FROM atp_coach
+        <where>
+            id = #{id}
+        </where>
     </select>
 </mapper>
 

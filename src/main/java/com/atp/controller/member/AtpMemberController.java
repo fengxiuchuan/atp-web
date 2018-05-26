@@ -11,6 +11,7 @@ import com.atp.dto.member.AtpMemberDTO;
 import com.atp.exception.ATPException;
 import com.atp.service.impl.member.AtpMemCourseServiceImpl;
 import com.atp.service.member.AtpMemCourseConsumeService;
+import com.atp.service.member.AtpMemCourseService;
 import com.atp.service.member.AtpMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public class AtpMemberController extends BaseController {
     private AtpMemberService atpMemberService;
 
     @Resource
-    private AtpMemCourseServiceImpl atpMemCourseService;
+    private AtpMemCourseService atpMemCourseService;
 
     @Resource
     private AtpMemCourseConsumeService atpMemCourseConsumeService;

@@ -2,6 +2,7 @@ package com.atp.entity.member;
 
 import com.atp.dto.base.request.BasePageRequest;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ public class AtpMember extends BasePageRequest implements Serializable {
     /**
      * 主键 
      */
+    @Id
     private Long id;
     /**
      * 姓名 
@@ -23,11 +25,11 @@ public class AtpMember extends BasePageRequest implements Serializable {
     /**
      * 性别(0:男；1女) 
      */
-    private Boolean sex;
+    private Short sex;
     /**
      * 年龄 
      */
-    private Boolean age;
+    private Short age;
     /**
      * 联系方式 
      */
@@ -73,6 +75,30 @@ public class AtpMember extends BasePageRequest implements Serializable {
      */
     private Date lastUpdatedTime;
 
+
+    public AtpMember(){}
+
+    public AtpMember(String name,Short sex,Short age,String phone,String address,String remark,String cardPwd){
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.phone = phone;
+        this.address = address;
+        this.remark = remark;
+        this.cardPwd = cardPwd;
+    }
+
+    public AtpMember(String name,Short sex,Short age,String phone,String address,String remark,String cardNo,String cardPwd){
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.phone = phone;
+        this.address = address;
+        this.remark = remark;
+        this.cardNo = cardNo;
+        this.cardPwd = cardPwd;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -87,20 +113,23 @@ public class AtpMember extends BasePageRequest implements Serializable {
     public String getName() {
         return this.name;
     }
-    public void setSex(Boolean sex) {
+
+    public Short getSex() {
+        return sex;
+    }
+
+    public void setSex(Short sex) {
         this.sex = sex;
     }
 
-    public Boolean getSex() {
-        return this.sex;
+    public Short getAge() {
+        return age;
     }
-    public void setAge(Boolean age) {
+
+    public void setAge(Short age) {
         this.age = age;
     }
 
-    public Boolean getAge() {
-        return this.age;
-    }
     public void setPhone(String phone) {
         this.phone = phone;
     }

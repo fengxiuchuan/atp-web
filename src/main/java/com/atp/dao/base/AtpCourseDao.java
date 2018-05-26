@@ -85,7 +85,7 @@ public interface AtpCourseDao extends MyMapper<AtpCourse> {
      * @auther: Administrator
      * @date: 2018/5/24 16:47
      */
-    List<AtpCourseDTO> queryByNoOrName(@Param("courseNo") String courseNo, @Param("courseName")String courseName,@Param("id")Long id);
+    List<AtpCourseDTO> queryByNoOrName(@Param("courseNo") String courseNo, @Param("courseName")String courseName,@Param("excludId")Long id);
     
     /**
      *

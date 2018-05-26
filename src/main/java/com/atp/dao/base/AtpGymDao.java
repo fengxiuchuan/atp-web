@@ -84,7 +84,7 @@ public interface AtpGymDao extends MyMapper<AtpGym> {
      */
     List<AtpGymDTO> queryAllList(AtpGymDTO atpGymDTO);
 
-    List<AtpGym> queryByGymName(@Param("") String gymName,@Param("") Long id);
+    List<AtpGym> queryByGymName(@Param("gymName") String gymName,@Param("excludId") Long id);
 
     List<AtpCourseDTO> queryCourseListByGymId(Long gymId);
 

@@ -45,6 +45,7 @@ public class AtpMemCourseConsumeServiceImpl implements AtpMemCourseConsumeServic
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int save(AtpMemCourseConsume record)  {
         if (record == null) {
             return 0;
@@ -53,6 +54,7 @@ public class AtpMemCourseConsumeServiceImpl implements AtpMemCourseConsumeServic
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int saveBatch(List<AtpMemCourseConsume> recordList)  {
         if (CollectionUtils.isEmpty(recordList)) {
             return 0;
@@ -61,6 +63,7 @@ public class AtpMemCourseConsumeServiceImpl implements AtpMemCourseConsumeServic
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateById(AtpMemCourseConsume record)  {
         if (record == null) {
             return 0;
@@ -69,6 +72,7 @@ public class AtpMemCourseConsumeServiceImpl implements AtpMemCourseConsumeServic
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteById(Long id)  {
         if (id == null) {
             return 0;
@@ -77,6 +81,7 @@ public class AtpMemCourseConsumeServiceImpl implements AtpMemCourseConsumeServic
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteBatchByIds(List<Long> ids)  {
         if (CollectionUtils.isEmpty(ids)) {
             return 0;

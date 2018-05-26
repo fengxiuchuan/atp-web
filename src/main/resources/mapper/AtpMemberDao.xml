@@ -248,5 +248,48 @@
                 id = #{id}
         </where>
         </update>
+    <select id="queryListByPhone" resultMap="AtpMemberMap">
+       SELECT <include refid="columns"/>
+        FROM atp_member
+        <where>
+            phone = #{phone}
+            <if test="excludId != null">
+                AND id <![CDATA[ <> ]]> #{excludId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryListByCardNo" resultMap="AtpMemberMap">
+        SELECT <include refid="columns"/>
+        FROM atp_member
+        <where>
+            card_no = #{cardNo}
+            <if test="excludId != null">
+                AND id <![CDATA[ <> ]]> #{excludId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCourseListByMemId" resultMap="com.atp.dao.member.AtpMemCourseDao.AtpMemCourseMap">
+        SELECT
+        mcourse.id ,
+        mcourse.order_no ,
+        mcourse.card_no ,
+        mcourse.course_id ,
+        course.course_name ,
+        mcourse.coach_id ,
+        coach.coach_no ,
+        coach.`coach_name`,
+        mcourse.total_num ,
+        mcourse.free_num ,
+        mcourse.used_num ,
+        mcourse.course_amount
+        FROM atp_mem_course mcourse
+        LEFT JOIN atp_course course ON (mcourse.`course_id` = course.`id`)
+        LEFT JOIN atp_coach coach ON(mcourse.`coach_id` = coach.`id`)
+        <where>
+            mcourse.mem_id = #{memId}
+        </where>
+    </select>
 </mapper>
 

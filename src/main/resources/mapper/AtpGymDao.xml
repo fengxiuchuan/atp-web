@@ -226,8 +226,8 @@
             <if test="gymName != null and gymName != ''">
                 AND gym_name = #{gymName}
             </if>
-            <if test="id != null ">
-                <![CDATA[ AND id <> #{id}]]>
+            <if test="excludId != null ">
+                <![CDATA[ AND id <> #{excludId}]]>
             </if>
         </where>
     </select>

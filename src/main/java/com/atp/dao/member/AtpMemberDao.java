@@ -1,8 +1,10 @@
 package com.atp.dao.member;
 
 import com.atp.common.MyMapper;
+import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -68,5 +70,13 @@ public interface AtpMemberDao extends MyMapper<AtpMember> {
      * @author: fengxiuchuan
      * @date: 2018-05-23 18:51:29
      */
-    int updateById(AtpMemberDTO dto);
+    int updateById(AtpMember atpMember);
+
+    List<AtpMemberDTO> queryListByPhone(@Param("phone") String phone,@Param("excludId") Long id);
+
+    List<AtpMemberDTO> queryListByCardNo(@Param("cardNo") String cardNo,@Param("excludId") Long id);
+
+    List<AtpCourseDTO> queryCourseListByMemId(Long memberId);
+
+    List<AtpCourseDTO> queryAllList(AtpMemberDTO atpMemberDTO);
 }

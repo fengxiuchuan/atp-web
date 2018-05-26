@@ -22,6 +22,9 @@
         <result property="lastUpdatedBy" column="last_updated_by"/>
         <result property="lastUpdatedName" column="last_updated_name"/>
         <result property="lastUpdatedTime" column="last_updated_time"/>
+
+        <!--拓展字段-->
+        <result property="coachName" column="coach_name"/>
     </resultMap>
     
     <sql id="columns">

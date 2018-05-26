@@ -195,7 +195,7 @@
         <where>
           (course_no = #{courseNo} OR course_name = #{courseName})
           <if test="id != null">
-              <![CDATA[ id <> #{id}]]>
+              <![CDATA[ id <> #{excludId}]]>
           </if>
         </where>
     </select>

@@ -53,6 +53,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int save(AtpCourse record)  {
         if (record == null) {
             return 0;
@@ -61,6 +62,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int saveBatch(List<AtpCourse> recordList)  {
         if (CollectionUtils.isEmpty(recordList)) {
             return 0;
@@ -69,6 +71,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateById(AtpCourse record)  {
         if (record == null) {
             return 0;
@@ -77,6 +80,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteById(Long id)  {
         if (id == null) {
             return 0;
@@ -85,6 +89,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteBatchByIds(List<Long> ids)  {
         if (CollectionUtils.isEmpty(ids)) {
             return 0;
@@ -108,6 +113,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addCourse(AtpCourseDTO atpCourseDTO) throws ATPException {
         //1 校验
         validateForm(atpCourseDTO, GlobalConstants.SUBMIT_FORM_TYPE.ADD.getCode());
@@ -119,6 +125,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateCourse(AtpCourseDTO atpCourseDTO) throws ATPException {
         //1 校验
         validateForm(atpCourseDTO, GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode());

@@ -1,7 +1,10 @@
 package com.atp.service.member;
 
+import com.atp.dto.base.AtpCourseDTO;
+import com.atp.dto.base.response.BasePageResponse;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;
+import com.atp.exception.ATPException;
 
 import java.util.List;
 
@@ -81,5 +84,13 @@ public interface AtpMemberService {
      * @author: fengxiuchuan
      * @date: 2018-05-23 18:51:29
      */
-    int deleteBatchByIds(List<Long> ids);
+    int deleteBatchByIds(List<Long> ids)throws ATPException;
+
+    void addMem(AtpMemberDTO atpMemberDTO)throws ATPException;
+
+    void updateMem(AtpMemberDTO atpMemberDTO)throws ATPException;
+
+    List<AtpCourseDTO> queryCourseListByMemId(Long memberId)throws ATPException;
+
+    BasePageResponse<AtpCourseDTO> queryAllList(AtpMemberDTO atpMemberDTO)throws ATPException;
 }

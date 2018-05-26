@@ -11,5 +11,17 @@ import java.io.Serializable;
  */
 public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
 
+    /**
+     *  教练名称
+     */
+    private String coachName;
+
+    public String getCoachName() {
+        return coachName;
+    }
+
+    public void setCoachName(String coachName) {
+        this.coachName = coachName;
+    }
 }
 

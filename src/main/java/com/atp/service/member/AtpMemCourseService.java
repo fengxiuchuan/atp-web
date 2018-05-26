@@ -1,5 +1,6 @@
 package com.atp.service.member;
 
+import com.atp.dto.member.AtpMemCourseConsumeDTO;
 import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.entity.member.AtpMemCourse;
 
@@ -82,4 +83,8 @@ public interface AtpMemCourseService {
      * @date: 2018-05-23 18:51:26
      */
     int deleteBatchByIds(List<Long> ids);
+
+    void payCourse(AtpMemCourseDTO atpMemCourseDTO);
+
+    void consumeCourse(AtpMemCourseConsumeDTO consumeDTO);
 }

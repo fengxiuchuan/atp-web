@@ -55,6 +55,7 @@ public class AtpGymServiceImpl implements AtpGymService {
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int save(AtpGym record)  {
         if (record == null) {
             return 0;
@@ -63,6 +64,7 @@ public class AtpGymServiceImpl implements AtpGymService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int saveBatch(List<AtpGym> recordList)  {
         if (CollectionUtils.isEmpty(recordList)) {
             return 0;
@@ -71,6 +73,7 @@ public class AtpGymServiceImpl implements AtpGymService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateById(AtpGym record)  {
         if (record == null) {
             return 0;
@@ -79,6 +82,7 @@ public class AtpGymServiceImpl implements AtpGymService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteById(Long id)  {
         if (id == null) {
             return 0;
@@ -87,6 +91,7 @@ public class AtpGymServiceImpl implements AtpGymService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteBatchByIds(List<Long> ids)  {
         if (CollectionUtils.isEmpty(ids)) {
             return 0;
@@ -129,6 +134,7 @@ public class AtpGymServiceImpl implements AtpGymService {
         List<AtpGym> gymList = atpGymDao.queryByGymName(atpGymDTO.getGymName(),id);
     }
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addGym(AtpGymDTO atpGymDTO) throws ATPException {
         //1 校验
         validateForm(atpGymDTO,GlobalConstants.SUBMIT_FORM_TYPE.ADD.getCode());
@@ -140,6 +146,7 @@ public class AtpGymServiceImpl implements AtpGymService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateGym(AtpGymDTO atpGymDTO) throws ATPException {
         //1 校验
         validateForm(atpGymDTO,GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode());
