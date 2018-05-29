@@ -2,6 +2,9 @@ package com.atp.entity.coach;
 
 import com.atp.dto.base.request.BasePageRequest;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +18,8 @@ public class AtpCoach extends BasePageRequest implements Serializable {
     /**
      * 主键 
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 教练编号 

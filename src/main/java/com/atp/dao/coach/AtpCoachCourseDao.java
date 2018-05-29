@@ -1,6 +1,6 @@
 package com.atp.dao.coach;
 
-import com.atp.common.MyMapper;
+import com.atp.util.MyMapper;
 import com.atp.dto.coach.AtpCoachCourseDTO;
 import com.atp.entity.coach.AtpCoachCourse;
 import org.springframework.stereotype.Repository;

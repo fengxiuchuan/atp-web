@@ -2,6 +2,8 @@ package com.atp.entity.member;
 
 import com.atp.dto.base.request.BasePageRequest;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +19,7 @@ public class AtpMember extends BasePageRequest implements Serializable {
      * 主键 
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 姓名 

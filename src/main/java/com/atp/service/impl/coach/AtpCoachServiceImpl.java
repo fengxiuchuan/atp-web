@@ -76,7 +76,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
         if (record == null) {
             return 0;
         }
-        return atpCoachDao.updateByPrimaryKey(record);
+        return atpCoachDao.updateByPrimaryKeySelective(record);
     }
 
     @Override

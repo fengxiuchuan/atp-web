@@ -1,6 +1,6 @@
 package com.atp;
 
-import com.atp.config.TestProperties;
+import com.atp.common.TestProperties;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

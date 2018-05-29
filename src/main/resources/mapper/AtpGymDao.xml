@@ -7,7 +7,7 @@
         <result property="id" column="id"/>
         <result property="gymName" column="gym_name"/>
         <result property="manager" column="manager"/>
-        <result property="phone" column="m_phone"/>
+        <result property="phone" column="phone"/>
         <result property="address" column="address"/>
         <result property="createdBy" column="created_by"/>
         <result property="createdName" column="created_name"/>
@@ -22,7 +22,7 @@
         	id ,
         	gym_name ,
         	manager ,
-        	m_phone ,
+        	phone ,
         	address ,
         	created_by ,
         	created_name ,
@@ -45,7 +45,7 @@
             	<![CDATA[ AND manager = #{manager} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(phone)">
-            	<![CDATA[ AND m_phone = #{phone} ]]>
+            	<![CDATA[ AND phone = #{phone} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(address)">
             	<![CDATA[ AND address = #{address} ]]>
@@ -97,7 +97,7 @@
 	    INSERT INTO atp_gym (
 	        gym_name,
 	        manager,
-	        m_phone,
+	        phone,
 	        address,
 	        created_by,
 	        created_name,
@@ -123,7 +123,7 @@
         INSERT INTO atp_gym (
             gym_name,
             manager,
-            m_phone,
+            phone,
             address,
             created_by,
             created_name,
@@ -172,7 +172,7 @@
                         <![CDATA[ manager = #{manager} ]]>,
                      </if>
                     <if test="phone != null">
-                        <![CDATA[ m_phone = #{phone} ]]>,
+                        <![CDATA[ phone = #{phone} ]]>,
                      </if>
                     <if test="address != null">
                         <![CDATA[ address = #{address} ]]>,
@@ -213,7 +213,7 @@
                 AND  manager  like concat('%,', #{manager}, ',%')
             </if>
             <if test="phone != null and phone != ''">
-                AND  m_phone  like concat('%,', #{phone}, ',%')
+                AND  phone  like concat('%,', #{phone}, ',%')
             </if>
         </where>
     </select>
@@ -251,7 +251,7 @@
         SELECT <include refid="columns"/>
         FROM atp_gym
         <where>
-            gym_id = #{gymId}
+            id = #{gymId}
         </where>
     </select>
 </mapper>

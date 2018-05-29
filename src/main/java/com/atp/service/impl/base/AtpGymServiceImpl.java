@@ -78,7 +78,7 @@ public class AtpGymServiceImpl implements AtpGymService {
         if (record == null) {
             return 0;
         }
-        return atpGymDao.updateByPrimaryKey(record);
+        return atpGymDao.updateByPrimaryKeySelective(record);
     }
 
     @Override

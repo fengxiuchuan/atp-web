@@ -1,6 +1,6 @@
 package com.atp.dao.base;
 
-import com.atp.common.MyMapper;
+import com.atp.util.MyMapper;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.AtpGymDTO;
 import com.atp.dto.coach.AtpCoachDTO;

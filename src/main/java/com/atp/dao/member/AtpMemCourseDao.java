@@ -1,6 +1,6 @@
 package com.atp.dao.member;
 
-import com.atp.common.MyMapper;
+import com.atp.util.MyMapper;
 import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.entity.member.AtpMemCourse;
 import org.springframework.stereotype.Repository;

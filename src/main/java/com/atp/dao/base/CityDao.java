@@ -1,6 +1,6 @@
 package com.atp.dao.base;
 
-import com.atp.common.MyMapper;
+import com.atp.util.MyMapper;
 import com.atp.dto.base.CityDTO;
 import com.atp.entity.base.City;
 import org.springframework.stereotype.Repository;

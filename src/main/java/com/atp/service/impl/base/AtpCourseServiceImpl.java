@@ -76,7 +76,7 @@ public class AtpCourseServiceImpl implements AtpCourseService {
         if (record == null) {
             return 0;
         }
-        return atpCourseDao.updateByPrimaryKey(record);
+        return atpCourseDao.updateByPrimaryKeySelective(record);
     }
 
     @Override

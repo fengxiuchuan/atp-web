@@ -5,7 +5,7 @@
 
     <resultMap id="AtpMemberMap" type="com.atp.dto.member.AtpMemberDTO">
         <result property="id" column="id"/>
-        <result property="name" column="m_name"/>
+        <result property="name" column="name"/>
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
         <result property="phone" column="phone"/>
@@ -24,7 +24,7 @@
     <sql id="columns">
         <![CDATA[
         	id ,
-        	m_name ,
+        	name ,
         	sex ,
         	age ,
         	phone ,
@@ -47,7 +47,7 @@
             	<![CDATA[ AND id = #{id} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(name)">
-            	<![CDATA[ AND m_name = #{name} ]]>
+            	<![CDATA[ AND name = #{name} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(sex)">
             	<![CDATA[ AND sex = #{sex} ]]>
@@ -115,7 +115,7 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO atp_member (
-	        m_name,
+	        name,
 	        sex,
 	        age,
 	        phone,
@@ -149,7 +149,7 @@
 
     <insert id="saveBatch">
         INSERT INTO atp_member (
-            m_name,
+            name,
             sex,
             age,
             phone,
@@ -202,7 +202,7 @@
             atp_member
             <set>
                     <if test="name != null">
-                        <![CDATA[ m_name = #{name} ]]>,
+                        <![CDATA[ name = #{name} ]]>,
                      </if>
                     <if test="sex != null">
                         <![CDATA[ sex = #{sex} ]]>,

@@ -2,7 +2,8 @@
 SQLyog v10.2 
 MySQL - 5.7.17-log : Database - atp
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -18,7 +19,6 @@ USE `atp`;
 
 /*Table structure for table `atp_coach` */
 
-DROP TABLE IF EXISTS `atp_coach`;
 
 CREATE TABLE `atp_coach` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -43,7 +43,6 @@ CREATE TABLE `atp_coach` (
 
 /*Table structure for table `atp_coach_course` */
 
-DROP TABLE IF EXISTS `atp_coach_course`;
 
 CREATE TABLE `atp_coach_course` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -64,7 +63,6 @@ CREATE TABLE `atp_coach_course` (
 
 /*Table structure for table `atp_course` */
 
-DROP TABLE IF EXISTS `atp_course`;
 
 CREATE TABLE `atp_course` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -84,7 +82,6 @@ CREATE TABLE `atp_course` (
 
 /*Table structure for table `atp_gym` */
 
-DROP TABLE IF EXISTS `atp_gym`;
 
 CREATE TABLE `atp_gym` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
@@ -105,7 +102,6 @@ CREATE TABLE `atp_gym` (
 
 /*Table structure for table `atp_gym_program` */
 
-DROP TABLE IF EXISTS `atp_gym_program`;
 
 CREATE TABLE `atp_gym_program` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -118,7 +114,6 @@ CREATE TABLE `atp_gym_program` (
 
 /*Table structure for table `atp_mem_course` */
 
-DROP TABLE IF EXISTS `atp_mem_course`;
 
 CREATE TABLE `atp_mem_course` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -146,7 +141,6 @@ CREATE TABLE `atp_mem_course` (
 
 /*Table structure for table `atp_mem_course_consume` */
 
-DROP TABLE IF EXISTS `atp_mem_course_consume`;
 
 CREATE TABLE `atp_mem_course_consume` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -178,7 +172,6 @@ CREATE TABLE `atp_mem_course_consume` (
 
 /*Table structure for table `atp_member` */
 
-DROP TABLE IF EXISTS `atp_member`;
 
 CREATE TABLE `atp_member` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -203,15 +196,14 @@ CREATE TABLE `atp_member` (
 
 /*Table structure for table `city` */
 
-DROP TABLE IF EXISTS `city`;
 
 CREATE TABLE `city` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '城市编号',
-  `province_id` int(10) unsigned NOT NULL COMMENT '省份编号',
+  `province_id` int(10) unsigned  NOT NULL COMMENT '省份编号',
   `city_name` varchar(25) DEFAULT NULL COMMENT '城市名称',
   `description` varchar(25) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Data for the table `city` */
 

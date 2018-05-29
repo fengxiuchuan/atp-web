@@ -1,12 +1,12 @@
 package com.atp;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 // mapper 接口类扫描包配置
-//
+// 注意：如果使用了tk.mybaits,MapperScan应该使用tk.mybatis包里面的注解
 @MapperScan("com.atp.dao")
 public class Application {
 

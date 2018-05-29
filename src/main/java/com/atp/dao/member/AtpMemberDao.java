@@ -1,6 +1,6 @@
 package com.atp.dao.member;
 
-import com.atp.common.MyMapper;
+import com.atp.util.MyMapper;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;

@@ -77,7 +77,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         if (record == null) {
             return 0;
         }
-        return atpMemberDao.updateByPrimaryKey(record);
+        return atpMemberDao.updateByPrimaryKeySelective(record);
     }
 
     @Override
