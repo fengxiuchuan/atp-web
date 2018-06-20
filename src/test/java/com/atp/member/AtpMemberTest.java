@@ -81,7 +81,7 @@ public class AtpMemberTest {
     @Test
     public void testQueryList()throws ATPException{
         AtpMemberDTO atpMemberDTO  = new AtpMemberDTO();
-        atpMemberDTO.setName("aaa");
+       // atpMemberDTO.setName("aaa");
         List<AtpMemberDTO> list =  atpMemberDao.queryAllList(atpMemberDTO);
         System.out.println(list);
     }

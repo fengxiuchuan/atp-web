@@ -13,6 +13,7 @@ import java.util.Date;
  * @author: fengxiuchuan
  * @date: 2018-05-23 18:47:08
  */
+
 public class AtpCourse extends BasePageRequest implements Serializable {
 
     /**
