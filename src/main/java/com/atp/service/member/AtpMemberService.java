@@ -92,5 +92,5 @@ public interface AtpMemberService {
 
     List<AtpCourseDTO> queryCourseListByMemId(Long memberId)throws ATPException;
 
-    BasePageResponse<AtpCourseDTO> queryAllList(AtpMemberDTO atpMemberDTO)throws ATPException;
+    BasePageResponse<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO)throws ATPException;
 }

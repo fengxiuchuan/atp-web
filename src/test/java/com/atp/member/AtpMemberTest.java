@@ -2,6 +2,7 @@ package com.atp.member;
 
 import com.atp.Application;
 import com.atp.common.GlobalConstants;
+import com.atp.dao.member.AtpMemberDao;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;
@@ -30,6 +31,10 @@ public class AtpMemberTest {
 
     @Resource
     private AtpMemberService atpMemberService;
+
+    @Resource
+    private AtpMemberDao atpMemberDao;
+
 
     @Test
     public void testAdd(){
@@ -71,5 +76,13 @@ public class AtpMemberTest {
         Long id = 2L;
         List<AtpCourseDTO> atpCourseDTOList = atpMemberService.queryCourseListByMemId(id);
         Assert.assertNotNull("不为空",atpCourseDTOList);
+    }
+
+    @Test
+    public void testQueryList()throws ATPException{
+        AtpMemberDTO atpMemberDTO  = new AtpMemberDTO();
+        atpMemberDTO.setName("aaa");
+        List<AtpMemberDTO> list =  atpMemberDao.queryAllList(atpMemberDTO);
+        System.out.println(list);
     }
 }

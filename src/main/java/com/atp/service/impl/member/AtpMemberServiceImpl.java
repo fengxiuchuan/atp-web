@@ -181,10 +181,10 @@ public class AtpMemberServiceImpl implements AtpMemberService {
     }
 
     @Override
-    public BasePageResponse<AtpCourseDTO> queryAllList(AtpMemberDTO atpMemberDTO) throws ATPException {
+    public BasePageResponse<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO) throws ATPException {
         Page<Object> page = PageHelper.startPage(atpMemberDTO.getPage(), atpMemberDTO.getPageSize(), StringUtils.isBlank(atpMemberDTO.getOrderBy()) ? "":atpMemberDTO.getOrderBy());
-        List<AtpCourseDTO> list = atpMemberDao.queryAllList(atpMemberDTO);
-        BasePageResponse<AtpCourseDTO> response = new BasePageResponse<AtpCourseDTO>();
+        List<AtpMemberDTO> list = atpMemberDao.queryAllList(atpMemberDTO);
+        BasePageResponse<AtpMemberDTO> response = new BasePageResponse<AtpMemberDTO>();
 
         if (list != null) {
             response.setRows(list);

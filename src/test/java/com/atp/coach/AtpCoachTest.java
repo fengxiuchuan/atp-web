@@ -7,6 +7,7 @@ import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.coach.AtpCoach;
 import com.atp.exception.ATPException;
 import com.atp.service.coach.AtpCoachService;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,5 +79,35 @@ public class AtpCoachTest {
         Long coachId = 3L;
         AtpCoachDTO atpCoachDTO = atpCoachService.queryDetailById(coachId);
         Assert.assertNotNull(atpCoachDTO);
+    }
+
+    @Test
+    public void testNubmer() throws ATPException{
+        System.out.println(checkNumber("23%"));
+        System.out.println(checkNumber(""));
+        System.out.println(checkNumber(" "));
+        System.out.println(checkNumber(null));
+        System.out.println(checkNumber("333f"));
+        System.out.println(checkNumber("-23.3"));
+        System.out.println(checkNumber("33"));
+        System.out.println(checkNumber("0.1"));
+        System.out.println(checkNumber("1.1"));
+    }
+
+    /**
+     * 校验字符串是否是数值(包含小数与负数)
+     * 示例：
+     * false : . 1. 1sr -  12. -12.
+     * true: -12 -12.0 -12.056 12 12.0 12.056
+     *
+     * @param str 需要校验的字符串
+     * @return false :不是数值 true：是数值
+     */
+    public static Boolean checkNumber(String str) {
+        String regex = "-[0-9]+(.[0-9]+)?|[0-9]+(.[0-9]+)?";
+        if (str == null || !str.matches(regex)) {
+            return false;
+        }
+        return true;
     }
 }

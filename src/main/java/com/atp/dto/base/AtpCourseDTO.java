@@ -3,6 +3,7 @@ package com.atp.dto.base;
 import com.atp.entity.base.AtpCourse;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * @Description: AtpCourseentity 值对象
