@@ -34,6 +34,15 @@ public class AtpMember extends BasePageRequest implements Serializable {
      */
     private Short age;
     /**
+     * 出生日期
+     */
+    private Date birth;
+
+    /**
+     * 身份证号码
+     */
+    private String idCard;
+    /**
      * 联系方式 
      */
     private String phone;
@@ -209,6 +218,22 @@ public class AtpMember extends BasePageRequest implements Serializable {
 
     public Date getLastUpdatedTime() {
         return this.lastUpdatedTime;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 }
 

@@ -121,6 +121,14 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         if(Objects.isNull(atpMemberDTO.getAge())){
             throw new ATPException("请填写会员年龄");
         }
+        // 出生日期
+        if(Objects.isNull(atpMemberDTO.getAge())){
+            throw new ATPException("请填写会员出生日期");
+        }
+
+        if(StringUtils.isBlank(atpMemberDTO.getIdCard())){
+            throw new ATPException("请填写省份正编码");
+        }
         //4 联系方式
         if(StringUtils.isBlank(atpMemberDTO.getPhone())){
             throw new ATPException("请填写联系方式");
@@ -165,6 +173,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         validateForm(atpMemberDTO,GlobalConstants.SUBMIT_FORM_TYPE.ADD.getCode());
         //2 更新
         AtpMember atpMember = new AtpMember(atpMemberDTO.getName(),atpMemberDTO.getSex(),atpMemberDTO.getAge(),atpMemberDTO.getPhone(),atpMemberDTO.getAddress(),atpMemberDTO.getRemark(),atpMemberDTO.getCardPwd());
+        atpMember.setBirth(atpMemberDTO.getBirth());
         atpMember.setId(atpMemberDTO.getId());
         atpMember.setLastUpdatedBy(GlobalConstants.SUPER_ADMIN_ID);
         atpMember.setLastUpdatedName(GlobalConstants.SUPER_ADMIN_NAME);

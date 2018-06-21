@@ -8,6 +8,8 @@
         <result property="name" column="name"/>
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
+        <result property="birth" column="birth"/>
+        <result property="idCard" column="id_card"/>
         <result property="phone" column="phone"/>
         <result property="address" column="address"/>
         <result property="remark" column="remark"/>
@@ -27,6 +29,8 @@
         	name ,
         	sex ,
         	age ,
+        	birth,
+        	id_card,
         	phone ,
         	address ,
         	remark ,
@@ -54,6 +58,12 @@
             </if>
            	<if test="@Ognl@isNotEmpty(age)">
             	<![CDATA[ AND age = #{age} ]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(birth)">
+                <![CDATA[ AND birth = #{birth}]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(idCard)">
+                <![CDATA[ AND id_card = #{idCard}]]>
             </if>
            	<if test="@Ognl@isNotEmpty(phone)">
             	<![CDATA[ AND phone = #{phone} ]]>
@@ -118,6 +128,8 @@
 	        name,
 	        sex,
 	        age,
+	        birth,
+	        id_card,
 	        phone,
 	        address,
 	        remark,
@@ -133,6 +145,8 @@
 	        #{name},
 	        #{sex},
 	        #{age},
+	        #{birth},
+	        #{idCard},
 	        #{phone},
 	        #{address},
 	        #{remark},
@@ -152,6 +166,8 @@
             name,
             sex,
             age,
+            birth,
+            id_card,
             phone,
             address,
             remark,
@@ -169,6 +185,8 @@
                                 #{item.name},
                 #{item.sex},
                 #{item.age},
+                #{item.birth},
+                #{item.idCard},
                 #{item.phone},
                 #{item.address},
                 #{item.remark},
@@ -210,6 +228,12 @@
                     <if test="age != null">
                         <![CDATA[ age = #{age} ]]>,
                      </if>
+                    <if test="birth != null">
+                        <![CDATA[ birth = #{birth}]]>,
+                    </if>
+                    <if test="idCard != null">
+                        <![CDATA[ id_card = #{idCard}]]>,
+                    </if>
                     <if test="phone != null">
                         <![CDATA[ phone = #{phone} ]]>,
                      </if>

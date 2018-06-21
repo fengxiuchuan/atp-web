@@ -16,8 +16,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @Description
@@ -38,19 +40,23 @@ public class AtpMemberTest {
 
     @Test
     public void testAdd(){
-        AtpMember atpMember = new AtpMember();
-        atpMember.setCardNo("A-1805001");
-        atpMember.setAge((short)23);
-        atpMember.setAddress("测试");
-        atpMember.setName("小芬芬");
-        atpMember.setPhone("1892828");
-        atpMember.setSex(GlobalConstants.SEX.WOMAN.getValue());
-        atpMember.setCardPwd("dddd");
-        atpMember.setRemark("这是测试用户");
-        atpMember.setCreatedBy(GlobalConstants.SUPER_ADMIN_ID);
-        atpMember.setCreatedName(GlobalConstants.SUPER_ADMIN_NAME);
-        atpMember.setCreatedTime(new Date());
-        atpMemberService.save(atpMember);
+        List<AtpMember> memberList = new ArrayList<AtpMember>();
+        for (int i = 0; i < 100; i++) {
+            AtpMember atpMember = new AtpMember();
+            atpMember.setCardNo("A-1805001"+i);
+            atpMember.setAge((short) new Random().nextInt(50));
+            atpMember.setAddress("测试"+i);
+            atpMember.setName("小芬芬"+i);
+            atpMember.setPhone("1892828"+i);
+            atpMember.setSex(GlobalConstants.SEX.WOMAN.getValue());
+            atpMember.setCardPwd("dddd"+i);
+            atpMember.setRemark("这是测试用户"+i);
+            atpMember.setCreatedBy(GlobalConstants.SUPER_ADMIN_ID);
+            atpMember.setCreatedName(GlobalConstants.SUPER_ADMIN_NAME);
+            atpMember.setCreatedTime(new Date());
+            memberList.add(atpMember);
+        }
+        atpMemberService.saveBatch(memberList);
     }
 
     @Test
