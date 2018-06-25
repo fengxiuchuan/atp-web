@@ -127,7 +127,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         }
 
         if(StringUtils.isBlank(atpMemberDTO.getIdCard())){
-            throw new ATPException("请填写省份正编码");
+            throw new ATPException("请填写身份证号码");
         }
         //4 联系方式
         if(StringUtils.isBlank(atpMemberDTO.getPhone())){
@@ -194,6 +194,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         Page<Object> page = PageHelper.startPage(atpMemberDTO.getPage(), atpMemberDTO.getPageSize(), StringUtils.isBlank(atpMemberDTO.getOrderBy()) ? "":atpMemberDTO.getOrderBy());
         List<AtpMemberDTO> list = atpMemberDao.queryAllList(atpMemberDTO);
         BasePageResponse<AtpMemberDTO> response = new BasePageResponse<AtpMemberDTO>();
+
 
         if (list != null) {
             response.setRows(list);
