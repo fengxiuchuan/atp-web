@@ -195,6 +195,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         List<AtpMemberDTO> list = atpMemberDao.queryAllList(atpMemberDTO);
         BasePageResponse<AtpMemberDTO> response = new BasePageResponse<AtpMemberDTO>();
 
+
         if (list != null) {
             response.setRows(list);
             response.setTotal((int) page.getTotal());
