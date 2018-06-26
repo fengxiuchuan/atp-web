@@ -127,7 +127,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         }
 
         if(StringUtils.isBlank(atpMemberDTO.getIdCard())){
-            throw new ATPException("请填写省份正编码");
+            throw new ATPException("请填写身份证号码");
         }
         //4 联系方式
         if(StringUtils.isBlank(atpMemberDTO.getPhone())){

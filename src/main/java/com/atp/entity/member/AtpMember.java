@@ -1,6 +1,7 @@
 package com.atp.entity.member;
 
 import com.atp.dto.base.request.BasePageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +37,7 @@ public class AtpMember extends BasePageRequest implements Serializable {
     /**
      * 出生日期
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     /**

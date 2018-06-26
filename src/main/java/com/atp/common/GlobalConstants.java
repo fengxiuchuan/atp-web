@@ -17,6 +17,27 @@ public interface GlobalConstants {
      *  超级管理员用户名
      */
     public static final String SUPER_ADMIN_NAME = "super_admin";
+
+    enum ResultEnum{
+        UNKOWN_ERROR("-1","未知错误"),
+        SUCCESS("A_SYS_00010","成功");
+
+        String code;
+
+        String msg;
+        private ResultEnum(String code,String msg){
+            this.code = code;
+            this.msg = msg;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+    }
     /**
      * 功能描述: 表单提交类型
      * @auther: fengxiuchuan

@@ -11,6 +11,8 @@ public class ATPException extends Exception{
     private static final long serialVersionUID = -1905099836571109475L;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    //异常码
+    public String code;
     //异常信息
     public String message;
 
@@ -18,6 +20,11 @@ public class ATPException extends Exception{
         super();
     }
 
+    public ATPException(String code,String message, Throwable cause){
+        super(message, cause);
+       this.code = code;
+       this.message = message;
+    }
 
     public ATPException(String message, Throwable cause) {
         super(message, cause);
@@ -41,6 +48,13 @@ public class ATPException extends Exception{
         this.message = message;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public void writeTo(HttpServletResponse resp){
 

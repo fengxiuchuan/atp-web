@@ -25,6 +25,7 @@ public class ResultMessage implements Serializable {
     /** 是否为成功状态 */
     protected boolean success;
 
+    public ResultMessage(){}
     /**
      * success
      *
