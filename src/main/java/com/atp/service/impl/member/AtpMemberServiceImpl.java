@@ -4,6 +4,7 @@ import com.atp.common.GlobalConstants;
 import com.atp.dao.member.AtpMemberDao;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
+import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;
 import com.atp.exception.ATPException;
@@ -182,7 +183,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
     }
 
     @Override
-    public List<AtpCourseDTO> queryCourseListByMemId(Long memberId) throws ATPException {
+    public List<AtpMemCourseDTO> queryCourseListByMemId(Long memberId) throws ATPException {
         if(Objects.isNull(memberId)){
             return null;
         }

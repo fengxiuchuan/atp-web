@@ -4,6 +4,7 @@ import com.atp.Application;
 import com.atp.common.GlobalConstants;
 import com.atp.dao.member.AtpMemberDao;
 import com.atp.dto.base.AtpCourseDTO;
+import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;
 import com.atp.exception.ATPException;
@@ -80,7 +81,7 @@ public class AtpMemberTest {
     @Test
     public  void testQueryCourseListByMemId()throws ATPException{
         Long id = 2L;
-        List<AtpCourseDTO> atpCourseDTOList = atpMemberService.queryCourseListByMemId(id);
+        List<AtpMemCourseDTO> atpCourseDTOList = atpMemberService.queryCourseListByMemId(id);
         Assert.assertNotNull("不为空",atpCourseDTOList);
     }
 

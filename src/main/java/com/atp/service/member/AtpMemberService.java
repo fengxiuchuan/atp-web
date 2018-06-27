@@ -2,6 +2,7 @@ package com.atp.service.member;
 
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
+import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;
 import com.atp.exception.ATPException;
@@ -90,7 +91,7 @@ public interface AtpMemberService {
 
     void updateMem(AtpMemberDTO atpMemberDTO)throws ATPException;
 
-    List<AtpCourseDTO> queryCourseListByMemId(Long memberId)throws ATPException;
+    List<AtpMemCourseDTO> queryCourseListByMemId(Long memberId)throws ATPException;
 
     BasePageResponse<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO)throws ATPException;
 }

@@ -1,5 +1,6 @@
 package com.atp.dao.member;
 
+import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.util.MyMapper;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
@@ -76,7 +77,7 @@ public interface AtpMemberDao extends MyMapper<AtpMember> {
 
     List<AtpMemberDTO> queryListByCardNo(@Param("cardNo") String cardNo,@Param("excludId") Long id);
 
-    List<AtpCourseDTO> queryCourseListByMemId(Long memberId);
+    List<AtpMemCourseDTO> queryCourseListByMemId(Long memberId);
 
     List<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO);
 }

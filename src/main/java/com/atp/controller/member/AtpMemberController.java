@@ -8,6 +8,7 @@ import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.member.AtpMemCourseConsumeDTO;
 import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
+import com.atp.entity.member.AtpMember;
 import com.atp.exception.ATPException;
 import com.atp.service.impl.member.AtpMemCourseServiceImpl;
 import com.atp.service.member.AtpMemCourseConsumeService;
@@ -15,10 +16,7 @@ import com.atp.service.member.AtpMemCourseService;
 import com.atp.service.member.AtpMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -68,7 +66,7 @@ public class AtpMemberController extends BaseController {
     @PostMapping(value = "/payCourse.do")
     public ResultMessage payCourse(AtpMemCourseDTO atpMemCourseDTO) throws ATPException {
         atpMemCourseService.payCourse(atpMemCourseDTO);
-        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"重置成功");
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"充值成功");
     }
 
     //5 会员销课
@@ -79,10 +77,16 @@ public class AtpMemberController extends BaseController {
     }
 
     //6 查询会员所报课程
-    @PostMapping(value = "/queryCourseListByMemId.json")
+    @GetMapping(value = "/queryCourseListByMemId.json")
     public ResultMessage queryCourseListByMemId(Long memberId,String token) throws ATPException{
-        List<AtpCourseDTO> courseList = atpMemberService.queryCourseListByMemId(memberId);
+        List<AtpMemCourseDTO> courseList = atpMemberService.queryCourseListByMemId(memberId);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",courseList,true);
     }
 
+    //7 根据主键查询会员详情
+    @GetMapping(value = "/getMemById.json")
+    public ResultMessage getMemById(Long memberId,String token) throws ATPException{
+        AtpMember atpMember = atpMemberService.getById(memberId);
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMember,true);
+    }
 }
