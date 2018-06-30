@@ -1,6 +1,7 @@
 package com.atp.service.impl.coach;
 
 import com.atp.common.GlobalConstants;
+import com.atp.dao.coach.AtpCoachCourseDao;
 import com.atp.dao.coach.AtpCoachDao;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
@@ -30,6 +31,9 @@ public class AtpCoachServiceImpl implements AtpCoachService {
 
     @Autowired
     private AtpCoachDao atpCoachDao;
+
+    @Autowired
+    private AtpCoachCourseDao atpCoachCourseDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -145,7 +149,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
         }
         List<AtpCoachDTO> coachList = atpCoachDao.queryByNoOrName(atpCoachDTO.getCoachNo(),atpCoachDTO.getCoachName(),id);
         if(CollectionUtils.isNotEmpty(coachList)){
-            throw new ATPException("改教练已经存在");
+            throw new ATPException("该教练已经存在");
         }
     }
 
@@ -186,5 +190,13 @@ public class AtpCoachServiceImpl implements AtpCoachService {
             return null;
         }
         return atpCoachDao.queryDetailById(coachId);
+    }
+
+    @Override
+    public int delCoachCourseById(Long coachCourseId) throws ATPException {
+        if(Objects.isNull(coachCourseId)){
+            return 0;
+        }
+        return atpCoachCourseDao.deleteByPrimaryKey(coachCourseId);
     }
 }

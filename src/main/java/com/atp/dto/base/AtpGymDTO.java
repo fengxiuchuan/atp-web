@@ -16,6 +16,9 @@ import java.util.List;
 public class AtpGymDTO extends AtpGym implements Serializable {
 
 
+    /*查询参数*/
+    private String queryStr;
+
     /**
      *
      *教练列表
@@ -41,6 +44,14 @@ public class AtpGymDTO extends AtpGym implements Serializable {
 
     public void setCourseList(List<AtpCourseDTO> courseList) {
         this.courseList = courseList;
+    }
+
+    public String getQueryStr() {
+        return queryStr;
+    }
+
+    public void setQueryStr(String queryStr) {
+        this.queryStr = queryStr;
     }
 }
 

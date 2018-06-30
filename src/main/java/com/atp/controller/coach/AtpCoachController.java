@@ -107,4 +107,21 @@ public class AtpCoachController extends BaseController {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpCoachService.queryDetailById(coachId),true);
     }
 
+    /**
+     *
+     * 功能描述: 根据教练课程主键删除关联课程
+     *
+     * @param:
+     * @return: 
+     * @auther: Administrator
+     * @date: 2018/6/30 16:38
+     */
+    @PostMapping(value = "/delCoachCourseById.do")
+    public ResultMessage delCoachCourseById(Long coachCourseId,String token) throws ATPException{
+        int count = atpCoachService.delCoachCourseById(coachCourseId);
+        if(count > 0){
+            return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"删除成功");
+        }
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_FAIL,"删除失败");
+    }
 }

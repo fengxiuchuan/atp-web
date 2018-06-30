@@ -88,8 +88,32 @@
         SELECT
             <include refid="columns" />
         FROM
-            atp_gym 
-        <include refid="where"/>
+            atp_gym
+        <where>
+            <if test="queryStr != null and queryStr != ''">
+                (
+                gym_name LIKE  CONCAT('#{queryStr}', '%')
+                OR address LIKE  CONCAT( '#{queryStr}', '%')
+                OR phone LIKE  CONCAT( '#{queryStr}', '%')
+                )
+            </if>
+            <if test="id != null ">
+                <![CDATA[ AND id = #{id} ]]>
+            </if>
+            <if test="gymName != null and gymName != ''">
+                <![CDATA[ AND gym_name = #{gymName} ]]>
+            </if>
+            <if test="manager != null and manager != ''">
+                <![CDATA[ AND manager = #{manager} ]]>
+            </if>
+            <if test="phone  != null and phone  != ''">
+                <![CDATA[ AND phone = #{phone} ]]>
+            </if>
+            <if test="address != null and address != ''">
+                <![CDATA[ AND address = #{address} ]]>
+            </if>
+
+        </where>
     </select>
         
 

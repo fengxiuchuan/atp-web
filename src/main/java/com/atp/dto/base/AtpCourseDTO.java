@@ -12,5 +12,17 @@ import java.math.BigDecimal;
  */
 public class AtpCourseDTO extends AtpCourse implements Serializable {
 
+    /*查询参数*/
+    private String queryStr;
+
+
+    public String getQueryStr() {
+        return queryStr;
+    }
+
+    public void setQueryStr(String queryStr) {
+        this.queryStr = queryStr;
+    }
+
 }
 

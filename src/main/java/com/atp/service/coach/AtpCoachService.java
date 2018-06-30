@@ -95,4 +95,15 @@ public interface AtpCoachService {
     List<AtpCourseDTO> queryCourseListByCoachId(Long coachId)throws ATPException;
 
     AtpCoachDTO queryDetailById(Long coachId)throws ATPException;
+
+    /**
+     *
+     * 功能描述: 根据主键（教练课程主键）删除课程关联记录
+     *
+     * @param:
+     * @return:
+     * @auther: Administrator
+     * @date: 2018/6/30 16:22
+     */
+    int delCoachCourseById(Long coachCourseId)throws ATPException;
 }

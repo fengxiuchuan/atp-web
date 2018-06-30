@@ -8,6 +8,7 @@
         <result property="coachNo" column="coach_no"/>
         <result property="coachName" column="coach_name"/>
         <result property="sex" column="sex"/>
+        <result property="birth" column="birth"/>
         <result property="age" column="age"/>
         <result property="gymId" column="gym_id"/>
         <result property="jobState" column="job_state"/>
@@ -27,6 +28,7 @@
         	coach_no ,
         	coach_name ,
         	sex ,
+        	birth,
         	age ,
         	gym_id ,
         	job_state ,
@@ -54,6 +56,9 @@
             </if>
            	<if test="@Ognl@isNotEmpty(sex)">
             	<![CDATA[ AND sex = #{sex} ]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(birth)">
+                <![CDATA[ AND birth = #{birth}]]>
             </if>
            	<if test="@Ognl@isNotEmpty(age)">
             	<![CDATA[ AND age = #{age} ]]>
@@ -118,6 +123,7 @@
 	        coach_no,
 	        coach_name,
 	        sex,
+	        birth,
 	        age,
 	        gym_id,
 	        job_state,
@@ -133,6 +139,7 @@
 	        #{coachNo},
 	        #{coachName},
 	        #{sex},
+	        #{birth},
 	        #{age},
 	        #{gymId},
 	        #{jobState},
@@ -152,6 +159,7 @@
             coach_no,
             coach_name,
             sex,
+            birth,
             age,
             gym_id,
             job_state,
@@ -169,6 +177,7 @@
                                 #{item.coachNo},
                 #{item.coachName},
                 #{item.sex},
+                #{item.birth},
                 #{item.age},
                 #{item.gymId},
                 #{item.jobState},
@@ -210,6 +219,9 @@
                     <if test="sex != null">
                         <![CDATA[ sex = #{sex} ]]>,
                      </if>
+                    <if test="birth != null">
+                        <![CDATA[ birth = #{birth}]]>,
+                    </if>
                     <if test="age != null">
                         <![CDATA[ age = #{age} ]]>,
                      </if>

@@ -49,6 +49,20 @@ public class AtpGymController extends BaseController {
     }
     /**
      *
+     * 功能描述: 查询所有场馆列表
+     *
+     * @param:
+     * @return:
+     * @auther: Administrator
+     * @date: 2018/5/24 15:06
+     */
+    @PostMapping(value = "/queryList.json")
+    public ResultMessage queryList(AtpGymDTO atpGymDTO) throws ATPException {
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询列表成功",atpGymService.queryList(atpGymDTO),true);
+    }
+
+    /**
+     *
      * 功能描述: 新增场馆
      *
      * @param:

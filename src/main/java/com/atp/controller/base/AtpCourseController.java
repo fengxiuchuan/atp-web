@@ -9,6 +9,7 @@ import com.atp.exception.ATPException;
 import com.atp.service.base.AtpCourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,5 +74,18 @@ public class AtpCourseController extends BaseController {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"修改课程成功");
     }
 
+    /**
+     *
+     * 功能描述:查询所有课程列表
+     *
+     * @param:
+     * @return:
+     * @auther: Administrator
+     * @date: 2018/6/30 16:48
+     */
+    @PostMapping(value = "/getCourseList.json")
+    public ResultMessage getCourseList(AtpCourseDTO atpCourseDTO) throws ATPException{
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"修改课程成功",atpCourseService.queryList(atpCourseDTO),true);
+    }
 
 }

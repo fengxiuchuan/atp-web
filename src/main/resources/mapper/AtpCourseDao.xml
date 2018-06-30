@@ -83,8 +83,21 @@
         SELECT
             <include refid="columns" />
         FROM
-            atp_course 
-        <include refid="where"/>
+            atp_course
+        <where>
+            <if test="queryStr != null and queryStr != ''">
+                (
+                course_name LIKE  CONCAT('#{queryStr}', '%')
+                OR course_no LIKE  CONCAT( '#{queryStr}', '%')
+                )
+            </if>
+            <if test="courseName != null and courseName != ''">
+                <![CDATA[ AND course_name = #{courseName} ]]>
+            </if>
+            <if test="courseNo != null and courseNo != ''">
+                <![CDATA[ AND course_no = #{courseNo} ]]>
+            </if>
+        </where>
     </select>
         
 
