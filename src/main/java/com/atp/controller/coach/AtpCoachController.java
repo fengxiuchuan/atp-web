@@ -10,6 +10,7 @@ import com.atp.exception.ATPException;
 import com.atp.service.coach.AtpCoachService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -102,7 +103,7 @@ public class AtpCoachController extends BaseController {
      * @auther: Administrator
      * @date: 2018/5/24 15:23
      */
-    @PostMapping(value = "/queryDetailById.json")
+    @GetMapping(value = "/queryDetailById.json")
     public ResultMessage queryDetailById(Long coachId, String token) throws ATPException {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpCoachService.queryDetailById(coachId),true);
     }

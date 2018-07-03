@@ -1,6 +1,8 @@
 package com.atp.entity.coach;
 
 import com.atp.dto.base.request.BasePageRequest;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +31,12 @@ public class AtpCoach extends BasePageRequest implements Serializable {
      * 教练名称 
      */
     private String coachName;
+    /**
+     * 出生日期
+     */
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date birth;
     /**
      * 性别（0：男；1：女） 
      */
