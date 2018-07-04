@@ -287,9 +287,12 @@
     </select>
 
     <select id="queryCourseListByCoachId" resultMap="com.atp.dao.base.AtpCourseDao.AtpCourseMap">
-        SELECT <include refid="com.atp.dao.base.AtpCourseDao.columns"/>
+        SELECT
+          course.id,
+          course.course_name,
+          acc.course_no
          FROM  atp_coach_course acc
-        LEFT JOIN atp_course course ON (acc.`coach_id` = course.`id`)
+        LEFT JOIN atp_course course ON (acc.course_no = course.course_no)
         WHERE acc.`coach_id` = #{coachId}
     </select>
 

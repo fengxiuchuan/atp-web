@@ -88,7 +88,7 @@ public class AtpCoachController extends BaseController {
      * @auther: Administrator
      * @date: 2018/5/24 15:22
      */
-    @PostMapping(value = "/queryCourseListByCoachId.json")
+    @GetMapping(value = "/queryCourseListByCoachId.json")
     public ResultMessage queryCourseListByCoachId(Long coachId, String token) throws ATPException {
         List<AtpCourseDTO> courseList =  atpCoachService.queryCourseListByCoachId(coachId);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",courseList,true);
