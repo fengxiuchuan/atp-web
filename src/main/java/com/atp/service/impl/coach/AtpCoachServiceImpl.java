@@ -6,19 +6,25 @@ import com.atp.dao.coach.AtpCoachDao;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
 import com.atp.dto.coach.AtpCoachDTO;
+import com.atp.entity.base.AtpCourse;
 import com.atp.entity.coach.AtpCoach;
+import com.atp.entity.coach.AtpCoachCourse;
 import com.atp.exception.ATPException;
+import com.atp.service.base.AtpCourseService;
 import com.atp.service.coach.AtpCoachService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Description: AtpCoachService 实现类
@@ -34,6 +40,9 @@ public class AtpCoachServiceImpl implements AtpCoachService {
 
     @Autowired
     private AtpCoachCourseDao atpCoachCourseDao;
+
+    @Autowired
+    private AtpCourseService atpCourseService;
 
     @Override
     @Transactional(readOnly = true)
@@ -160,20 +169,57 @@ public class AtpCoachServiceImpl implements AtpCoachService {
         validateForm(atpCoachDTO,GlobalConstants.SUBMIT_FORM_TYPE.ADD.getCode());
         //2 保存
         atpCoachDao.save(atpCoachDTO);
+        //3 解析出来课程,保存
+        List<AtpCoachCourse> coachCourseList = parseCoachCourse(atpCoachDTO);
+        if(CollectionUtils.isNotEmpty(coachCourseList)){
+            atpCoachCourseDao.saveBatch(coachCourseList);
+        }
+    }
+
+    private List<AtpCoachCourse> parseCoachCourse(AtpCoachDTO atpCoachDTO) throws ATPException{
+        if(Objects.isNull(atpCoachDTO) || ArrayUtils.isEmpty(atpCoachDTO.getCourseNoArr())){
+            return null;
+        }
+        Long coachId = atpCoachDTO.getId();
+        String [] courseNoArr = atpCoachDTO.getCourseNoArr();
+        List<AtpCourse> courseList = atpCourseService.queryList(new AtpCourseDTO());
+        if(CollectionUtils.isEmpty(courseList)){
+            throw new ATPException("课程列表为空");
+        }
+        List<AtpCoachCourse> atpCoachCourses = new ArrayList<AtpCoachCourse>();
+        for (int i = 0; i < courseNoArr.length; i++) {
+            String courseNo = courseNoArr[i];
+             String courseName = "";
+            if(StringUtils.isBlank(courseNo)){
+                continue;
+            }
+            List<AtpCourse> tempCourseList =  courseList.stream().filter(atpCourse ->
+                !Objects.isNull(atpCourse) && Objects.equals(atpCourse.getCourseNo(),courseNo)
+            ).collect(Collectors.toList());
+            atpCoachCourses.add(new AtpCoachCourse(coachId,courseNo,CollectionUtils.isEmpty(tempCourseList) ? "" : tempCourseList.get(0).getCourseNo()));
+        }
+        return atpCoachCourses;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateCoach(AtpCoachDTO atpCoachDTO) throws ATPException {
+        Long coachId = atpCoachDTO.getId();
         //1 校验
         validateForm(atpCoachDTO,GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode());
         //2 更新
         AtpCoach atpCoach = new AtpCoach(atpCoachDTO.getCoachNo(),atpCoachDTO.getCoachName(),atpCoachDTO.getSex(),atpCoachDTO.getAge(),
                 atpCoachDTO.getGymId(),atpCoachDTO.getJobState(),atpCoachDTO.getUserAccount(),atpCoachDTO.getUserPasswd());
-        atpCoach.setId(atpCoachDTO.getId());
+        atpCoach.setId(coachId);
+
 
         atpCoachDao.updateById(atpCoach);
-
+        atpCoachCourseDao.deleteByCoachId(coachId);
+        //3 解析出来课程,保存
+        List<AtpCoachCourse> coachCourseList = parseCoachCourse(atpCoachDTO);
+        if(CollectionUtils.isNotEmpty(coachCourseList)){
+            atpCoachCourseDao.saveBatch(coachCourseList);
+        }
     }
 
     @Override

@@ -6,7 +6,8 @@
 	<groupId>com.atp</groupId>
 	<artifactId>atp-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+
+	<packaging>pom</packaging>
 
 	<name>atp-web</name>
 	<description>project for atp</description>
@@ -101,6 +102,20 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 			<version>4.1</version>
+		</dependency>
+
+		<!--JSON-->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.32</version>
 		</dependency>
 
 

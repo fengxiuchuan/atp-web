@@ -32,7 +32,7 @@ public class AtpCoachCourse extends BasePageRequest implements Serializable {
     /**
      * 课程主键 
      */
-    private Long courseId;
+    private String courseName;
     /**
      * 课程编码 
      */
@@ -62,6 +62,14 @@ public class AtpCoachCourse extends BasePageRequest implements Serializable {
      */
     private Date lastUpdatedTime;
 
+    public AtpCoachCourse(){}
+
+    public AtpCoachCourse(Long coachId, String courseNo,String courseName){
+        this.coachId = coachId;
+        this.coachNo = courseNo;
+        this.courseName = courseName;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -83,13 +91,7 @@ public class AtpCoachCourse extends BasePageRequest implements Serializable {
     public Long getCoachId() {
         return this.coachId;
     }
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
 
-    public Long getCourseId() {
-        return this.courseId;
-    }
     public void setCourseNo(String courseNo) {
         this.courseNo = courseNo;
     }
@@ -138,6 +140,14 @@ public class AtpCoachCourse extends BasePageRequest implements Serializable {
 
     public Date getLastUpdatedTime() {
         return this.lastUpdatedTime;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }
 

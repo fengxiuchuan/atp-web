@@ -69,4 +69,13 @@ public interface AtpCoachCourseDao extends MyMapper<AtpCoachCourse> {
      * @date: 2018-05-23 18:39:01
      */
     int updateById(AtpCoachCourseDTO dto);
+    /**
+     * 根据教练主键删除关联课程
+     *
+     * @param  coachId 教练主键ID
+     * @return void
+     * @author: fengxiuchuan
+     * @date: 2018-05-23 18:39:01
+     */
+    void deleteByCoachId(Long coachId);
 }

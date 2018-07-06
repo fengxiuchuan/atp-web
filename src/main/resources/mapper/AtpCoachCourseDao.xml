@@ -7,7 +7,7 @@
         <result property="id" column="id"/>
         <result property="coachNo" column="coach_no"/>
         <result property="coachId" column="coach_id"/>
-        <result property="courseId" column="course_id"/>
+        <result property="courseName" column="course_name"/>
         <result property="courseNo" column="course_no"/>
         <result property="createdBy" column="created_by"/>
         <result property="createdName" column="created_name"/>
@@ -22,7 +22,7 @@
         	id ,
         	coach_no ,
         	coach_id ,
-        	course_id ,
+        	course_name ,
         	course_no ,
         	created_by ,
         	created_name ,
@@ -44,8 +44,8 @@
            	<if test="@Ognl@isNotEmpty(coachId)">
             	<![CDATA[ AND coach_id = #{coachId} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(courseId)">
-            	<![CDATA[ AND course_id = #{courseId} ]]>
+           	<if test="@Ognl@isNotEmpty(courseName)">
+            	<![CDATA[ AND course_name = #{courseName} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(courseNo)">
             	<![CDATA[ AND course_no = #{courseNo} ]]>
@@ -97,7 +97,7 @@
 	    INSERT INTO atp_coach_course (
 	        coach_no,
 	        coach_id,
-	        course_id,
+	        course_name,
 	        course_no,
 	        created_by,
 	        created_name,
@@ -108,7 +108,7 @@
 	    ) VALUES (
 	        #{coachNo},
 	        #{coachId},
-	        #{courseId},
+	        #{courseName},
 	        #{courseNo},
 	        #{createdBy},
 	        #{createdName},
@@ -123,7 +123,7 @@
         INSERT INTO atp_coach_course (
             coach_no,
             coach_id,
-            course_id,
+            course_name,
             course_no,
             created_by,
             created_name,
@@ -136,7 +136,7 @@
             (
                                 #{item.coachNo},
                 #{item.coachId},
-                #{item.courseId},
+                #{item.courseName},
                 #{item.courseNo},
                 #{item.createdBy},
                 #{item.createdName},
@@ -171,8 +171,8 @@
                     <if test="coachId != null">
                         <![CDATA[ coach_id = #{coachId} ]]>,
                      </if>
-                    <if test="courseId != null">
-                        <![CDATA[ course_id = #{courseId} ]]>,
+                    <if test="courseName != null">
+                        <![CDATA[ course_name = #{courseName} ]]>,
                      </if>
                     <if test="courseNo != null">
                         <![CDATA[ course_no = #{courseNo} ]]>,
@@ -200,5 +200,10 @@
                 id = #{id}
         </where>
         </update>
+    
+    <delete id="deleteByCoachId">
+        DELETE atp_coach_course
+        WHERE coach_id =#{coachId}
+    </delete>
 </mapper>
 
