@@ -75,8 +75,6 @@ public interface AtpCourseDao extends MyMapper<AtpCourse> {
      *
      * 功能描述: 根据课程编码或者课程名称、主键ID查询课程
      *
-     * @param: courseNo（必填）
-     *                  课程编码
      * @param courseName（必填）
      *                  课程名称
      * @param id （可选）
@@ -85,7 +83,7 @@ public interface AtpCourseDao extends MyMapper<AtpCourse> {
      * @auther: Administrator
      * @date: 2018/5/24 16:47
      */
-    List<AtpCourseDTO> queryByNoOrName(@Param("courseNo") String courseNo, @Param("courseName")String courseName,@Param("excludId")Long id);
+    List<AtpCourseDTO> queryByName( @Param("courseName")String courseName,@Param("excludId")Long id);
     
     /**
      *

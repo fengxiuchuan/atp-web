@@ -24,6 +24,10 @@ public class AtpGymDTO extends AtpGym implements Serializable {
      *教练列表
      */
     private List<AtpCoachDTO> coachList;
+    /**
+     * 课程:
+     */
+    private Long [] courseIdArr;
 
     /**
      * 经营课程列表
@@ -52,6 +56,14 @@ public class AtpGymDTO extends AtpGym implements Serializable {
 
     public void setQueryStr(String queryStr) {
         this.queryStr = queryStr;
+    }
+
+    public Long[] getCourseIdArr() {
+        return courseIdArr;
+    }
+
+    public void setCourseIdArr(Long[] courseIdArr) {
+        this.courseIdArr = courseIdArr;
     }
 }
 

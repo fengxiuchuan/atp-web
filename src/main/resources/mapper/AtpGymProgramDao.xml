@@ -92,5 +92,12 @@
                 id = #{id}
         </where>
         </update>
+
+    <delete id="deleteByGymId">
+          DELETE
+        FROM
+            atp_gym_program
+        WHERE gym_id = #{gymId}
+    </delete>
 </mapper>
 

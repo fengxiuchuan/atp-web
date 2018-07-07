@@ -29,6 +29,13 @@ public class AtpGymProgram extends BasePageRequest implements Serializable {
      */
     private Long courseId;
 
+    public AtpGymProgram(){}
+
+    public AtpGymProgram(Long gymId,Long courseId){
+        this.gymId = gymId;
+        this.courseId = courseId;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

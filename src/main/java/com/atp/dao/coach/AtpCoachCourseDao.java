@@ -1,5 +1,6 @@
 package com.atp.dao.coach;
 
+import com.atp.dto.base.AtpCourseDTO;
 import com.atp.util.MyMapper;
 import com.atp.dto.coach.AtpCoachCourseDTO;
 import com.atp.entity.coach.AtpCoachCourse;
@@ -78,4 +79,13 @@ public interface AtpCoachCourseDao extends MyMapper<AtpCoachCourse> {
      * @date: 2018-05-23 18:39:01
      */
     void deleteByCoachId(Long coachId);
+    /**
+     * 根据教练主键删除关联课程
+     *
+     * @param
+     * @return list
+     * @author: fengxiuchuan
+     * @date: 2018-05-23 18:39:01
+     */
+    List<AtpCourseDTO> getCoachList();
 }

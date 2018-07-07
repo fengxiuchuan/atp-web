@@ -69,4 +69,15 @@ public interface AtpGymProgramDao extends MyMapper<AtpGymProgram> {
      * @date: 2018-05-23 18:47:11
      */
     int updateById(AtpGymProgramDTO dto);
+
+    /**
+     *
+     * 功能描述: 根据场馆主键删除关联课程
+     *
+     * @param: id 场馆主键
+     * @return: void
+     * @auther: Administrator
+     * @date: 2018/7/7 19:48
+     */
+    void deleteByGymId(Long id);
 }

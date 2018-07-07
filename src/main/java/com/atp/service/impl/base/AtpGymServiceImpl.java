@@ -2,24 +2,32 @@ package com.atp.service.impl.base;
 
 import com.atp.common.GlobalConstants;
 import com.atp.dao.base.AtpGymDao;
+import com.atp.dao.base.AtpGymProgramDao;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.AtpGymDTO;
 import com.atp.dto.base.response.BasePageResponse;
 import com.atp.dto.coach.AtpCoachDTO;
+import com.atp.entity.base.AtpCourse;
 import com.atp.entity.base.AtpGym;
+import com.atp.entity.base.AtpGymProgram;
+import com.atp.entity.coach.AtpCoachCourse;
 import com.atp.exception.ATPException;
+import com.atp.service.base.AtpCourseService;
 import com.atp.service.base.AtpGymService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Description: AtpGymService 实现类
@@ -32,6 +40,12 @@ public class AtpGymServiceImpl implements AtpGymService {
 
     @Autowired
     private AtpGymDao atpGymDao;
+
+    @Autowired
+    private AtpGymProgramDao atpGymProgramDao;
+
+    @Autowired
+    private AtpCourseService atpCourseService;
 
     @Override
     @Transactional(readOnly = true)
@@ -113,7 +127,23 @@ public class AtpGymServiceImpl implements AtpGymService {
 
         return response;
     }
-
+    private List<AtpGymProgram> parseGymProgram(AtpGymDTO atpGymDTO) throws ATPException{
+        if(Objects.isNull(atpGymDTO) || ArrayUtils.isEmpty(atpGymDTO.getCourseIdArr())){
+            return null;
+        }
+        Long gymId = atpGymDTO.getId();
+        Long [] courseIdArr = atpGymDTO.getCourseIdArr();
+        List<AtpGymProgram> gymProgramList = new ArrayList<AtpGymProgram>();
+        for (int i = 0; i < courseIdArr.length; i++) {
+            Long courseId = courseIdArr[i];
+            String courseName = "";
+            if(Objects.isNull(courseId)){
+                continue;
+            }
+            gymProgramList.add(new AtpGymProgram(gymId,courseId));
+        }
+        return gymProgramList;
+    }
     private void validateForm(AtpGymDTO atpGymDTO,String submitFormType)throws ATPException{
         //1 校验场馆名称
         if(StringUtils.isBlank(atpGymDTO.getGymName())){
@@ -126,6 +156,12 @@ public class AtpGymServiceImpl implements AtpGymService {
         //3 校验场馆负责人联系方式
         if(StringUtils.isBlank(atpGymDTO.getPhone())){
             throw new ATPException("请填写负责人联系方式");
+        }
+        if(StringUtils.isBlank(atpGymDTO.getAddress())){
+            throw new ATPException("请填写地址");
+        }
+        if(ArrayUtils.isEmpty(atpGymDTO.getCourseIdArr())){
+            throw new ATPException("请选择经营课程");
         }
         Long id = null;
         if(StringUtils.isNotBlank(submitFormType) && Objects.equals(GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode(),submitFormType)){
@@ -143,6 +179,10 @@ public class AtpGymServiceImpl implements AtpGymService {
         atpGymDTO.setCreatedName(GlobalConstants.SUPER_ADMIN_NAME);
         atpGymDTO.setCreatedTime(new Date());
         atpGymDao.save(atpGymDTO);
+        List<AtpGymProgram> atpGymPrograms = parseGymProgram(atpGymDTO);
+        if(CollectionUtils.isNotEmpty(atpGymPrograms)){
+            atpGymProgramDao.saveBatch(atpGymPrograms);
+        }
     }
 
     @Override
@@ -157,6 +197,12 @@ public class AtpGymServiceImpl implements AtpGymService {
         atpGym.setLastUpdatedName(GlobalConstants.SUPER_ADMIN_NAME);
         atpGym.setLastUpdatedTime(new Date());
         atpGymDao.updateById(atpGymDTO);
+
+        atpGymProgramDao.deleteByGymId(atpGymDTO.getId());
+        List<AtpGymProgram> atpGymPrograms = parseGymProgram(atpGymDTO);
+        if(CollectionUtils.isNotEmpty(atpGymPrograms)){
+            atpGymProgramDao.saveBatch(atpGymPrograms);
+        }
     }
 
     @Override

@@ -46,6 +46,10 @@ public class AtpCoach extends BasePageRequest implements Serializable {
      */
     private Short age;
     /**
+     * 联系方式:
+     */
+    private String phone;
+    /**
      * 所在健身场馆 
      */
     private Long gymId;
@@ -205,6 +209,22 @@ public class AtpCoach extends BasePageRequest implements Serializable {
 
     public Short getSex() {
         return sex;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
 

@@ -142,20 +142,20 @@ public class AtpCourseServiceImpl implements AtpCourseService {
 
     //校验
     public void validateForm(AtpCourseDTO atpCourseDTO,String submitFormType) throws ATPException{
-        //1 课程编码
-        if(StringUtils.isBlank(atpCourseDTO.getCourseNo())){
+        //1 课程编码--自动生成
+       /* if(StringUtils.isBlank(atpCourseDTO.getCourseNo())){
             throw new ATPException("请填写课程编码");
-        }
+        }*/
         //2 课程名称
         if(StringUtils.isBlank(atpCourseDTO.getCourseName())){
-            throw new ATPException("请填写课程编码");
+            throw new ATPException("请填写课程名称");
         }
         Long id = null;
         //3 唯一性校验
         if(StringUtils.isNotBlank(submitFormType) && Objects.equals(GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode(),submitFormType)){
             id = atpCourseDTO.getId();
         }
-        List<AtpCourseDTO> courseList =  atpCourseDao.queryByNoOrName(atpCourseDTO.getCourseNo(),atpCourseDTO.getCourseName(),id);
+        List<AtpCourseDTO> courseList =  atpCourseDao.queryByName(atpCourseDTO.getCourseName(),id);
         if(CollectionUtils.isNotEmpty(courseList)){
             throw new ATPException("所添加课程已经存在，请勿重复添加！");
         }

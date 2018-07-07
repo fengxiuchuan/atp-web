@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atp.dao.common.LmsCommonSerialNoDao">
+
+    <resultMap id="LmsCommonSerialNoMap" type="com.atp.entity.common.LmsCommonSerialNo">
+        <result property="serialId" column="serial_id"/>
+        <result property="serialKey" column="serial_key"/>
+        <result property="serialValue" column="serial_value"/>
+    </resultMap>
+    
+	<update id="genSerialNoWithKey" parameterType="com.atp.entity.common.LmsCommonSerialNo">
+		<!-- retrieve the updated serialValue -->
+		<selectKey keyProperty="serialValue" resultType="java.lang.Long" order="AFTER">
+			select serial_value from lms_common_serial_no 
+				where serial_id = #{serialId} and serial_key = #{serialKey}
+		</selectKey>
+		<!-- first, check if the serialId is exists, refresh the serialValue if exists, or insert an intial value -->
+		insert into lms_common_serial_no (serial_id, serial_key, serial_value) 
+			values (#{serialId}, #{serialKey}, 1)
+		on duplicate key update 
+			serial_value = (case when serial_key = #{serialKey} then (serial_value + 1) else 1 end),
+			serial_key = #{serialKey}
+	</update>
+	
+</mapper>
+

@@ -14,14 +14,14 @@ public class AtpCoachDTO extends AtpCoach implements Serializable {
 
     private List<AtpCoachCourseDTO> coachCourseDTOList;
 
-    private String [] courseNoArr;
+    private Long [] courseIdArr;
 
-    public String[] getCourseNoArr() {
-        return courseNoArr;
+    public Long[] getCourseIdArr() {
+        return courseIdArr;
     }
 
-    public void setCourseNoArr(String[] courseNoArr) {
-        this.courseNoArr = courseNoArr;
+    public void setCourseIdArr(Long[] courseIdArr) {
+        this.courseIdArr = courseIdArr;
     }
 
     public List<AtpCoachCourseDTO> getCoachCourseDTOList() {

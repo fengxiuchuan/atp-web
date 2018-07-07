@@ -8,7 +8,7 @@
         <result property="coachNo" column="coach_no"/>
         <result property="coachId" column="coach_id"/>
         <result property="courseName" column="course_name"/>
-        <result property="courseNo" column="course_no"/>
+        <result property="courseId" column="course_id"/>
         <result property="createdBy" column="created_by"/>
         <result property="createdName" column="created_name"/>
         <result property="createdTime" column="created_time"/>
@@ -16,23 +16,23 @@
         <result property="lastUpdatedName" column="last_updated_name"/>
         <result property="lastUpdatedTime" column="last_updated_time"/>
     </resultMap>
-    
+
     <sql id="columns">
         <![CDATA[
         	id ,
         	coach_no ,
         	coach_id ,
         	course_name ,
-        	course_no ,
+        	course_id ,
         	created_by ,
         	created_name ,
         	created_time ,
         	last_updated_by ,
         	last_updated_name ,
-        	last_updated_time 
+        	last_updated_time
         ]]>
     </sql>
-    
+
     <sql id="where">
     	<where>
            	<if test="@Ognl@isNotEmpty(id)">
@@ -47,8 +47,8 @@
            	<if test="@Ognl@isNotEmpty(courseName)">
             	<![CDATA[ AND course_name = #{courseName} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(courseNo)">
-            	<![CDATA[ AND course_no = #{courseNo} ]]>
+           	<if test="@Ognl@isNotEmpty(courseId)">
+            	<![CDATA[ AND course_id = #{courseId} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(createdBy)">
             	<![CDATA[ AND created_by = #{createdBy} ]]>
@@ -82,23 +82,23 @@
            	</if>
         </where>
     </sql>
-    
+
 
     <select id="queryList" resultMap="AtpCoachCourseMap">
         SELECT
             <include refid="columns" />
         FROM
-            atp_coach_course 
+            atp_coach_course
         <include refid="where"/>
     </select>
-        
+
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO atp_coach_course (
 	        coach_no,
 	        coach_id,
 	        course_name,
-	        course_no,
+	        course_id,
 	        created_by,
 	        created_name,
 	        created_time,
@@ -109,7 +109,7 @@
 	        #{coachNo},
 	        #{coachId},
 	        #{courseName},
-	        #{courseNo},
+	        #{courseId},
 	        #{createdBy},
 	        #{createdName},
 	        #{createdTime},
@@ -124,7 +124,7 @@
             coach_no,
             coach_id,
             course_name,
-            course_no,
+            course_id,
             created_by,
             created_name,
             created_time,
@@ -137,7 +137,7 @@
                                 #{item.coachNo},
                 #{item.coachId},
                 #{item.courseName},
-                #{item.courseNo},
+                #{item.courseId},
                 #{item.createdBy},
                 #{item.createdName},
                 #{item.createdTime},
@@ -147,10 +147,10 @@
             )
         </foreach>
     </insert>
-    
+
 
     <delete id="deleteBatchByIds">
-        DELETE 
+        DELETE
         FROM
             atp_coach_course
         WHERE
@@ -174,8 +174,8 @@
                     <if test="courseName != null">
                         <![CDATA[ course_name = #{courseName} ]]>,
                      </if>
-                    <if test="courseNo != null">
-                        <![CDATA[ course_no = #{courseNo} ]]>,
+                    <if test="courseId != null">
+                        <![CDATA[ course_id = #{courseId} ]]>,
                      </if>
                     <if test="createdBy != null">
                         <![CDATA[ created_by = #{createdBy} ]]>,

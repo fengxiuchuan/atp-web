@@ -203,11 +203,11 @@
         </where>
         </update>
 
-    <select id="queryByNoOrName" resultMap="AtpCourseMap">
+    <select id="queryByName" resultMap="AtpCourseMap">
         SELECT <include refid="columns"/>
         FROM  atp_course
         <where>
-          (course_no = #{courseNo} OR course_name = #{courseName})
+           course_name = #{courseName}
           <if test="id != null">
               <![CDATA[ id <> #{excludId}]]>
           </if>
@@ -219,9 +219,6 @@
         FROM  atp_course
         <where>
             1 = 1
-            <if test="courseNo != null and courseNo != ''">
-                AND course_no like concat('%,', #{courseNo}, ',%')
-            </if>
             <if test="courseName != null and courseName != ''">
                 AND course_name like concat('%,', #{courseName}, ',%')
             </if>

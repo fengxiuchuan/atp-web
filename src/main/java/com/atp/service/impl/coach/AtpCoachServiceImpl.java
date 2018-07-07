@@ -158,7 +158,7 @@ public class AtpCoachServiceImpl implements AtpCoachService {
         }
         List<AtpCoachDTO> coachList = atpCoachDao.queryByNoOrName(atpCoachDTO.getCoachNo(),atpCoachDTO.getCoachName(),id);
         if(CollectionUtils.isNotEmpty(coachList)){
-            throw new ATPException("该教练已经存在");
+            throw new ATPException("请勿重复添加教练");
         }
     }
 
@@ -177,26 +177,25 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     }
 
     private List<AtpCoachCourse> parseCoachCourse(AtpCoachDTO atpCoachDTO) throws ATPException{
-        if(Objects.isNull(atpCoachDTO) || ArrayUtils.isEmpty(atpCoachDTO.getCourseNoArr())){
+        if(Objects.isNull(atpCoachDTO) || ArrayUtils.isEmpty(atpCoachDTO.getCourseIdArr())){
             return null;
         }
         Long coachId = atpCoachDTO.getId();
-        String [] courseNoArr = atpCoachDTO.getCourseNoArr();
+        Long [] courseIdArr = atpCoachDTO.getCourseIdArr();
         List<AtpCourse> courseList = atpCourseService.queryList(new AtpCourseDTO());
         if(CollectionUtils.isEmpty(courseList)){
             throw new ATPException("课程列表为空");
         }
         List<AtpCoachCourse> atpCoachCourses = new ArrayList<AtpCoachCourse>();
-        for (int i = 0; i < courseNoArr.length; i++) {
-            String courseNo = courseNoArr[i];
-             String courseName = "";
-            if(StringUtils.isBlank(courseNo)){
+        for (int i = 0; i < courseIdArr.length; i++) {
+            Long courseId = courseIdArr[i];
+            if(Objects.isNull(courseId)){
                 continue;
             }
             List<AtpCourse> tempCourseList =  courseList.stream().filter(atpCourse ->
-                !Objects.isNull(atpCourse) && Objects.equals(atpCourse.getCourseNo(),courseNo)
+                !Objects.isNull(atpCourse) && Objects.equals(atpCourse.getId(),courseId)
             ).collect(Collectors.toList());
-            atpCoachCourses.add(new AtpCoachCourse(coachId,courseNo,CollectionUtils.isEmpty(tempCourseList) ? "" : tempCourseList.get(0).getCourseNo()));
+            atpCoachCourses.add(new AtpCoachCourse(coachId,courseId,CollectionUtils.isEmpty(tempCourseList) ? "" : tempCourseList.get(0).getCourseName()));
         }
         return atpCoachCourses;
     }
@@ -244,5 +243,10 @@ public class AtpCoachServiceImpl implements AtpCoachService {
             return 0;
         }
         return atpCoachCourseDao.deleteByPrimaryKey(coachCourseId);
+    }
+
+    @Override
+    public List<AtpCourseDTO> getCoachList() throws ATPException {
+        return atpCoachCourseDao.getCoachList();
     }
 }

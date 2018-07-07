@@ -34,9 +34,9 @@ public class AtpCoachCourse extends BasePageRequest implements Serializable {
      */
     private String courseName;
     /**
-     * 课程编码 
+     * 课程主键
      */
-    private String courseNo;
+    private Long courseId;
     /**
      * 创建人 
      */
@@ -64,9 +64,9 @@ public class AtpCoachCourse extends BasePageRequest implements Serializable {
 
     public AtpCoachCourse(){}
 
-    public AtpCoachCourse(Long coachId, String courseNo,String courseName){
+    public AtpCoachCourse(Long coachId, Long courseId,String courseName){
         this.coachId = coachId;
-        this.coachNo = courseNo;
+        this.courseId = courseId;
         this.courseName = courseName;
     }
 
@@ -92,13 +92,14 @@ public class AtpCoachCourse extends BasePageRequest implements Serializable {
         return this.coachId;
     }
 
-    public void setCourseNo(String courseNo) {
-        this.courseNo = courseNo;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public String getCourseNo() {
-        return this.courseNo;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
+
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }

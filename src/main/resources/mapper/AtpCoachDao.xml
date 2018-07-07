@@ -11,6 +11,7 @@
         <result property="birth" column="birth"/>
         <result property="age" column="age"/>
         <result property="gymId" column="gym_id"/>
+        <result property="phone" column="phone"/>
         <result property="jobState" column="job_state"/>
         <result property="userAccount" column="user_account"/>
         <result property="userPasswd" column="user_passwd"/>
@@ -30,6 +31,7 @@
         	sex ,
         	birth,
         	age ,
+        	phone,
         	gym_id ,
         	job_state ,
         	user_account ,
@@ -62,6 +64,9 @@
             </if>
            	<if test="@Ognl@isNotEmpty(age)">
             	<![CDATA[ AND age = #{age} ]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(phone)">
+                <![CDATA[ AND phone = #{phone} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(gymId)">
             	<![CDATA[ AND gym_id = #{gymId} ]]>
@@ -125,6 +130,7 @@
 	        sex,
 	        birth,
 	        age,
+	        phone,
 	        gym_id,
 	        job_state,
 	        user_account,
@@ -141,6 +147,7 @@
 	        #{sex},
 	        #{birth},
 	        #{age},
+	        #{phone},
 	        #{gymId},
 	        #{jobState},
 	        #{userAccount},
@@ -161,6 +168,7 @@
             sex,
             birth,
             age,
+            phone,
             gym_id,
             job_state,
             user_account,
@@ -179,6 +187,7 @@
                 #{item.sex},
                 #{item.birth},
                 #{item.age},
+                #{item.phone},
                 #{item.gymId},
                 #{item.jobState},
                 #{item.userAccount},
@@ -225,6 +234,9 @@
                     <if test="age != null">
                         <![CDATA[ age = #{age} ]]>,
                      </if>
+                    <if test="phone != null">
+                        <![CDATA[ phone = #{phone} ]]>,
+                    </if>
                     <if test="gymId != null">
                         <![CDATA[ gym_id = #{gymId} ]]>,
                      </if>
@@ -289,10 +301,9 @@
     <select id="queryCourseListByCoachId" resultMap="com.atp.dao.base.AtpCourseDao.AtpCourseMap">
         SELECT
           course.id,
-          course.course_name,
-          acc.course_no
+          course.course_name
          FROM  atp_coach_course acc
-        LEFT JOIN atp_course course ON (acc.course_no = course.course_no)
+        LEFT JOIN atp_course course ON (acc.coach_id = course.id)
         WHERE acc.`coach_id` = #{coachId}
     </select>
 
@@ -302,6 +313,11 @@
         <where>
             id = #{id}
         </where>
+    </select>
+    
+    <select id="getCoachList" resultMap="AtpCoachMap">
+        SELECT <include refid="columns"/>
+        FROM atp_coach
     </select>
 </mapper>
 

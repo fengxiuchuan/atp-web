@@ -2,10 +2,12 @@ package com.atp.base;
 
 import com.atp.Application;
 import com.atp.common.GlobalConstants;
+import com.atp.common.SerialNoGenerator;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
 import com.atp.entity.base.AtpCourse;
 import com.atp.service.base.AtpCourseService;
+import com.atp.util.StringUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,5 +76,12 @@ public class AtpCourseTest {
         atpCourse.setLastUpdatedName(GlobalConstants.SUPER_ADMIN_NAME);
         atpCourse.setLastUpdatedTime(new Date());
         atpCourseService.updateById(atpCourse);
+    }
+
+    @Test
+    public void testGenerrator()throws Exception{
+        long serialNo =  SerialNoGenerator.getGenerator().generateSerialNo("riskDataCode" , SerialNoGenerator.Cycle.MONTHLY); // 日循环
+        String riskDataCode = String.format("%s%s%s", "LR", SerialNoGenerator.Cycle.getCycleKey(SerialNoGenerator.Cycle.MONTHLY) , StringUtil.padLeft(String.valueOf(serialNo), 6, '0'));
+        System.out.println(riskDataCode);
     }
 }
