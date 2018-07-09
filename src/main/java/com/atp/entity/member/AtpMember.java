@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -59,13 +60,29 @@ public class AtpMember extends BasePageRequest implements Serializable {
      */
     private String remark;
     /**
-     * 会员编号 
+     * 会员卡号
      */
     private String cardNo;
+    /**
+     * 卡号状态(USED:正常，LOSE:挂失； EXPIRE:过期)
+     */
+    private String cardState;
     /**
      * 会员密码 
      */
     private String cardPwd;
+    /**
+     * 总积分
+     */
+    private Integer totalIntegral;
+    /**
+     * 共计消费
+     */
+    private BigDecimal totalBuy;
+    /**
+     * 累计消费
+     */
+    private BigDecimal totalConsume;
     /**
      * 创建人 
      */
@@ -238,6 +255,38 @@ public class AtpMember extends BasePageRequest implements Serializable {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
+    }
+
+    public Integer getTotalIntegral() {
+        return totalIntegral;
+    }
+
+    public void setTotalIntegral(Integer totalIntegral) {
+        this.totalIntegral = totalIntegral;
+    }
+
+    public BigDecimal getTotalBuy() {
+        return totalBuy;
+    }
+
+    public void setTotalBuy(BigDecimal totalBuy) {
+        this.totalBuy = totalBuy;
+    }
+
+    public BigDecimal getTotalConsume() {
+        return totalConsume;
+    }
+
+    public void setTotalConsume(BigDecimal totalConsume) {
+        this.totalConsume = totalConsume;
+    }
+
+    public String getCardState() {
+        return cardState;
+    }
+
+    public void setCardState(String cardState) {
+        this.cardState = cardState;
     }
 }
 

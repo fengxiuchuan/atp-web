@@ -235,6 +235,11 @@ public class AtpGymServiceImpl implements AtpGymService {
 
         if(CollectionUtils.isNotEmpty(courseList)){
             atpGymDTO.setCourseList(courseList);
+            Long [] courseIdArr = new Long[courseList.size()];
+            for (int i = 0; i < courseList.size(); i++) {
+                courseIdArr[i] = courseList.get(0).getId();
+            }
+            atpGymDTO.setCourseIdArr(courseIdArr);
         }
         if(CollectionUtils.isNotEmpty(coachList)){
             atpGymDTO.setCoachList(coachList);
