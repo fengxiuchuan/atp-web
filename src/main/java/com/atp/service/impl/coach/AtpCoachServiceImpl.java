@@ -249,4 +249,12 @@ public class AtpCoachServiceImpl implements AtpCoachService {
     public List<AtpCourseDTO> getCoachList() throws ATPException {
         return atpCoachCourseDao.getCoachList();
     }
+
+    @Override
+    public List<AtpCoachDTO> queryCoachListByCourseId(Long courseId) throws ATPException {
+        if(Objects.isNull(courseId)){
+            return null;
+        }
+        return atpCoachDao.queryCoachListByCourseId(courseId);
+    }
 }

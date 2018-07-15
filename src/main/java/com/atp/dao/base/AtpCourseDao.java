@@ -95,4 +95,6 @@ public interface AtpCourseDao extends MyMapper<AtpCourse> {
      * @date: 2018/5/24 16:57
      */
     List<AtpCourseDTO> queryAllList(AtpCourseDTO atpCourseDTO);
+
+    List<AtpCourseDTO> queryGymCourseList(Long gymId);
 }

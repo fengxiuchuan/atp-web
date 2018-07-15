@@ -1,6 +1,7 @@
 package com.atp.dao.coach;
 
 import com.atp.dto.base.AtpCourseDTO;
+import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.util.MyMapper;
 import com.atp.dto.coach.AtpCoachCourseDTO;
 import com.atp.entity.coach.AtpCoachCourse;
@@ -88,4 +89,5 @@ public interface AtpCoachCourseDao extends MyMapper<AtpCoachCourse> {
      * @date: 2018-05-23 18:39:01
      */
     List<AtpCourseDTO> getCoachList();
+
 }

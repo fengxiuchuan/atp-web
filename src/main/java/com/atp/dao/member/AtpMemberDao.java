@@ -80,4 +80,6 @@ public interface AtpMemberDao extends MyMapper<AtpMember> {
     List<AtpMemCourseDTO> queryCourseListByMemId(Long memberId);
 
     List<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO);
+
+    List<AtpMember> getMemberList();
 }

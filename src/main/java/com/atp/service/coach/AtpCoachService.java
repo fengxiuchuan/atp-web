@@ -116,4 +116,15 @@ public interface AtpCoachService {
      * @date: 2018/7/7 16:41
      */
     List<AtpCourseDTO> getCoachList()throws ATPException;
+    
+    /**
+     *
+     * 功能描述: 根据课程主键查询教练集合
+     *
+     * @param:
+     * @return: 
+     * @auther: Administrator
+     * @date: 2018/7/13 11:26
+     */
+    List<AtpCoachDTO> queryCoachListByCourseId(Long courseId)throws ATPException;
 }

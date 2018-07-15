@@ -15,7 +15,7 @@
         <result property="lastUpdatedName" column="last_updated_name"/>
         <result property="lastUpdatedTime" column="last_updated_time"/>
     </resultMap>
-    
+
     <sql id="columns">
         <![CDATA[
         	id ,
@@ -223,6 +223,16 @@
                 AND course_name like concat('%,', #{courseName}, ',%')
             </if>
         </where>
+    </select>
+    
+    <select id="queryGymCourseList" resultMap="AtpCourseMap">
+        SELECT
+        acourse.id ,
+        acourse.course_name ,
+        acourse.course_no
+        FROM  atp_gym_program gpro
+        LEFT JOIN atp_course acourse ON (gpro.`course_id` = acourse.`id`)
+        WHERE gpro.gym_id = #{gymId}
     </select>
 </mapper>
 

@@ -205,5 +205,7 @@
         DELETE atp_coach_course
         WHERE coach_id =#{coachId}
     </delete>
+    
+
 </mapper>
 

@@ -21,6 +21,11 @@
         <result property="lastUpdatedBy" column="last_updated_by"/>
         <result property="lastUpdatedName" column="last_updated_name"/>
         <result property="lastUpdatedTime" column="last_updated_time"/>
+
+        <result property="cardState" column="card_state"/>
+        <result property="totalIntegral" column="total_integral"/>
+        <result property="totalBuy" column="total_buy"/>
+        <result property="totalConsume" column="total_consume"/>
     </resultMap>
     
     <sql id="columns">
@@ -41,7 +46,11 @@
         	created_time ,
         	last_updated_by ,
         	last_updated_name ,
-        	last_updated_time 
+        	last_updated_time,
+        	card_state,
+            total_integral,
+            total_buy,
+            total_consume
         ]]>
     </sql>
     
@@ -119,7 +128,6 @@
             <include refid="columns" />
         FROM
             atp_member 
-        <include refid="where"/>
     </select>
         
 
@@ -140,7 +148,11 @@
 	        created_time,
 	        last_updated_by,
 	        last_updated_name,
-	        last_updated_time
+	        last_updated_time,
+	        card_state,
+            total_integral,
+            total_buy,
+            total_consume
 	    ) VALUES (
 	        #{name},
 	        #{sex},
@@ -157,7 +169,11 @@
 	        #{createdTime},
 	        #{lastUpdatedBy},
 	        #{lastUpdatedName},
-	        #{lastUpdatedTime}
+	        #{lastUpdatedTime},
+	        #{cardState},
+            #{totalIntegral},
+            #{totalBuy},
+            #{totalConsume}
 	    )
     </insert>
 
@@ -178,7 +194,11 @@
             created_time,
             last_updated_by,
             last_updated_name,
-            last_updated_time
+            last_updated_time,
+            card_state,
+            total_integral,
+            total_buy,
+            total_consume
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -197,7 +217,11 @@
                 #{item.createdTime},
                 #{item.lastUpdatedBy},
                 #{item.lastUpdatedName},
-                #{item.lastUpdatedTime}
+                #{item.lastUpdatedTime},
+                #{item.cardState},
+                #{item.totalIntegral},
+                #{item.totalBuy},
+                #{item.totalConsume}
             )
         </foreach>
     </insert>
@@ -265,8 +289,20 @@
                         <![CDATA[ last_updated_name = #{lastUpdatedName} ]]>,
                      </if>
                     <if test="lastUpdatedTime != null">
-                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>
+                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>,
                      </if>
+                    <if test="cardState != null">
+                        <![CDATA[ card_state = #{cardState}]]>,
+                    </if>
+                    <if test="totalIntegral != null">
+                        <![CDATA[ total_integral= #{totalIntegral}]]>,
+                    </if>
+                    <if test="totalBuy != null">
+                        <![CDATA[ total_buy =#{totalBuy}]]>,
+                    </if>
+                    <if test="totalConsume != null">
+                        <![CDATA[ total_consume= #{totalConsume}]]>
+                    </if>
             </set>
             <where>
                 id = #{id}
@@ -333,6 +369,25 @@
                AND   <![CDATA[ card_no = #{cardNo} ]]>
            </if>
        </where>
+    </select>
+    
+    <select id="getMemberList" resultMap="AtpMemberMap">
+      SELECT
+      id,
+      name ,
+    sex ,
+    age ,
+    birth,
+    id_card,
+    phone ,
+    address ,
+    remark ,
+    card_no ,
+    card_state,
+    total_integral,
+    total_buy,
+    total_consume
+    FROM atp_member
     </select>
 </mapper>
 

@@ -88,4 +88,11 @@ public class AtpCourseController extends BaseController {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"修改课程成功",atpCourseService.queryList(atpCourseDTO),true);
     }
 
+    //根据当前用户所在场馆查询课程
+    @PostMapping(value = "/queryGymCourseList.json")
+    public  ResultMessage queryGymCourseList(String token) throws ATPException{
+        // todo 查询用户当前场馆
+        Long gymId = 1L;
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询课程列表",atpCourseService.queryGymCourseList(gymId),true);
+    }
 }

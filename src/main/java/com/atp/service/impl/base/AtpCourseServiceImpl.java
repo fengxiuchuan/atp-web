@@ -2,8 +2,10 @@ package com.atp.service.impl.base;
 
 import com.atp.common.GlobalConstants;
 import com.atp.dao.base.AtpCourseDao;
+import com.atp.dao.coach.AtpCoachDao;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
+import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.base.AtpCourse;
 import com.atp.exception.ATPException;
 import com.atp.service.base.AtpCourseService;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Description: AtpCourseService 实现类
@@ -30,6 +33,9 @@ public class AtpCourseServiceImpl implements AtpCourseService {
 
     @Autowired
     private AtpCourseDao atpCourseDao;
+
+    @Autowired
+    private AtpCoachDao atpCoachDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -140,6 +146,31 @@ public class AtpCourseServiceImpl implements AtpCourseService {
         atpCourseDao.updateById(atpCourseDTO);
     }
 
+    @Override
+    public List<AtpCourseDTO> queryGymCourseList(Long gymId) throws ATPException {
+        if(Objects.isNull(gymId)){
+            return null;
+        }
+        List<AtpCourseDTO> courseList =  atpCourseDao.queryGymCourseList(gymId);
+        if(!CollectionUtils.isEmpty(courseList)){
+            List<AtpCoachDTO> atpCoachList =  atpCoachDao.getCourseCoachsByGymId(gymId);
+            for(AtpCourseDTO courseDTO : courseList){
+                if(Objects.isNull(courseDTO) || Objects.isNull(courseDTO.getId())){
+                    continue;
+                }
+                List<AtpCoachDTO> curCoachList = getCoachListByCourseId(courseDTO.getId(),atpCoachList);
+                courseDTO.setCoachList(curCoachList);
+            }
+        }
+        return courseList;
+    }
+
+    private List<AtpCoachDTO> getCoachListByCourseId(Long courseId,List<AtpCoachDTO> sourceCoachList) throws ATPException{
+        if(Objects.isNull(courseId) || CollectionUtils.isEmpty(sourceCoachList)){
+            return null;
+        }
+       return  sourceCoachList.stream().filter(atpCoachDTO -> Objects.equals(atpCoachDTO.getCourseId(),courseId)).collect(Collectors.toList());
+    }
     //校验
     public void validateForm(AtpCourseDTO atpCourseDTO,String submitFormType) throws ATPException{
         //1 课程编码--自动生成

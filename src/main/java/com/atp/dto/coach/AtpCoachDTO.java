@@ -3,6 +3,7 @@ package com.atp.dto.coach;
 import com.atp.entity.coach.AtpCoach;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ public class AtpCoachDTO extends AtpCoach implements Serializable {
     private List<AtpCoachCourseDTO> coachCourseDTOList;
 
     private Long [] courseIdArr;
+
+    private Long courseId;
 
     public Long[] getCourseIdArr() {
         return courseIdArr;
@@ -30,6 +33,14 @@ public class AtpCoachDTO extends AtpCoach implements Serializable {
 
     public void setCoachCourseDTOList(List<AtpCoachCourseDTO> coachCourseDTOList) {
         this.coachCourseDTOList = coachCourseDTOList;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 }
 

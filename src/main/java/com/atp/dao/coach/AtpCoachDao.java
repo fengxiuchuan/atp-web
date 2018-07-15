@@ -79,4 +79,17 @@ public interface AtpCoachDao extends MyMapper<AtpCoach> {
     List<AtpCourseDTO> queryCourseListByCoachId(Long coachId);
 
     AtpCoachDTO queryDetailById(Long coachId);
+    /**
+     * 根据课程主键查询教授此课程的教练
+     *
+     * @param
+     * @return list
+     * @author: fengxiuchuan
+     * @date: 2018-05-23 18:39:01
+     */
+    List<AtpCoachDTO> queryCoachListByCourseId(Long courseId);
+
+    List<AtpCoachDTO>  getCoachList(@Param("gymId") Long gymId);
+
+    List<AtpCoachDTO> getCourseCoachsByGymId(Long gymId);
 }

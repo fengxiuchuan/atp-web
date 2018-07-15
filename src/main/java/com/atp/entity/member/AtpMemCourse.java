@@ -1,6 +1,10 @@
 package com.atp.entity.member;
 
 import com.atp.dto.base.request.BasePageRequest;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +17,9 @@ import java.util.Date;
  * @author: fengxiuchuan
  * @date: 2018-05-23 18:51:26
  */
+@Data
+@Slf4j
+@ToString
 public class AtpMemCourse extends BasePageRequest implements Serializable {
 
     /**
@@ -89,6 +96,20 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
      * 最后更新时间 
      */
     private Date lastUpdatedTime;
+
+    public AtpMemCourse(){}
+
+    public AtpMemCourse(String orderNo,String cardNo,Long memId,Long courseId,String courseName,Long coachId,String coachNo,Integer totalNum,Double courseAmount){
+        this.orderNo = orderNo;
+        this.cardNo = cardNo;
+        this.memId = memId;
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.coachId = coachId;
+        this.coachNo = coachNo;
+        this.totalNum = totalNum;
+        this.courseAmount = courseAmount;
+    }
 
     public void setId(Long id) {
         this.id = id;

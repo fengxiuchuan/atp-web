@@ -17,7 +17,11 @@ public interface GlobalConstants {
      *  超级管理员用户名
      */
     public static final String SUPER_ADMIN_NAME = "super_admin";
+    // 会员订单编号前缀
+    public static final String MEM_ORDER_NO_PREFIX = "AOM";
 
+    //订单生产前缀
+    public  static final String MEM_ORDER_SERIID = "mem_course_order";
     enum ResultEnum{
         UNKOWN_ERROR("-1","未知错误"),
         SUCCESS("A_SYS_00010","成功");

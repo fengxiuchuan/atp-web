@@ -89,4 +89,9 @@ public class AtpMemberController extends BaseController {
         AtpMember atpMember = atpMemberService.getById(memberId);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMember,true);
     }
+
+    @PostMapping(value = "/getMemberList.json")
+    public ResultMessage getMemberList(String token) throws ATPException{
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.getMemberList(),true);
+    }
 }

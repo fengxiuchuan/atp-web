@@ -117,4 +117,15 @@ public interface AtpCourseService {
      * @date: 2018/5/24 16:34
      */
     void updateCourse(AtpCourseDTO atpCourseDTO)throws ATPException;
+
+    /**
+     *
+     * 功能描述: 根据场馆主键查询当前场馆的课程列表
+     *
+     * @param: 
+     * @return: 
+     * @auther: Administrator
+     * @date: 2018/7/13 18:25
+     */
+    List<AtpCourseDTO> queryGymCourseList(Long gymId)throws ATPException;
 }

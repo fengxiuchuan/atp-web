@@ -21,6 +21,8 @@
         <result property="lastUpdatedBy" column="last_updated_by"/>
         <result property="lastUpdatedName" column="last_updated_name"/>
         <result property="lastUpdatedTime" column="last_updated_time"/>
+
+        <result property="courseId" column="course_id"/>
     </resultMap>
     
     <sql id="columns">
@@ -89,12 +91,6 @@
            	<if test="@Ognl@isNotEmpty(createdTime)">
            		<![CDATA[ AND created_time = #{createdTime} ]]>
            	</if>
-           	<if test="@Ognl@isNotEmpty(createdTimeBegin)">
-           		<![CDATA[ AND created_time >= #{createdTimeBegin} ]]>
-           	</if>
-           	<if test="@Ognl@isNotEmpty(createdTimeEnd)">
-            	<![CDATA[ AND created_time <= #{createdTimeEnd} ]]>
-           	</if>
            	<if test="@Ognl@isNotEmpty(lastUpdatedBy)">
             	<![CDATA[ AND last_updated_by = #{lastUpdatedBy} ]]>
             </if>
@@ -103,12 +99,6 @@
             </if>
            	<if test="@Ognl@isNotEmpty(lastUpdatedTime)">
            		<![CDATA[ AND last_updated_time = #{lastUpdatedTime} ]]>
-           	</if>
-           	<if test="@Ognl@isNotEmpty(lastUpdatedTimeBegin)">
-           		<![CDATA[ AND last_updated_time >= #{lastUpdatedTimeBegin} ]]>
-           	</if>
-           	<if test="@Ognl@isNotEmpty(lastUpdatedTimeEnd)">
-            	<![CDATA[ AND last_updated_time <= #{lastUpdatedTimeEnd} ]]>
            	</if>
         </where>
     </sql>
@@ -303,7 +293,7 @@
           course.id,
           course.course_name
          FROM  atp_coach_course acc
-        LEFT JOIN atp_course course ON (acc.coach_id = course.id)
+        LEFT JOIN atp_course course ON (acc.course_id = course.id)
         WHERE acc.`coach_id` = #{coachId}
     </select>
 
@@ -318,6 +308,32 @@
     <select id="getCoachList" resultMap="AtpCoachMap">
         SELECT <include refid="columns"/>
         FROM atp_coach
+        <where>
+            <if test="gymId != null">
+                <![CDATA[ gym_id = #{gymId} ]]>
+            </if>
+        </where>
+    </select>
+    
+    
+
+    <select id="queryCoachListByCourseId" resultMap="AtpCoachMap">
+        SELECT
+            ac.id,
+            ac.coach_no ,
+        	ac.coach_name ,
+        	ac.phone,
+        	ac.user_account
+         FROM atp_coach ac
+        INNER JOIN atp_coach_course acc ON (ac.`coach_no` = acc.`coach_no`)
+        WHERE acc.`course_id` = #{courseId}
+
+    </select>
+    <select id="getCourseCoachsByGymId" resultMap="AtpCoachMap">
+        SELECT ac.id,ac.`coach_no`,ac.`coach_name`,acc.`course_id`
+        FROM atp_coach_course acc
+        LEFT JOIN atp_coach ac ON (acc.`coach_no` = ac.`coach_no`)
+        WHERE ac.gym_id = #{gymId}
     </select>
 </mapper>
 

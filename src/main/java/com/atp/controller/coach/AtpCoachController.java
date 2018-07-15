@@ -130,4 +130,9 @@ public class AtpCoachController extends BaseController {
     public ResultMessage getCoachList(String token) throws ATPException{
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_FAIL,"删除失败",this.atpCoachService.getCoachList(),true);
     }
+
+    @PostMapping(value = "/queryCoachListByCourseId.json")
+    public ResultMessage queryCoachListByCourseId(Long courseId,String token) throws ATPException{
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",this.atpCoachService.queryCoachListByCourseId(courseId),true);
+    }
 }

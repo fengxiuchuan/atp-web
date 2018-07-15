@@ -3,6 +3,7 @@ package com.atp.service.member;
 import com.atp.dto.member.AtpMemCourseConsumeDTO;
 import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.entity.member.AtpMemCourse;
+import com.atp.exception.ATPException;
 
 import java.util.List;
 
@@ -84,7 +85,7 @@ public interface AtpMemCourseService {
      */
     int deleteBatchByIds(List<Long> ids);
 
-    void payCourse(AtpMemCourseDTO atpMemCourseDTO);
+    void payCourse(AtpMemCourseDTO atpMemCourseDTO)throws ATPException;
 
     void consumeCourse(AtpMemCourseConsumeDTO consumeDTO);
 }

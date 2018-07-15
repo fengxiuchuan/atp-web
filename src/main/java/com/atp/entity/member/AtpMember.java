@@ -64,25 +64,9 @@ public class AtpMember extends BasePageRequest implements Serializable {
      */
     private String cardNo;
     /**
-     * 卡号状态(USED:正常，LOSE:挂失； EXPIRE:过期)
-     */
-    private String cardState;
-    /**
      * 会员密码 
      */
     private String cardPwd;
-    /**
-     * 总积分
-     */
-    private Integer totalIntegral;
-    /**
-     * 共计消费
-     */
-    private BigDecimal totalBuy;
-    /**
-     * 累计消费
-     */
-    private BigDecimal totalConsume;
     /**
      * 创建人 
      */
@@ -107,6 +91,22 @@ public class AtpMember extends BasePageRequest implements Serializable {
      * 最后更新时间 
      */
     private Date lastUpdatedTime;
+    /**
+     * 卡号状态(USED:正常，LOSE:挂失； EXPIRE:过期)
+     */
+    private String  cardState;
+    /**
+     * 总积分
+     */
+    private Integer  totalIntegral;
+    /**
+     * 总共消费
+     */
+    private  Double  totalBuy;
+    /**
+     * 累计消费(课程消费)
+     */
+    private  Double  totalConsume;
 
 
     public AtpMember(){}
@@ -257,6 +257,14 @@ public class AtpMember extends BasePageRequest implements Serializable {
         this.idCard = idCard;
     }
 
+    public String getCardState() {
+        return cardState;
+    }
+
+    public void setCardState(String cardState) {
+        this.cardState = cardState;
+    }
+
     public Integer getTotalIntegral() {
         return totalIntegral;
     }
@@ -265,28 +273,20 @@ public class AtpMember extends BasePageRequest implements Serializable {
         this.totalIntegral = totalIntegral;
     }
 
-    public BigDecimal getTotalBuy() {
+    public Double getTotalBuy() {
         return totalBuy;
     }
 
-    public void setTotalBuy(BigDecimal totalBuy) {
+    public void setTotalBuy(Double totalBuy) {
         this.totalBuy = totalBuy;
     }
 
-    public BigDecimal getTotalConsume() {
+    public Double getTotalConsume() {
         return totalConsume;
     }
 
-    public void setTotalConsume(BigDecimal totalConsume) {
+    public void setTotalConsume(Double totalConsume) {
         this.totalConsume = totalConsume;
-    }
-
-    public String getCardState() {
-        return cardState;
-    }
-
-    public void setCardState(String cardState) {
-        this.cardState = cardState;
     }
 }
 
