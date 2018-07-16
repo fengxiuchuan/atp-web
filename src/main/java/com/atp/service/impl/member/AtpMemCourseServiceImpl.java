@@ -145,8 +145,11 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
             atpMemCourse.setOrderNo(orderNo);
             atpMemCourse.setMemId(memId);
             atpMemCourse.setCardNo(cardNo);
+
             totalBuy = DoubleUtil.add(totalBuy,atpMemCourse.getCourseAmount());
         }
+        atpMemCourseDao.saveBatch(memCourseList);
+
         Double newTotalBuy = DoubleUtil.add(totalBuy,originTotalBuy);
         AtpMember tempMem = new AtpMember();
         tempMem.setId(memId);
@@ -154,7 +157,7 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
         tempMem.setLastUpdatedBy(-1L);
         tempMem.setLastUpdatedTime(new Date());
         tempMem.setLastUpdatedName(GlobalConstants.SUPER_ADMIN_NAME);
-        atpMemberDao.updateByPrimaryKeySelective(atpMember);
+        atpMemberDao.updateByPrimaryKeySelective(tempMem);
 
     }
 
