@@ -1,8 +1,10 @@
 package com.atp.dto.member;
 
+import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.member.AtpMemCourse;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Description: AtpMemCourseentity 值对象
@@ -21,6 +23,8 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
      *  教练名称
      */
     private String coachName;
+
+    private List<AtpCoachDTO> coachList;
 
     public String getCoachName() {
         return coachName;
@@ -60,6 +64,14 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
 
     public void setCourseAmountArr(Double[] courseAmountArr) {
         this.courseAmountArr = courseAmountArr;
+    }
+
+    public List<AtpCoachDTO> getCoachList() {
+        return coachList;
+    }
+
+    public void setCoachList(List<AtpCoachDTO> coachList) {
+        this.coachList = coachList;
     }
 }
 

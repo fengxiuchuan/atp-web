@@ -96,4 +96,5 @@ public interface AtpMemberService {
     BasePageResponse<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO)throws ATPException;
 
     List<AtpMember> getMemberList()throws ATPException;
+
 }

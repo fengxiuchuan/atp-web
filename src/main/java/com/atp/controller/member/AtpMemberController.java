@@ -94,4 +94,5 @@ public class AtpMemberController extends BaseController {
     public ResultMessage getMemberList(String token) throws ATPException{
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.getMemberList(),true);
     }
+
 }

@@ -333,7 +333,11 @@
         SELECT ac.id,ac.`coach_no`,ac.`coach_name`,acc.`course_id`
         FROM atp_coach_course acc
         LEFT JOIN atp_coach ac ON (acc.`coach_no` = ac.`coach_no`)
-        WHERE ac.gym_id = #{gymId}
+        WHERE 1 = 1
+        <if test="gymId != null">
+            ac.gym_id = #{gymId}
+        </if>
+
     </select>
 </mapper>
 

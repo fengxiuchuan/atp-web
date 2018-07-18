@@ -265,9 +265,25 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         if(Objects.isNull(memberId)){
             return null;
         }
-        return atpMemberDao.queryCourseListByMemId(memberId);
+        List<AtpMemCourseDTO> memCourseDTOList =  atpMemberDao.queryCourseListByMemId(memberId);
+        if(!CollectionUtils.isEmpty(memCourseDTOList)){
+            List<AtpCoachDTO> atpCoachList =  atpCoachDao.getCourseCoachsByGymId(null);
+            for(AtpMemCourseDTO courseDTO : memCourseDTOList){
+                if(Objects.isNull(courseDTO) || Objects.isNull(courseDTO.getId())){
+                    continue;
+                }
+                List<AtpCoachDTO> curCoachList = getCoachListByCourseId(courseDTO.getId(),atpCoachList);
+                courseDTO.setCoachList(curCoachList);
+            }
+        }
+        return memCourseDTOList;
     }
-
+    private List<AtpCoachDTO> getCoachListByCourseId(Long courseId,List<AtpCoachDTO> sourceCoachList) throws ATPException{
+        if(Objects.isNull(courseId) || CollectionUtils.isEmpty(sourceCoachList)){
+            return null;
+        }
+        return  sourceCoachList.stream().filter(atpCoachDTO -> Objects.equals(atpCoachDTO.getCourseId(),courseId)).collect(Collectors.toList());
+    }
     @Override
     public BasePageResponse<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO) throws ATPException {
         Page<Object> page = PageHelper.startPage(atpMemberDTO.getPage(), atpMemberDTO.getPageSize(), StringUtils.isBlank(atpMemberDTO.getOrderBy()) ? "":atpMemberDTO.getOrderBy());
