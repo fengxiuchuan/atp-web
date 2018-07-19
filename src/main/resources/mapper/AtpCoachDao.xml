@@ -23,6 +23,10 @@
         <result property="lastUpdatedTime" column="last_updated_time"/>
 
         <result property="courseId" column="course_id"/>
+
+        <!--拓展属性-->
+        <result property="value" column="value"/>
+        <result property="label" column="label"/>
     </resultMap>
     
     <sql id="columns">
@@ -319,6 +323,8 @@
 
     <select id="queryCoachListByCourseId" resultMap="AtpCoachMap">
         SELECT
+            ac.id AS value,
+        	ac.coach_name AS label,
             ac.id,
             ac.coach_no ,
         	ac.coach_name ,
@@ -330,12 +336,12 @@
 
     </select>
     <select id="getCourseCoachsByGymId" resultMap="AtpCoachMap">
-        SELECT ac.id,ac.`coach_no`,ac.`coach_name`,acc.`course_id`
+        SELECT ac.id AS value,ac.coach_name AS label,ac.id,ac.`coach_no`,ac.`coach_name`,acc.`course_id`
         FROM atp_coach_course acc
         LEFT JOIN atp_coach ac ON (acc.`coach_no` = ac.`coach_no`)
         WHERE 1 = 1
         <if test="gymId != null">
-            ac.gym_id = #{gymId}
+           AND ac.gym_id = #{gymId}
         </if>
 
     </select>

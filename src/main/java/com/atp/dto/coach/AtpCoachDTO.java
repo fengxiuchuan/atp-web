@@ -19,6 +19,11 @@ public class AtpCoachDTO extends AtpCoach implements Serializable {
 
     private Long courseId;
 
+
+    private String label;
+
+    private String value;
+
     public Long[] getCourseIdArr() {
         return courseIdArr;
     }
@@ -41,6 +46,23 @@ public class AtpCoachDTO extends AtpCoach implements Serializable {
 
     public void setCourseId(Long courseId) {
         this.courseId = courseId;
+    }
+
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
 

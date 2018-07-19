@@ -22,9 +22,13 @@
         <result property="lastUpdatedBy" column="last_updated_by"/>
         <result property="lastUpdatedName" column="last_updated_name"/>
         <result property="lastUpdatedTime" column="last_updated_time"/>
-
+        <result property="actualAmount" column="actual_amount"/>
+        <result property="discountAmount" column="discount_amount"/>
+        <result property="unitPrice" column="unit_price"/>
         <!--拓展字段-->
         <result property="coachName" column="coach_name"/>
+        <result property="value" column="value"/>
+        <result property="label" column="label"/>
     </resultMap>
     
     <sql id="columns">
@@ -46,7 +50,10 @@
         	created_time ,
         	last_updated_by ,
         	last_updated_name ,
-        	last_updated_time 
+        	last_updated_time,
+        	actual_amount,
+        	discount_amount,
+        	unit_price
         ]]>
     </sql>
     
@@ -127,7 +134,6 @@
             <include refid="columns" />
         FROM
             atp_mem_course 
-        <include refid="where"/>
     </select>
         
 
@@ -149,7 +155,10 @@
 	        created_time,
 	        last_updated_by,
 	        last_updated_name,
-	        last_updated_time
+	        last_updated_time,
+	        actual_amount,
+	        discount_amount,
+	        unit_price
 	    ) VALUES (
 	        #{orderNo},
 	        #{cardNo},
@@ -167,7 +176,10 @@
 	        #{createdTime},
 	        #{lastUpdatedBy},
 	        #{lastUpdatedName},
-	        #{lastUpdatedTime}
+	        #{lastUpdatedTime},
+			#{actualAmount},
+			#{discountAmount},
+			#{unitPrice}
 	    )
     </insert>
 
@@ -189,7 +201,10 @@
             created_time,
             last_updated_by,
             last_updated_name,
-            last_updated_time
+            last_updated_time,
+            actual_amount,
+            discount_amount,
+            unit_price
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -209,7 +224,10 @@
                 #{item.createdTime},
                 #{item.lastUpdatedBy},
                 #{item.lastUpdatedName},
-                #{item.lastUpdatedTime}
+                #{item.lastUpdatedTime},
+                #{actualAmount},
+                #{discountAmount},
+                #{unitPrice}
             )
         </foreach>
     </insert>
@@ -280,8 +298,17 @@
                         <![CDATA[ last_updated_name = #{lastUpdatedName} ]]>,
                      </if>
                     <if test="lastUpdatedTime != null">
-                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>
+                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>,
                      </if>
+                    <if test="actualAmount != null">
+                        <![CDATA[ actual_amount = #{actualAmount} ]]>,
+                    </if>
+                    <if test="discountAmount != null">
+                        <![CDATA[ discount_amount = #{discountAmount} ]]>,
+                    </if>
+                    <if test="unitPrice != null">
+                        <![CDATA[ unit_price = #{unitPrice} ]]>
+                    </if>
             </set>
             <where>
                 id = #{id}

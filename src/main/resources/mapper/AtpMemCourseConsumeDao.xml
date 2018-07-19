@@ -26,6 +26,8 @@
         <result property="lastUpdatedBy" column="last_updated_by"/>
         <result property="lastUpdatedName" column="last_updated_name"/>
         <result property="lastUpdatedTime" column="last_updated_time"/>
+
+        <result property="memCourseId" column="mem_course_id"/>
     </resultMap>
     
     <sql id="columns">
@@ -51,7 +53,8 @@
         	created_time ,
         	last_updated_by ,
         	last_updated_name ,
-        	last_updated_time 
+        	last_updated_time,
+        	mem_course_id
         ]]>
     </sql>
     
@@ -141,6 +144,9 @@
            	<if test="@Ognl@isNotEmpty(lastUpdatedTimeEnd)">
             	<![CDATA[ AND last_updated_time <= #{lastUpdatedTimeEnd} ]]>
            	</if>
+            <if test="@Ognl@isNotEmpty(memCourseId)">
+                <![CDATA[ AND mem_course_id = #{memCourseId} ]]>
+            </if>
         </where>
     </sql>
     
@@ -176,7 +182,8 @@
 	        created_time,
 	        last_updated_by,
 	        last_updated_name,
-	        last_updated_time
+	        last_updated_time,
+	        mem_course_id
 	    ) VALUES (
 	        #{memId},
 	        #{memCardNo},
@@ -198,7 +205,8 @@
 	        #{createdTime},
 	        #{lastUpdatedBy},
 	        #{lastUpdatedName},
-	        #{lastUpdatedTime}
+	        #{lastUpdatedTime},
+	        #{memCourseId}
 	    )
     </insert>
 
@@ -224,7 +232,8 @@
             created_time,
             last_updated_by,
             last_updated_name,
-            last_updated_time
+            last_updated_time,
+            mem_course_id,
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -248,7 +257,8 @@
                 #{item.createdTime},
                 #{item.lastUpdatedBy},
                 #{item.lastUpdatedName},
-                #{item.lastUpdatedTime}
+                #{item.lastUpdatedTime},
+                #{item.memCourseId}
             )
         </foreach>
     </insert>
@@ -331,8 +341,11 @@
                         <![CDATA[ last_updated_name = #{lastUpdatedName} ]]>,
                      </if>
                     <if test="lastUpdatedTime != null">
-                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>
+                        <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>,
                      </if>
+                    <if test="memCourseId != null">
+                        <![CDATA[ mem_course_id = #{memCourseId} ]]>
+                    </if>
             </set>
             <where>
                 id = #{id}

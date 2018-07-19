@@ -196,7 +196,9 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         Long [] courseIdArr = atpMemberDTO.getCourseIdArr();
         Long [] coachIdArr = atpMemberDTO.getCoachIdArr();
         Integer [] totalNumArr  = atpMemberDTO.getTotalNumArr();
-        Double[] courseAmountArr = atpMemberDTO.getCourseAmountArr();
+        BigDecimal[] courseAmountArr = atpMemberDTO.getCourseAmountArr();
+        BigDecimal [] unitPriceArr = atpMemberDTO.getUnitPriceArr();
+        BigDecimal [] discountAmountArr = atpMemberDTO.getDiscountAmountArr();
         if(ArrayUtils.isNotEmpty(courseIdArr)){
             List<AtpMemCourse> memCourseList = new ArrayList<AtpMemCourse>();
             Double totalBuy = 0D;
@@ -211,14 +213,19 @@ public class AtpMemberServiceImpl implements AtpMemberService {
                 if(Objects.isNull(atpCourse) || Objects.isNull(atpCoach)){
                     throw new ATPException("场馆教练或者课程为空");
                 }
-                AtpMemCourse atpMemCourse = new AtpMemCourse(orderNo,cardNo,memberId,atpCourse.getId(),atpCourse.getCourseName(),atpCoach.getId(),atpCoach.getCoachNo(),totalNumArr[i], DoubleUtil.roundDouble(courseAmountArr[i],5));
+                BigDecimal unitPrice = unitPriceArr[i];
+                BigDecimal discountAmount = discountAmountArr[i];
+                Integer totalNum = totalNumArr[i];
+                Double totalPrice =   DoubleUtil.mul(unitPrice,Double.valueOf(String.valueOf(totalNum)));
+                Double actualAmount = DoubleUtil.sub(totalPrice,discountAmount == null ? 0D:Double.valueOf(String.valueOf(discountAmount)));
+                AtpMemCourse atpMemCourse = new AtpMemCourse(orderNo,cardNo,memberId,atpCourse.getId(),atpCourse.getCourseName(),atpCoach.getId(),atpCoach.getCoachNo(),totalNumArr[i], new BigDecimal(String.valueOf(totalPrice)),unitPrice,new BigDecimal(String.valueOf(actualAmount)),discountAmount);
                 atpMemCourse.setFreeNum(totalNumArr[i]);
                 atpMemCourse.setUsedNum(0);
                 atpMemCourse.setCreatedBy(-1L);
                 atpMemCourse.setCreatedName(GlobalConstants.SUPER_ADMIN_NAME);
                 atpMemCourse.setCreatedTime(new Date());
                 atpMemCourseDao.save(atpMemCourse);
-                totalBuy = DoubleUtil.add(courseAmountArr[i],totalBuy);
+                totalBuy = DoubleUtil.add(courseAmountArr[i].doubleValue(),totalBuy);
             }
 
             // 更新最新的
@@ -268,12 +275,12 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         List<AtpMemCourseDTO> memCourseDTOList =  atpMemberDao.queryCourseListByMemId(memberId);
         if(!CollectionUtils.isEmpty(memCourseDTOList)){
             List<AtpCoachDTO> atpCoachList =  atpCoachDao.getCourseCoachsByGymId(null);
-            for(AtpMemCourseDTO courseDTO : memCourseDTOList){
-                if(Objects.isNull(courseDTO) || Objects.isNull(courseDTO.getId())){
+            for(AtpMemCourseDTO memCourseDTO : memCourseDTOList){
+                if(Objects.isNull(memCourseDTO) || Objects.isNull(memCourseDTO.getCourseId())){
                     continue;
                 }
-                List<AtpCoachDTO> curCoachList = getCoachListByCourseId(courseDTO.getId(),atpCoachList);
-                courseDTO.setCoachList(curCoachList);
+                List<AtpCoachDTO> curCoachList = getCoachListByCourseId(memCourseDTO.getCourseId(),atpCoachList);
+                memCourseDTO.setCoachList(curCoachList);
             }
         }
         return memCourseDTOList;

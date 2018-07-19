@@ -91,5 +91,5 @@ public interface AtpCoachDao extends MyMapper<AtpCoach> {
 
     List<AtpCoachDTO>  getCoachList(@Param("gymId") Long gymId);
 
-    List<AtpCoachDTO> getCourseCoachsByGymId(Long gymId);
+    List<AtpCoachDTO> getCourseCoachsByGymId(@Param("gymId")  Long gymId);
 }

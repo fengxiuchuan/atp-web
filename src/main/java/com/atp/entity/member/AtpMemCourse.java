@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -71,7 +72,23 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
     /**
      * 课程总金额 
      */
-    private Double courseAmount;
+    private BigDecimal courseAmount;
+
+    /**
+     * 实付金额
+     */
+    private BigDecimal actualAmount;
+
+    /**
+     * 优惠
+     */
+    private BigDecimal discountAmount;
+
+    /**
+     * 课程单价
+     */
+    private BigDecimal unitPrice;
+
     /**
      * 创建人 
      */
@@ -99,7 +116,7 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
 
     public AtpMemCourse(){}
 
-    public AtpMemCourse(String orderNo,String cardNo,Long memId,Long courseId,String courseName,Long coachId,String coachNo,Integer totalNum,Double courseAmount){
+    public AtpMemCourse(String orderNo,String cardNo,Long memId,Long courseId,String courseName,Long coachId,String coachNo,Integer totalNum,BigDecimal courseAmount,BigDecimal unitPrice,BigDecimal actualAmount,BigDecimal discountAmount){
         this.orderNo = orderNo;
         this.cardNo = cardNo;
         this.memId = memId;
@@ -109,6 +126,10 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
         this.coachNo = coachNo;
         this.totalNum = totalNum;
         this.courseAmount = courseAmount;
+        this.unitPrice = unitPrice;
+        this.discountAmount = discountAmount;
+        this.actualAmount = actualAmount;
+
     }
 
     public void setId(Long id) {
@@ -188,11 +209,11 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
     public Integer getUsedNum() {
         return this.usedNum;
     }
-    public void setCourseAmount(Double courseAmount) {
+    public void setCourseAmount(BigDecimal courseAmount) {
         this.courseAmount = courseAmount;
     }
 
-    public Double getCourseAmount() {
+    public BigDecimal getCourseAmount() {
         return this.courseAmount;
     }
     public void setCreatedBy(Long createdBy) {
@@ -236,6 +257,30 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
 
     public Date getLastUpdatedTime() {
         return this.lastUpdatedTime;
+    }
+
+    public BigDecimal getActualAmount() {
+        return actualAmount;
+    }
+
+    public void setActualAmount(BigDecimal actualAmount) {
+        this.actualAmount = actualAmount;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }
 

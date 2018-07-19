@@ -4,6 +4,7 @@ import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.member.AtpMemCourse;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -18,11 +19,20 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
 
     private Integer [] totalNumArr;
 
-    private Double[] courseAmountArr;
+    private BigDecimal[] courseAmountArr;
+
+    private BigDecimal [] unitPriceArr;
+
+    private BigDecimal [] discountAmountArr;
     /**
      *  教练名称
      */
     private String coachName;
+
+
+    private String label;
+
+    private String value;
 
     private List<AtpCoachDTO> coachList;
 
@@ -58,11 +68,11 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
         this.totalNumArr = totalNumArr;
     }
 
-    public Double[] getCourseAmountArr() {
+    public BigDecimal[] getCourseAmountArr() {
         return courseAmountArr;
     }
 
-    public void setCourseAmountArr(Double[] courseAmountArr) {
+    public void setCourseAmountArr(BigDecimal[] courseAmountArr) {
         this.courseAmountArr = courseAmountArr;
     }
 
@@ -72,6 +82,39 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
 
     public void setCoachList(List<AtpCoachDTO> coachList) {
         this.coachList = coachList;
+    }
+
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public BigDecimal[] getUnitPriceArr() {
+        return unitPriceArr;
+    }
+
+    public void setUnitPriceArr(BigDecimal[] unitPriceArr) {
+        this.unitPriceArr = unitPriceArr;
+    }
+
+    public BigDecimal[] getDiscountAmountArr() {
+        return discountAmountArr;
+    }
+
+    public void setDiscountAmountArr(BigDecimal[] discountAmountArr) {
+        this.discountAmountArr = discountAmountArr;
     }
 }
 

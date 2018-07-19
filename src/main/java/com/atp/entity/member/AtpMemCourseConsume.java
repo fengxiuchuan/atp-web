@@ -5,7 +5,9 @@ import com.atp.dto.base.request.BasePageRequest;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -21,6 +23,11 @@ public class AtpMemCourseConsume extends BasePageRequest implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * 会员课程主键
+     */
+    private Long memCourseId;
     /**
      * 会员主键 
      */
@@ -68,7 +75,7 @@ public class AtpMemCourseConsume extends BasePageRequest implements Serializable
     /**
      * 消耗课时数 
      */
-    private Boolean courseNum;
+    private Integer courseNum;
     /**
      * 消耗时间 
      */
@@ -105,6 +112,31 @@ public class AtpMemCourseConsume extends BasePageRequest implements Serializable
      * 最后更新时间 
      */
     private Date lastUpdatedTime;
+
+    @Transient
+    private BigDecimal unitPrice;
+
+    public AtpMemCourseConsume(){}
+
+    public AtpMemCourseConsume(Long memId,String memCardNo,Long memCourseId,
+                                Long courseId,String courseName,
+                                Long coachId,String coachNo,String coachName,
+                                Long execCoachId,String execCoachNo,String execCoachName,
+                                Integer courseNum,Integer integral){
+        this.memId = memId;
+        this.memCardNo = memCardNo;
+        this.memCourseId = memCourseId;
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.coachId = coachId;
+        this.coachNo = coachNo;
+        this.coachName = coachName;
+        this.execCoachId = execCoachId;
+        this.execCoachNo = execCoachNo;
+        this.execCoachName = execCoachName;
+        this.courseNum = courseNum;
+        this.integral = integral;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -190,11 +222,11 @@ public class AtpMemCourseConsume extends BasePageRequest implements Serializable
     public String getExecCoachName() {
         return this.execCoachName;
     }
-    public void setCourseNum(Boolean courseNum) {
+    public void setCourseNum(Integer courseNum) {
         this.courseNum = courseNum;
     }
 
-    public Boolean getCourseNum() {
+    public Integer getCourseNum() {
         return this.courseNum;
     }
     public void setConsumeTime(Date consumeTime) {
@@ -259,6 +291,22 @@ public class AtpMemCourseConsume extends BasePageRequest implements Serializable
 
     public Date getLastUpdatedTime() {
         return this.lastUpdatedTime;
+    }
+
+    public Long getMemCourseId() {
+        return memCourseId;
+    }
+
+    public void setMemCourseId(Long memCourseId) {
+        this.memCourseId = memCourseId;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }
 

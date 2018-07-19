@@ -87,5 +87,5 @@ public interface AtpMemCourseService {
 
     void payCourse(AtpMemCourseDTO atpMemCourseDTO)throws ATPException;
 
-    void consumeCourse(AtpMemCourseConsumeDTO consumeDTO);
+    void consumeCourse(AtpMemCourseConsumeDTO consumeDTO) throws ATPException;
 }

@@ -18,6 +18,12 @@ public class AtpCourseDTO extends AtpCourse implements Serializable {
     private String queryStr;
     /*教练列表*/
     private List<AtpCoachDTO> coachList;
+
+
+    private String label;
+
+    private String value;
+
     public String getQueryStr() {
         return queryStr;
     }
@@ -32,6 +38,23 @@ public class AtpCourseDTO extends AtpCourse implements Serializable {
 
     public void setCoachList(List<AtpCoachDTO> coachList) {
         this.coachList = coachList;
+    }
+
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
 

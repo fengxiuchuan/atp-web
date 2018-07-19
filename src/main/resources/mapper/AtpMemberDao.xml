@@ -26,10 +26,16 @@
         <result property="totalIntegral" column="total_integral"/>
         <result property="totalBuy" column="total_buy"/>
         <result property="totalConsume" column="total_consume"/>
+
+        <!--拓展属性-->
+        <result property="value" column="value"/>
+        <result property="label" column="label"/>
     </resultMap>
     
     <sql id="columns">
         <![CDATA[
+            id AS value,
+        	name AS label,
         	id ,
         	name ,
         	sex ,
@@ -332,6 +338,8 @@
 
     <select id="queryCourseListByMemId" resultMap="com.atp.dao.member.AtpMemCourseDao.AtpMemCourseMap">
         SELECT
+        mcourse.id AS value,
+        mcourse.course_name AS label,
         mcourse.id ,
         mcourse.order_no ,
         mcourse.card_no ,
@@ -343,7 +351,10 @@
         mcourse.total_num ,
         mcourse.free_num ,
         mcourse.used_num ,
-        mcourse.course_amount
+        mcourse.course_amount,
+        mcourse.actual_amount,
+        mcourse.discount_amount,
+        mcourse.unit_price
         FROM atp_mem_course mcourse
         LEFT JOIN atp_course course ON (mcourse.`course_id` = course.`id`)
         LEFT JOIN atp_coach coach ON(mcourse.`coach_id` = coach.`id`)
@@ -373,6 +384,8 @@
     
     <select id="getMemberList" resultMap="AtpMemberMap">
       SELECT
+       id AS value,
+      name AS label,
       id,
       name ,
     sex ,

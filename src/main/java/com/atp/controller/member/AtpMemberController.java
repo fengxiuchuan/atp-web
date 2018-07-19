@@ -72,7 +72,9 @@ public class AtpMemberController extends BaseController {
     //5 会员销课
     @PostMapping(value = "/consumeCourse.do")
     public ResultMessage consumeCourse(AtpMemCourseConsumeDTO consumeDTO) throws ATPException{
+        logger.info("AtpMemberController  --  consumeCourse start");
         atpMemCourseService.consumeCourse(consumeDTO);
+        logger.info("AtpMemberController  --  consumeCourse end");
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"成功销课");
     }
 

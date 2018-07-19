@@ -34,6 +34,11 @@ public class AtpGymDTO extends AtpGym implements Serializable {
      */
     private List<AtpCourseDTO> courseList;
 
+
+    private String label;
+
+    private String value;
+
     public List<AtpCoachDTO> getCoachList() {
         return coachList;
     }
@@ -64,6 +69,23 @@ public class AtpGymDTO extends AtpGym implements Serializable {
 
     public void setCourseIdArr(Long[] courseIdArr) {
         this.courseIdArr = courseIdArr;
+    }
+
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
 
