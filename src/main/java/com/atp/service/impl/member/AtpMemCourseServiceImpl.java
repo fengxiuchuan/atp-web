@@ -141,11 +141,13 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
             return;
         }
         Long memId =  atpMemCourseDTO.getMemId();
+        String cardNo = atpMemCourseDTO.getCardNo();
+        String memName = atpMemCourseDTO.getMemName();
         AtpMember atpMember = atpMemberDao.selectByPrimaryKey(memId);
         if(Objects.isNull(atpMember)){
             throw new ATPException("未找到此学员");
         }
-        String cardNo = atpMember.getCardNo();
+
         Double originTotalBuy = atpMember.getTotalBuy() == null ? 0D: atpMember.getTotalBuy();
         Double totalBuy = 0D;
         for(AtpMemCourse atpMemCourse : memCourseList){
@@ -153,7 +155,7 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
             atpMemCourse.setOrderNo(orderNo);
             atpMemCourse.setMemId(memId);
             atpMemCourse.setCardNo(cardNo);
-
+            atpMemCourse.setMemName(memName);
             totalBuy = DoubleUtil.add(totalBuy,Double.valueOf(String.valueOf(atpMemCourse.getCourseAmount())));
         }
         atpMemCourseDao.saveBatch(memCourseList);
@@ -180,10 +182,12 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
         Long [] courseIdArr = atpMemCourseDTO.getCourseIdArr();
         Long [] coachIdArr = atpMemCourseDTO.getCoachIdArr();
         Integer [] totalNumArr = atpMemCourseDTO.getTotalNumArr();
-        BigDecimal[] courseAmountArr = atpMemCourseDTO.getCourseAmountArr();
         BigDecimal [] unitPriceArr = atpMemCourseDTO.getUnitPriceArr();
         BigDecimal [] discountAmountArr = atpMemCourseDTO.getDiscountAmountArr();
-        if(ArrayUtils.isEmpty(courseIdArr) || ArrayUtils.isEmpty(coachIdArr)|| ArrayUtils.isEmpty(totalNumArr)|| ArrayUtils.isEmpty(courseAmountArr)){
+        String[]courseNameArr = atpMemCourseDTO.getCourseNameArr();
+        String[] coachNoArr  = atpMemCourseDTO.getCoachNoArr();
+        String[] coachNameArr = atpMemCourseDTO.getCoachNameArr();
+        if(ArrayUtils.isEmpty(courseIdArr) || ArrayUtils.isEmpty(coachIdArr)|| ArrayUtils.isEmpty(totalNumArr)|| ArrayUtils.isEmpty(unitPriceArr)){
             throw new ATPException("请填写充值的课程");
         }
         int length = courseIdArr.length;
@@ -218,12 +222,8 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
 
             Double totalPrice =   DoubleUtil.mul(unitPrice,Double.valueOf(String.valueOf(totalNum)));
             Double actualAmount = DoubleUtil.sub(totalPrice,discountAmount == null ? 0D:Double.valueOf(String.valueOf(discountAmount)));
-            AtpCourse atpCourse = getCourseById(courseIdArr[i],courseList);
-            AtpCoach atpCoach = getCoacById(coachIdArr[i],coachList);
-            if(Objects.isNull(atpCourse) || Objects.isNull(atpCoach)){
-                throw new ATPException("场馆教练或者课程为空");
-            }
-            AtpMemCourse atpMemCourse = new AtpMemCourse("","",null,atpCourse.getId(),atpCourse.getCourseName(),atpCoach.getId(),atpCoach.getCoachNo(),totalNumArr[i], new BigDecimal(String.valueOf(totalPrice)),unitPrice,new BigDecimal(String.valueOf(actualAmount)),discountAmount);
+            AtpMemCourse atpMemCourse = new AtpMemCourse("","",null,courseIdArr[i],courseNameArr[i],coachIdArr[i],coachNoArr[i],totalNumArr[i], new BigDecimal(String.valueOf(totalPrice)),unitPrice,new BigDecimal(String.valueOf(actualAmount)),discountAmount);
+            atpMemCourse.setCoachName(coachNameArr[i]);
             atpMemCourse.setFreeNum(totalNumArr[i]);
             atpMemCourse.setUsedNum(0);
             atpMemCourse.setCreatedBy(-1L);
@@ -264,7 +264,8 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
             Integer courseNum = memCourseConsume.getCourseNum();
             BigDecimal unitPrice = memCourseConsume.getUnitPrice();
             Double consumePrice = DoubleUtil.mul(unitPrice,Double.valueOf(courseNum.doubleValue()));
-
+            String consumeNo = CommonUtil.createOrderNo(GlobalConstants.MEM_COURSE_CONSUME_NO, SerialNoGenerator.Cycle.MONTHLY,GlobalConstants.MEM_CONSUME_NO_PREFIX,5);
+            memCourseConsume.setConsumeNo(consumeNo);
             // 保存当前的
             atpMemCourseConsumeDao.save(memCourseConsume);
 
@@ -307,6 +308,7 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
         }
         Long memId =  consumeDTO.getMemId();
         String memCardNo = consumeDTO.getMemCardNo();
+        String memName = consumeDTO.getMemName();
         if(Objects.isNull(memId)){
             throw new ATPException("请选择需要充值的会员");
         }
@@ -361,6 +363,7 @@ public class AtpMemCourseServiceImpl implements AtpMemCourseService {
                 throw new ATPException(errorMsg.toString());
             }
             AtpMemCourseConsume memCourseConsume = new AtpMemCourseConsume(courseId,memCardNo,memCourseId,courseId,courseName,coachId,coachNo,coachName,execCoachId,execCoachNo,execCoachName,courseNum,interal);
+            memCourseConsume.setMemName(memName);
             memCourseConsume.setUnitPrice(unitPrice);
             memCourseConsume.setConsumeTime(now);
             memCourseConsume.setCreatedBy(-1L);

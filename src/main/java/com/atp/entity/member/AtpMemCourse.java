@@ -42,6 +42,10 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
      */
     private Long memId;
     /**
+     * 会员姓名
+     */
+    private String memName;
+    /**
      * 课程主键 
      */
     private Long courseId;
@@ -57,6 +61,10 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
      * 教练编码 
      */
     private String coachNo;
+    /**
+     *  教练名称
+     */
+    private String coachName;
     /**
      * 总课时 
      */
@@ -281,6 +289,22 @@ public class AtpMemCourse extends BasePageRequest implements Serializable {
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getMemName() {
+        return memName;
+    }
+
+    public void setMemName(String memName) {
+        this.memName = memName;
+    }
+
+    public String getCoachName() {
+        return coachName;
+    }
+
+    public void setCoachName(String coachName) {
+        this.coachName = coachName;
     }
 }
 

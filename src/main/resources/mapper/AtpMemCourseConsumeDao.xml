@@ -28,6 +28,8 @@
         <result property="lastUpdatedTime" column="last_updated_time"/>
 
         <result property="memCourseId" column="mem_course_id"/>
+        <result property="consumeNo" column="consume_no"/>
+        <result property="memName" column="mem_name"/>
     </resultMap>
     
     <sql id="columns">
@@ -54,7 +56,9 @@
         	last_updated_by ,
         	last_updated_name ,
         	last_updated_time,
-        	mem_course_id
+        	mem_course_id,
+        	consume_no,
+            mem_name
         ]]>
     </sql>
     
@@ -183,7 +187,9 @@
 	        last_updated_by,
 	        last_updated_name,
 	        last_updated_time,
-	        mem_course_id
+	        mem_course_id,
+	        consume_no,
+            mem_name
 	    ) VALUES (
 	        #{memId},
 	        #{memCardNo},
@@ -206,7 +212,9 @@
 	        #{lastUpdatedBy},
 	        #{lastUpdatedName},
 	        #{lastUpdatedTime},
-	        #{memCourseId}
+	        #{memCourseId},
+	        #{consumeNo},
+            #{memName}
 	    )
     </insert>
 
@@ -234,6 +242,8 @@
             last_updated_name,
             last_updated_time,
             mem_course_id,
+            consume_no,
+            mem_name
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -258,7 +268,9 @@
                 #{item.lastUpdatedBy},
                 #{item.lastUpdatedName},
                 #{item.lastUpdatedTime},
-                #{item.memCourseId}
+                #{item.memCourseId},
+                #{item.consumeNo},
+                #{item.memName}
             )
         </foreach>
     </insert>
@@ -344,7 +356,13 @@
                         <![CDATA[ last_updated_time = #{lastUpdatedTime} ]]>,
                      </if>
                     <if test="memCourseId != null">
-                        <![CDATA[ mem_course_id = #{memCourseId} ]]>
+                        <![CDATA[ mem_course_id = #{memCourseId} ]]>,
+                    </if>
+                    <if test="consumeNo  != null">
+                        <![CDATA[ consume_no = #{consumeNo} ]]>,
+                    </if>
+                    <if test="memCourseId != null">
+                        <![CDATA[ mem_name = #{memName} ]]>
                     </if>
             </set>
             <where>

@@ -4,6 +4,7 @@ import com.atp.entity.member.AtpMember;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @Description: AtpMemberentity 值对象
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
  * @date: 2018-05-23 18:51:29
  */
 public class AtpMemberDTO extends AtpMember implements Serializable {
+
 
     private Long [] courseIdArr;
 

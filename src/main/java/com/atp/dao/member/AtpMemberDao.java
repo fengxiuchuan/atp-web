@@ -1,5 +1,6 @@
 package com.atp.dao.member;
 
+import com.atp.dto.member.AtpMemCourseConsumeDTO;
 import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.util.MyMapper;
 import com.atp.dto.base.AtpCourseDTO;
@@ -82,4 +83,8 @@ public interface AtpMemberDao extends MyMapper<AtpMember> {
     List<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO);
 
     List<AtpMember> getMemberList();
+
+    List<AtpMemCourseDTO> queryMemCourseList(AtpMemCourseDTO memCourseDTO);
+
+    List<AtpMemCourseConsumeDTO> queryConsumeList(AtpMemCourseConsumeDTO consumeDTO);
 }

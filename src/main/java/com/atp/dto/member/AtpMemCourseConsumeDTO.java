@@ -2,9 +2,11 @@ package com.atp.dto.member;
 
 import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.member.AtpMemCourseConsume;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @Description: AtpMemCourseConsumeentity 值对象
@@ -38,6 +40,15 @@ public class AtpMemCourseConsumeDTO extends AtpMemCourseConsume implements Seria
     private String []execCoachNameArr;
     // 当前课程单价
     private BigDecimal [] unitPriceArr;
+
+
+    // 开始日期
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dateStart;
+
+    // 截止日期
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dateEnd;
 
     public Long[] getMemCourseIdArr() {
         return memCourseIdArr;
@@ -133,6 +144,22 @@ public class AtpMemCourseConsumeDTO extends AtpMemCourseConsume implements Seria
 
     public void setUnitPriceArr(BigDecimal[] unitPriceArr) {
         this.unitPriceArr = unitPriceArr;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 }
 

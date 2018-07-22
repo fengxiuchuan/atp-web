@@ -402,5 +402,94 @@
     total_consume
     FROM atp_member
     </select>
+
+    <!--增值服务列表-->
+    <select id="queryMemCourseList" resultMap="com.atp.dao.member.AtpMemCourseDao.AtpMemCourseMap">
+      SELECT
+        order_no,
+        card_no,
+        mem_id,
+        mem_name,
+        coach_name,
+        course_id,
+        course_name,
+        coach_id,
+        coach_no,
+        total_num,
+        free_num,
+        used_num,
+        course_amount,
+        created_time,
+        actual_amount,
+        discount_amount,
+        unit_price
+      FROM atp_mem_course
+      <where>
+          <if test="orderNo != null">
+             AND order_no LIKE CONCAT(#{orderNo},'%')
+          </if>
+          <if test="cardNo != null">
+              AND card_no LIKE CONCAT(#{cardNo},'%')
+          </if>
+          <if test="memName != null">
+              AND mem_name LIKE CONCAT(#{memName},'%')
+          </if>
+          <if test="courseName != null">
+              AND  course_name LIKE CONCAT(#{courseName},'%')
+          </if>
+          <if test="dateStart != null">
+             <![CDATA[  AND  created_time >= #{dateStart} ]]>
+          </if>
+          <if test="dateEnd != null">
+              <![CDATA[  AND  created_time < = #{dateEnd} ]]>
+          </if>
+      </where>
+    </select>
+    <!--消费积分列表-->
+    <select id="queryConsumeList" resultMap="com.atp.dao.member.AtpMemCourseDao.AtpMemCourseMap">
+        SELECT
+        id ,
+        mem_id ,
+        mem_card_no ,
+        course_id ,
+        course_no ,
+        course_name ,
+        coach_id ,
+        coach_no ,
+        coach_name ,
+        exec_coach_id ,
+        exec_coach_no ,
+        exec_coach_name ,
+        course_num ,
+        consume_time ,
+        integral ,
+        remark ,
+        created_time ,
+        mem_course_id,
+        consume_no,
+        mem_name
+        FROM atp_mem_course_consume
+        <where>
+            <if test="consumeNo != null">
+                AND consume_no LIKE CONCAT(#{consumeNo},'%')
+            </if>
+            <if test="memCardNo != null">
+                AND mem_card_no LIKE CONCAT(#{memCardNo},'%')
+            </if>
+            <if test="memName != null">
+                AND mem_name LIKE CONCAT(#{memName},'%')
+            </if>
+            <if test="courseName != null">
+                AND  course_name LIKE CONCAT(#{courseName},'%')
+            </if>
+            <if test="dateStart != null">
+                <![CDATA[  AND  consume_time >= #{dateStart} ]]>
+            </if>
+            <if test="dateEnd != null">
+                <![CDATA[  AND  consume_time < = #{dateEnd} ]]>
+            </if>
+        </where>
+    </select>
+
 </mapper>
 

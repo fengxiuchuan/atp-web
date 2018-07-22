@@ -25,10 +25,13 @@
         <result property="actualAmount" column="actual_amount"/>
         <result property="discountAmount" column="discount_amount"/>
         <result property="unitPrice" column="unit_price"/>
-        <!--拓展字段-->
+        <result property="memName" column="mem_name"/>
         <result property="coachName" column="coach_name"/>
+        <!--拓展字段-->
+
         <result property="value" column="value"/>
         <result property="label" column="label"/>
+
     </resultMap>
     
     <sql id="columns">
@@ -37,6 +40,8 @@
         	order_no ,
         	card_no ,
         	mem_id ,
+        	mem_name,
+        	coach_name,
         	course_id ,
         	course_name ,
         	coach_id ,
@@ -142,6 +147,8 @@
 	        order_no,
 	        card_no,
 	        mem_id,
+	        mem_name,
+        	coach_name,
 	        course_id,
 	        course_name,
 	        coach_id,
@@ -163,6 +170,8 @@
 	        #{orderNo},
 	        #{cardNo},
 	        #{memId},
+	        #{memName},
+        	#{coachName},
 	        #{courseId},
 	        #{courseName},
 	        #{coachId},
@@ -188,6 +197,8 @@
             order_no,
             card_no,
             mem_id,
+            mem_name,
+            coach_name,
             course_id,
             course_name,
             coach_id,
@@ -211,6 +222,8 @@
                                 #{item.orderNo},
                 #{item.cardNo},
                 #{item.memId},
+                #{item.memName},
+                #{item.coachName},
                 #{item.courseId},
                 #{item.courseName},
                 #{item.coachId},
@@ -307,7 +320,13 @@
                         <![CDATA[ discount_amount = #{discountAmount} ]]>,
                     </if>
                     <if test="unitPrice != null">
-                        <![CDATA[ unit_price = #{unitPrice} ]]>
+                        <![CDATA[ unit_price = #{unitPrice} ]]>,
+                    </if>
+                    <if test="memName != null">
+                        <![CDATA[ mem_name = #{memName} ]]>,
+                    </if>
+                    <if test="coachName != null">
+                        <![CDATA[ coach_name = #{coachName} ]]>
                     </if>
             </set>
             <where>

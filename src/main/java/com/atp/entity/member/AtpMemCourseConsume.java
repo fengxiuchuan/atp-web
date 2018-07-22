@@ -112,6 +112,14 @@ public class AtpMemCourseConsume extends BasePageRequest implements Serializable
      * 最后更新时间 
      */
     private Date lastUpdatedTime;
+    /**
+     * 课耗订单号
+     */
+    private String consumeNo;
+    /**
+     * 会员名称
+     */
+    private String memName;
 
     @Transient
     private BigDecimal unitPrice;
@@ -307,6 +315,22 @@ public class AtpMemCourseConsume extends BasePageRequest implements Serializable
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getConsumeNo() {
+        return consumeNo;
+    }
+
+    public void setConsumeNo(String consumeNo) {
+        this.consumeNo = consumeNo;
+    }
+
+    public String getMemName() {
+        return memName;
+    }
+
+    public void setMemName(String memName) {
+        this.memName = memName;
     }
 }
 

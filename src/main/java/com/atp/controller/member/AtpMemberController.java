@@ -97,4 +97,16 @@ public class AtpMemberController extends BaseController {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.getMemberList(),true);
     }
 
+    // 充值列表
+    @PostMapping(value = "/queryMemCourseList.json")
+    public ResultMessage queryMemCourseList(AtpMemCourseDTO memCourseDTO) throws ATPException {
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.queryMemCourseList(memCourseDTO),true);
+    }
+
+
+    // 充值列表
+    @PostMapping(value = "/queryConsumeList.json")
+    public ResultMessage queryConsumeList(AtpMemCourseConsumeDTO consumeDTO) throws ATPException {
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.queryConsumeList(consumeDTO),true);
+    }
 }

@@ -2,9 +2,11 @@ package com.atp.dto.member;
 
 import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.member.AtpMemCourse;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,9 +15,22 @@ import java.util.List;
  * @date: 2018-05-23 18:51:26
  */
 public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
+
+    // 开始日期
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dateStart;
+
+    // 截止日期
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date dateEnd;
+
+
+
     private Long [] courseIdArr;
 
     private Long [] coachIdArr;
+    // 课程名称
+    private String []courseNameArr;
 
     private Integer [] totalNumArr;
 
@@ -24,11 +39,11 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
     private BigDecimal [] unitPriceArr;
 
     private BigDecimal [] discountAmountArr;
-    /**
-     *  教练名称
-     */
-    private String coachName;
 
+    // 授课教练编号
+    private String []coachNoArr;
+    // 授课教练名称
+    private String []coachNameArr;
 
     private String label;
 
@@ -36,13 +51,6 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
 
     private List<AtpCoachDTO> coachList;
 
-    public String getCoachName() {
-        return coachName;
-    }
-
-    public void setCoachName(String coachName) {
-        this.coachName = coachName;
-    }
 
     public Long[] getCourseIdArr() {
         return courseIdArr;
@@ -115,6 +123,46 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
 
     public void setDiscountAmountArr(BigDecimal[] discountAmountArr) {
         this.discountAmountArr = discountAmountArr;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public String[] getCourseNameArr() {
+        return courseNameArr;
+    }
+
+    public void setCourseNameArr(String[] courseNameArr) {
+        this.courseNameArr = courseNameArr;
+    }
+
+    public String[] getCoachNoArr() {
+        return coachNoArr;
+    }
+
+    public void setCoachNoArr(String[] coachNoArr) {
+        this.coachNoArr = coachNoArr;
+    }
+
+    public String[] getCoachNameArr() {
+        return coachNameArr;
+    }
+
+    public void setCoachNameArr(String[] coachNameArr) {
+        this.coachNameArr = coachNameArr;
     }
 }
 

@@ -2,6 +2,7 @@ package com.atp.service.member;
 
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
+import com.atp.dto.member.AtpMemCourseConsumeDTO;
 import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.member.AtpMember;
@@ -96,5 +97,25 @@ public interface AtpMemberService {
     BasePageResponse<AtpMemberDTO> queryAllList(AtpMemberDTO atpMemberDTO)throws ATPException;
 
     List<AtpMember> getMemberList()throws ATPException;
+    /**
+     *
+     * 查询充值记录
+     *
+     * @param: memCourseDTO
+     * @return: 
+     * @auther: fengxiuchuan
+     * @date: 2018/7/20 16:10
+     */
+    BasePageResponse<AtpMemCourseDTO> queryMemCourseList(AtpMemCourseDTO memCourseDTO)throws ATPException;
+    /**
+     *
+     * 查询课耗记录
+     *
+     * @param: memCourseDTO
+     * @return:
+     * @auther: fengxiuchuan
+     * @date: 2018/7/20 16:10
+     */
+    BasePageResponse<AtpMemCourseConsumeDTO> queryConsumeList(AtpMemCourseConsumeDTO consumeDTO)throws ATPException;
 
 }

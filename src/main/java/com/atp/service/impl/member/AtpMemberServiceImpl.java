@@ -9,6 +9,7 @@ import com.atp.dao.member.AtpMemberDao;
 import com.atp.dto.base.AtpCourseDTO;
 import com.atp.dto.base.response.BasePageResponse;
 import com.atp.dto.coach.AtpCoachDTO;
+import com.atp.dto.member.AtpMemCourseConsumeDTO;
 import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.dto.member.AtpMemberDTO;
 import com.atp.entity.base.AtpCourse;
@@ -19,6 +20,7 @@ import com.atp.exception.ATPException;
 import com.atp.service.member.AtpMemberService;
 import com.atp.util.CommonUtil;
 import com.atp.util.DoubleUtil;
+import com.atp.util.MD5Util;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections4.CollectionUtils;
@@ -183,7 +185,13 @@ public class AtpMemberServiceImpl implements AtpMemberService {
     public void addMem(AtpMemberDTO atpMemberDTO) throws ATPException {
         //1 校验
         validateForm(atpMemberDTO,GlobalConstants.SUBMIT_FORM_TYPE.ADD.getCode());
-
+        // 密码加密
+        String userPwd = atpMemberDTO.getCardPwd();
+        userPwd = MD5Util.encrypt(userPwd);
+        if(StringUtils.isBlank(userPwd)){
+            throw new ATPException("密码加密失败");
+        }
+        atpMemberDTO.setCardPwd(userPwd);
         //2 保存
         atpMemberDTO.setCreatedBy(GlobalConstants.SUPER_ADMIN_ID);
         atpMemberDTO.setCreatedName(GlobalConstants.SUPER_ADMIN_NAME);
@@ -196,7 +204,6 @@ public class AtpMemberServiceImpl implements AtpMemberService {
         Long [] courseIdArr = atpMemberDTO.getCourseIdArr();
         Long [] coachIdArr = atpMemberDTO.getCoachIdArr();
         Integer [] totalNumArr  = atpMemberDTO.getTotalNumArr();
-        BigDecimal[] courseAmountArr = atpMemberDTO.getCourseAmountArr();
         BigDecimal [] unitPriceArr = atpMemberDTO.getUnitPriceArr();
         BigDecimal [] discountAmountArr = atpMemberDTO.getDiscountAmountArr();
         if(ArrayUtils.isNotEmpty(courseIdArr)){
@@ -225,7 +232,7 @@ public class AtpMemberServiceImpl implements AtpMemberService {
                 atpMemCourse.setCreatedName(GlobalConstants.SUPER_ADMIN_NAME);
                 atpMemCourse.setCreatedTime(new Date());
                 atpMemCourseDao.save(atpMemCourse);
-                totalBuy = DoubleUtil.add(courseAmountArr[i].doubleValue(),totalBuy);
+                totalBuy = DoubleUtil.add(totalPrice,totalBuy);
             }
 
             // 更新最新的
@@ -310,5 +317,37 @@ public class AtpMemberServiceImpl implements AtpMemberService {
     @Override
     public List<AtpMember> getMemberList() throws ATPException {
         return atpMemberDao.getMemberList();
+    }
+
+    @Override
+    public BasePageResponse<AtpMemCourseDTO> queryMemCourseList(AtpMemCourseDTO memCourseDTO) throws ATPException {
+        Page<Object> page = PageHelper.startPage(memCourseDTO.getPage(), memCourseDTO.getPageSize(), StringUtils.isBlank(memCourseDTO.getOrderBy()) ? "":memCourseDTO.getOrderBy());
+        List<AtpMemCourseDTO> list = atpMemberDao.queryMemCourseList(memCourseDTO);
+        BasePageResponse<AtpMemCourseDTO> response = new BasePageResponse<AtpMemCourseDTO>();
+
+
+        if (list != null) {
+            response.setRows(list);
+            response.setTotal((int) page.getTotal());
+            response.setTotalPage(memCourseDTO.getPageSize());
+        }
+
+        return response;
+    }
+
+    @Override
+    public BasePageResponse<AtpMemCourseConsumeDTO> queryConsumeList(AtpMemCourseConsumeDTO consumeDTO) throws ATPException {
+        Page<Object> page = PageHelper.startPage(consumeDTO.getPage(), consumeDTO.getPageSize(), StringUtils.isBlank(consumeDTO.getOrderBy()) ? "":consumeDTO.getOrderBy());
+        List<AtpMemCourseConsumeDTO> list = atpMemberDao.queryConsumeList(consumeDTO);
+        BasePageResponse<AtpMemCourseConsumeDTO> response = new BasePageResponse<AtpMemCourseConsumeDTO>();
+
+
+        if (list != null) {
+            response.setRows(list);
+            response.setTotal((int) page.getTotal());
+            response.setTotalPage(consumeDTO.getPageSize());
+        }
+
+        return response;
     }
 }
