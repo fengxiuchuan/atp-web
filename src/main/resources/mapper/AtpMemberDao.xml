@@ -425,16 +425,16 @@
         unit_price
       FROM atp_mem_course
       <where>
-          <if test="orderNo != null">
+          <if test="orderNo != null and orderNo != ''">
              AND order_no LIKE CONCAT(#{orderNo},'%')
           </if>
-          <if test="cardNo != null">
+          <if test="cardNo != null and cardNo != ''">
               AND card_no LIKE CONCAT(#{cardNo},'%')
           </if>
-          <if test="memName != null">
+          <if test="memName != null and memName != ''">
               AND mem_name LIKE CONCAT(#{memName},'%')
           </if>
-          <if test="courseName != null">
+          <if test="courseName != null and courseName != ''">
               AND  course_name LIKE CONCAT(#{courseName},'%')
           </if>
           <if test="dateStart != null">
@@ -470,16 +470,16 @@
         mem_name
         FROM atp_mem_course_consume
         <where>
-            <if test="consumeNo != null">
+            <if test="consumeNo != null and consumeNo != ''">
                 AND consume_no LIKE CONCAT(#{consumeNo},'%')
             </if>
-            <if test="memCardNo != null">
+            <if test="memCardNo != null and memCardNo != ''">
                 AND mem_card_no LIKE CONCAT(#{memCardNo},'%')
             </if>
-            <if test="memName != null">
+            <if test="memName != null and memName != ''">
                 AND mem_name LIKE CONCAT(#{memName},'%')
             </if>
-            <if test="courseName != null">
+            <if test="courseName != null and courseName != ''">
                 AND  course_name LIKE CONCAT(#{courseName},'%')
             </if>
             <if test="dateStart != null">

@@ -1,25 +1,22 @@
 package com.atp.common;
 
+;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConfigurationProperties(prefix = "org.codingworld.test")
 public class TestProperties {
 
-    @Value("${org.codingworld.test.name}")
     private String name;
-    @Value("${org.codingworld.test.thing}")
     private String thing;
-    @Value("${org.codingworld.test.num}")
     private Integer num;
 
-    @Value("${org.codingworld.test.bignum}")
     private Long bigNum;
 
-    @Value("${org.codingworld.test.num2}")
     private Integer num2;
 
-    @Value("${org.codingworld.test.num3}")
     private Integer num3;
 
     public String getName() {
