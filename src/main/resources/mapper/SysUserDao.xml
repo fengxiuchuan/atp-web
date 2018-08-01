@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.atp.dao.sys.SysUserDao">
+
+    <resultMap id="SysUserMap" type="org.atp.dto.sys.SysUserDTO">
+        <result property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPwd" column="user_pwd"/>
+        <result property="enabled" column="enabled"/>
+        <result property="phone" column="phone"/>
+        <result property="faceImg" column="face_img"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    
+    <sql id="columns">
+        <![CDATA[
+        	id ,
+        	user_name ,
+        	user_pwd ,
+        	enabled ,
+        	phone ,
+        	face_img ,
+        	remark 
+        ]]>
+    </sql>
+    
+    <sql id="where">
+    	<where>
+           	<if test="@Ognl@isNotEmpty(id)">
+            	<![CDATA[ AND id = #{id} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(userName)">
+            	<![CDATA[ AND user_name = #{userName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(userPwd)">
+            	<![CDATA[ AND user_pwd = #{userPwd} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(enabled)">
+            	<![CDATA[ AND enabled = #{enabled} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(phone)">
+            	<![CDATA[ AND phone = #{phone} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(faceImg)">
+            	<![CDATA[ AND face_img = #{faceImg} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(remark)">
+            	<![CDATA[ AND remark = #{remark} ]]>
+            </if>
+        </where>
+    </sql>
+    
+
+    <select id="queryList" resultMap="SysUserMap">
+        SELECT
+            <include refid="columns" />
+        FROM
+            sys_user 
+        <include refid="where"/>
+    </select>
+        
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO sys_user (
+	        user_name,
+	        user_pwd,
+	        enabled,
+	        phone,
+	        face_img,
+	        remark
+	    ) VALUES (
+	        #{userName},
+	        #{userPwd},
+	        #{enabled},
+	        #{phone},
+	        #{faceImg},
+	        #{remark}
+	    )
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO sys_user (
+            user_name,
+            user_pwd,
+            enabled,
+            phone,
+            face_img,
+            remark
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                                #{item.userName},
+                #{item.userPwd},
+                #{item.enabled},
+                #{item.phone},
+                #{item.faceImg},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    <delete id="deleteBatchByIds">
+        DELETE 
+        FROM
+            sys_user
+        WHERE
+            id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+#{item}        </foreach>
+    </delete>
+
+
+
+    <update id="updateById">
+            UPDATE
+            sys_user
+            <set>
+                    <if test="userName != null">
+                        <![CDATA[ user_name = #{userName} ]]>,
+                     </if>
+                    <if test="userPwd != null">
+                        <![CDATA[ user_pwd = #{userPwd} ]]>,
+                     </if>
+                    <if test="enabled != null">
+                        <![CDATA[ enabled = #{enabled} ]]>,
+                     </if>
+                    <if test="phone != null">
+                        <![CDATA[ phone = #{phone} ]]>,
+                     </if>
+                    <if test="faceImg != null">
+                        <![CDATA[ face_img = #{faceImg} ]]>,
+                     </if>
+                    <if test="remark != null">
+                        <![CDATA[ remark = #{remark} ]]>
+                     </if>
+            </set>
+            <where>
+                id = #{id}
+        </where>
+        </update>
+</mapper>
+

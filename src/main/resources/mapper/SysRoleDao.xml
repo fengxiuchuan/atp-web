@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.atp.dao.sys.SysRoleDao">
+
+    <resultMap id="SysRoleMap" type="org.atp.dto.sys.SysRoleDTO">
+        <result property="id" column="id"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDesc" column="role_desc"/>
+    </resultMap>
+    
+    <sql id="columns">
+        <![CDATA[
+        	id ,
+        	role_code ,
+        	role_name ,
+        	role_desc 
+        ]]>
+    </sql>
+    
+    <sql id="where">
+    	<where>
+           	<if test="@Ognl@isNotEmpty(id)">
+            	<![CDATA[ AND id = #{id} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(roleCode)">
+            	<![CDATA[ AND role_code = #{roleCode} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(roleName)">
+            	<![CDATA[ AND role_name = #{roleName} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(roleDesc)">
+            	<![CDATA[ AND role_desc = #{roleDesc} ]]>
+            </if>
+        </where>
+    </sql>
+    
+
+    <select id="queryList" resultMap="SysRoleMap">
+        SELECT
+            <include refid="columns" />
+        FROM
+            sys_role 
+        <include refid="where"/>
+    </select>
+        
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO sys_role (
+	        role_code,
+	        role_name,
+	        role_desc
+	    ) VALUES (
+	        #{roleCode},
+	        #{roleName},
+	        #{roleDesc}
+	    )
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO sys_role (
+            role_code,
+            role_name,
+            role_desc
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                                #{item.roleCode},
+                #{item.roleName},
+                #{item.roleDesc}
+            )
+        </foreach>
+    </insert>
+    
+
+    <delete id="deleteBatchByIds">
+        DELETE 
+        FROM
+            sys_role
+        WHERE
+            id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+#{item}        </foreach>
+    </delete>
+
+
+
+    <update id="updateById">
+            UPDATE
+            sys_role
+            <set>
+                    <if test="roleCode != null">
+                        <![CDATA[ role_code = #{roleCode} ]]>,
+                     </if>
+                    <if test="roleName != null">
+                        <![CDATA[ role_name = #{roleName} ]]>,
+                     </if>
+                    <if test="roleDesc != null">
+                        <![CDATA[ role_desc = #{roleDesc} ]]>
+                     </if>
+            </set>
+            <where>
+                id = #{id}
+        </where>
+        </update>
+</mapper>
+

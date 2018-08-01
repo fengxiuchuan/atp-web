@@ -441,7 +441,7 @@
              <![CDATA[  AND  created_time >= #{dateStart} ]]>
           </if>
           <if test="dateEnd != null">
-              <![CDATA[  AND  created_time < = #{dateEnd} ]]>
+              <![CDATA[  AND  created_time <= #{dateEnd} ]]>
           </if>
       </where>
     </select>
@@ -486,7 +486,7 @@
                 <![CDATA[  AND  consume_time >= #{dateStart} ]]>
             </if>
             <if test="dateEnd != null">
-                <![CDATA[  AND  consume_time < = #{dateEnd} ]]>
+                <![CDATA[  AND  consume_time <= #{dateEnd} ]]>
             </if>
         </where>
     </select>

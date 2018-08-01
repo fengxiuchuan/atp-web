@@ -109,4 +109,11 @@ public class AtpMemberController extends BaseController {
     public ResultMessage queryConsumeList(AtpMemCourseConsumeDTO consumeDTO) throws ATPException {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.queryConsumeList(consumeDTO),true);
     }
+
+    @PostMapping(value = "/testJson.do")
+    public void testJson(String json) throws ATPException {
+       logger.info("--------------开始提交---------------");
+       logger.info("json");
+       logger.info("--------------开始提交---------------");
+    }
 }
