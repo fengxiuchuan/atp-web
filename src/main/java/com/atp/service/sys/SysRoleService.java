@@ -1,5 +1,6 @@
 package com.atp.service.sys;
 
+import com.atp.dto.base.response.BasePageResponse;
 import com.atp.dto.sys.SysRoleDTO;
 import com.atp.entity.sys.SysRole;
 import com.atp.exception.ATPException;
@@ -83,4 +84,45 @@ public interface SysRoleService {
      * @date: 2018-08-01 17:57:46
      */
     int deleteBatchByIds(List<Long> ids)throws ATPException;
+
+    /**
+     *
+     * 根据提交查询角色列表
+     *
+     * @param: 
+     * @return: 
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:48
+     */
+    BasePageResponse<SysRoleDTO> queryAllList(SysRoleDTO roleDTO)throws ATPException;
+    /**
+     *
+     * 新增角色
+     *
+     * @param:sysRole
+     * @return:void
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:48
+     */
+    void addRole(SysRole sysRole)throws ATPException;
+    /**
+     *
+     * 编辑角色
+     *
+     * @param:sysRole
+     * @return:void
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:48
+     */
+    void editRole(SysRole sysRole)throws ATPException;
+    /**
+     *
+     * 根据主键删除角色
+     *
+     * @param:id 主键
+     * @return:void
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:48
+     */
+    void delRole(Long id)throws ATPException;
 }

@@ -1,9 +1,15 @@
 package com.atp.service.impl.sys;
 
 import java.util.List;
+import java.util.Objects;
 
+import com.atp.dto.base.response.BasePageResponse;
+import com.atp.dto.member.AtpMemCourseDTO;
 import com.atp.exception.ATPException;
-import org.springframework.util.CollectionUtils;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,5 +88,60 @@ public class SysRoleServiceImpl implements SysRoleService {
             return 0;
         }
         return sysRoleDao.deleteBatchByIds(ids);
+    }
+
+    @Override
+    public BasePageResponse<SysRoleDTO> queryAllList(SysRoleDTO roleDTO) throws ATPException {
+        Page<Object> page = PageHelper.startPage(roleDTO.getPage(), roleDTO.getPageSize(), StringUtils.isBlank(roleDTO.getOrderBy()) ? "":roleDTO.getOrderBy());
+        List<SysRoleDTO> list = sysRoleDao.queryAllList(roleDTO);
+        BasePageResponse<SysRoleDTO> response = new BasePageResponse<SysRoleDTO>();
+
+
+        if (list != null) {
+            response.setRows(list);
+            response.setTotal((int) page.getTotal());
+            response.setTotalPage(roleDTO.getPageSize());
+        }
+
+        return response;
+    }
+
+    @Override
+    public void addRole(SysRole sysRole) throws ATPException {
+        //1 校验
+        validateAddForm(sysRole);
+        //2 保存
+        sysRoleDao.save(sysRole);
+    }
+
+
+    private void validateAddForm(SysRole sysRole) throws ATPException{
+        if(Objects.isNull(sysRole)){
+            throw new ATPException("请求参数不合法");
+        }
+        if(StringUtils.isBlank(sysRole.getRoleCode()) || StringUtils.isBlank(sysRole.getRoleName())){
+            throw new ATPException("请填写角色编号和名称");
+        }
+
+        //唯一性校验
+        List<SysRoleDTO> roleList = sysRoleDao.queryRoleListByCode(sysRole.getRoleCode(),sysRole.getId());
+        if(CollectionUtils.isNotEmpty(roleList)){
+            throw new ATPException("角色编码是唯一的");
+        }
+    }
+    @Override
+    public void editRole(SysRole sysRole) throws ATPException {
+        //1 校验
+        validateAddForm(sysRole);
+        //2 更新
+        sysRoleDao.updateByPrimaryKeySelective(sysRole);
+    }
+
+    @Override
+    public void delRole(Long id) throws ATPException {
+        if(Objects.isNull(id)){
+            throw new ATPException("非法的请求");
+        }
+        sysRoleDao.deleteByPrimaryKey(id);
     }
 }

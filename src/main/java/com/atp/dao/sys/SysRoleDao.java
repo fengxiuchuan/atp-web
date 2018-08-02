@@ -68,4 +68,26 @@ public interface SysRoleDao extends MyMapper<SysRole> {
      * @date: 2018-08-01 17:57:46
      */
     int updateById(SysRoleDTO dto);
+
+    /**
+     *
+     * 查询所有角色列表
+     *
+     * @param:
+     * @return: 
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 14:58
+     */
+    List<SysRoleDTO> queryAllList(SysRoleDTO roleDTO);
+
+    /**
+     *
+     * 根据角色编码查询角色记录
+     *
+     * @param:
+     * @return: 
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 14:58
+     */
+    List<SysRoleDTO> queryRoleListByCode(String roleCode, Long id);
 }

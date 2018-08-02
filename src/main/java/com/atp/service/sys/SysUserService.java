@@ -2,6 +2,7 @@ package com.atp.service.sys;
 
 import java.util.List;
 
+import com.atp.dto.base.response.BasePageResponse;
 import com.atp.entity.sys.SysUser;
 import com.atp.dto.sys.SysUserDTO;
 import com.atp.exception.ATPException;
@@ -82,4 +83,46 @@ public interface SysUserService {
      * @date: 2018-08-01 17:57:47
      */
     int deleteBatchByIds(List<Long> ids)throws ATPException;
+
+    /**
+     *
+     * 根据条件查询用户列表
+     *
+     * @param:
+     * @return: 
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:42
+     */
+    BasePageResponse<SysUserDTO> queryAllList(SysUserDTO userDTO)throws ATPException;
+    /**
+     *
+     * 新增用户
+     *
+     * @param:
+     * @return:
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:42
+     */
+    void addUser(SysUser sysUser)throws ATPException;
+    /**
+     *
+     * 编辑用户
+     *
+     * @param:
+     * @return:
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:42
+     */
+    void editUser(SysUser sysUser)throws ATPException;
+
+    /**
+     *
+     * 根据主键删除用户
+     *
+     * @param:
+     * @return:
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:42
+     */
+    void delUser(Long id)throws ATPException;
 }

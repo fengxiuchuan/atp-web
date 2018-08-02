@@ -68,4 +68,10 @@ public interface SysUserDao extends MyMapper<SysUser> {
      * @date: 2018-08-01 17:57:47
      */
     int updateById(SysUserDTO dto);
+
+    List<SysUserDTO> queryAllList(SysUserDTO userDTO);
+
+    List<SysUser> authUserByUserName(String userName, Long id);
+
+    List<SysUser> authUserByUserPhone(String phone, Long id);
 }

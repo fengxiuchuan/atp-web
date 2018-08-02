@@ -104,5 +104,34 @@
                 id = #{id}
         </where>
         </update>
+
+    <select id="queryAllList" resultMap="SysRoleMap">
+        SELECT
+        <include refid="columns" />
+        FROM  sys_role
+        <where>
+            1 = 1
+            <if test="roleCode != null and roleCode != '' ">
+                <![CDATA[ AND role_code LIKE CONCAT(#{roleCode},'%') ]]>
+            </if>
+            <if test="roleName != null and roleName != ''">
+                <![CDATA[ AND role_name LIKE CONCAT(#{roleName},'%') ]]>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="queryRoleListByCode" resultMap="SysRoleMap">
+        SELECT
+        <include refid="columns" />
+        FROM  sys_role
+        <where>
+                 role_code = #{roleCode}
+            <if test="id != null ">
+                <![CDATA[ AND id <> #{id} ]]>
+            </if>
+        </where>
+
+    </select>
 </mapper>
 

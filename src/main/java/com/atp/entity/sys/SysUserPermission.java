@@ -1,5 +1,10 @@
 package com.atp.entity.sys;
 
+import com.atp.dto.base.request.BasePageRequest;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -7,11 +12,13 @@ import java.io.Serializable;
  * @author: fengxiuchuan
  * @date: 2018-08-01 17:57:47
  */
-public class SysUserPermission  implements Serializable {
+public class SysUserPermission  extends BasePageRequest implements Serializable {
 
     /**
      * 主键 
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 用户主键 
