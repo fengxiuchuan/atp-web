@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.atp.dao.sys.SysUserRoleDao">
+<mapper namespace="com.atp.dao.sys.SysUserRoleDao">
 
-    <resultMap id="SysUserRoleMap" type="org.atp.dto.sys.SysUserRoleDTO">
+    <resultMap id="SysUserRoleMap" type="com.atp.dto.sys.SysUserRoleDTO">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="roleCode" column="role_code"/>

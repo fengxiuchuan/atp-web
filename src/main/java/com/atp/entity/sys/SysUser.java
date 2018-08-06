@@ -44,6 +44,10 @@ public class SysUser  extends BasePageRequest implements Serializable {
      * 备注 
      */
     private String remark;
+    /**
+     * 用户姓名
+     */
+    private String displayName;
 
     public void setId(Long id) {
         this.id = id;
@@ -93,6 +97,14 @@ public class SysUser  extends BasePageRequest implements Serializable {
 
     public String getRemark() {
         return this.remark;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.atp.dao.sys.SysUserDao">
+<mapper namespace="com.atp.dao.sys.SysUserDao">
 
-    <resultMap id="SysUserMap" type="org.atp.dto.sys.SysUserDTO">
+    <resultMap id="SysUserMap" type="com.atp.dto.sys.SysUserDTO">
         <result property="id" column="id"/>
         <result property="userName" column="user_name"/>
         <result property="userPwd" column="user_pwd"/>
@@ -11,6 +11,7 @@
         <result property="phone" column="phone"/>
         <result property="faceImg" column="face_img"/>
         <result property="remark" column="remark"/>
+        <result property="displayName" column="display_name"/>
     </resultMap>
     
     <sql id="columns">
@@ -21,7 +22,8 @@
         	enabled ,
         	phone ,
         	face_img ,
-        	remark 
+        	remark ,
+        	display_name
         ]]>
     </sql>
     
@@ -48,6 +50,9 @@
            	<if test="@Ognl@isNotEmpty(remark)">
             	<![CDATA[ AND remark = #{remark} ]]>
             </if>
+            <if test="@Ognl@isNotEmpty(displayName)">
+                <![CDATA[ AND display_name = #{displayName}]]>
+            </if>
         </where>
     </sql>
     
@@ -68,14 +73,16 @@
 	        enabled,
 	        phone,
 	        face_img,
-	        remark
+	        remark,
+	        display_name
 	    ) VALUES (
 	        #{userName},
 	        #{userPwd},
 	        #{enabled},
 	        #{phone},
 	        #{faceImg},
-	        #{remark}
+	        #{remark},
+	        #{displayName}
 	    )
     </insert>
 
@@ -86,7 +93,8 @@
             enabled,
             phone,
             face_img,
-            remark
+            remark,
+        display_name
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
@@ -95,7 +103,8 @@
                 #{item.enabled},
                 #{item.phone},
                 #{item.faceImg},
-                #{item.remark}
+                #{item.remark},
+                #{item.displayName}
             )
         </foreach>
     </insert>
@@ -135,6 +144,9 @@
                     <if test="remark != null">
                         <![CDATA[ remark = #{remark} ]]>
                      </if>
+                    <if test="displayName != null">
+                        <![CDATA[ display_name = #{displayName}]]>
+                    </if>
             </set>
             <where>
                 id = #{id}

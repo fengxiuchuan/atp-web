@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.atp.dao.sys.SysUserPermissionDao">
+<mapper namespace="com.atp.dao.sys.SysUserPermissionDao">
 
-    <resultMap id="SysUserPermissionMap" type="org.atp.dto.sys.SysUserPermissionDTO">
+    <resultMap id="SysUserPermissionMap" type="com.atp.dto.sys.SysUserPermissionDTO">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="menuId" column="menu_id"/>
