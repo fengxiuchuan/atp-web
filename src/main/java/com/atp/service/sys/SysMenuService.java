@@ -82,4 +82,12 @@ public interface SysMenuService {
      * @date: 2018-08-01 17:57:45
      */
     int deleteBatchByIds(List<Long> ids)throws ATPException;
+
+    List<SysMenuDTO> queryMenuTree(SysMenuDTO menuDTO)throws ATPException;
+
+    void addMenu(SysMenu sysMenu)throws ATPException;
+
+    void delMenu(SysMenu sysMenu)throws ATPException;
+
+    void editMenu(SysMenu sysMenu)throws ATPException ;
 }

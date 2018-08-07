@@ -69,4 +69,6 @@ public interface SysMenuDao extends MyMapper<SysMenu> {
      * @date: 2018-08-01 17:57:45
      */
     int updateById(SysMenuDTO dto);
+
+    List<SysMenuDTO> queryMenuTree(SysMenuDTO menuDTO);
 }

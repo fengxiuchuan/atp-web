@@ -1,9 +1,12 @@
 package com.atp.service.impl.sys;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.atp.exception.ATPException;
-import org.springframework.util.CollectionUtils;
+import com.atp.util.TreeUtil;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +14,7 @@ import com.atp.entity.sys.SysMenu;
 import com.atp.dto.sys.SysMenuDTO;
 import com.atp.service.sys.SysMenuService;
 import com.atp.dao.sys.SysMenuDao;
+
 /**
  * @Description: SysMenuService 实现类
  * @author: fengxiuchuan
@@ -82,5 +86,37 @@ public class SysMenuServiceImpl implements SysMenuService {
             return 0;
         }
         return sysMenuDao.deleteBatchByIds(ids);
+    }
+
+    @Override
+    public List<SysMenuDTO> queryMenuTree(SysMenuDTO menuDTO) throws ATPException {
+        List<SysMenuDTO> menuList = sysMenuDao.queryMenuTree(menuDTO);
+        menuList = TreeUtil.getTreeList(0L,menuList);
+        return menuList;
+    }
+
+    @Override
+    public void addMenu(SysMenu sysMenu) throws ATPException {
+        validateForm(sysMenu);
+    }
+
+    private void validateForm(SysMenu sysMenu) throws ATPException{
+        if(Objects.isNull(sysMenu)){
+            throw new IllegalArgumentException("非法的请求参数");
+        }
+        if(StringUtils.isEmpty(sysMenu.getName())){
+            throw new ATPException("请填写资源名称");
+        }
+        if(StringUtils.isEmpty(sysMenu.getUrl()))
+    }
+
+    @Override
+    public void delMenu(SysMenu sysMenu) throws ATPException{
+
+    }
+
+    @Override
+    public void editMenu(SysMenu sysMenu) throws ATPException{
+
     }
 }

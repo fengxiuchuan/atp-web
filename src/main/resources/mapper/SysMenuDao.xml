@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.atp.dao.sys.SysMenuDao">
 
-    <resultMap id="SysMenuMap" type="com.atp.dto.sys.SysMenuDTO">
+<mapper namespace="org.atp.dao.sys.SysMenuDao">
+
+    <resultMap id="SysMenuMap" type="org.atp.dto.sys.SysMenuDTO">
         <result property="id" column="id"/>
         <result property="url" column="url"/>
         <result property="path" column="path"/>
@@ -15,8 +16,13 @@
         <result property="parentId" column="parentId"/>
         <result property="enabled" column="enabled"/>
         <result property="menuType" column="menu_type"/>
+        <result property="level" column="level"/>
+        <result property="menuPath" column="menu_path"/>
+        <result property="sort" column="sort"/>
+
+        <result property="inEdit" column="inEdit"/>
     </resultMap>
-    
+
     <sql id="columns">
         <![CDATA[
         	id ,
@@ -29,164 +35,211 @@
         	requireAuth ,
         	parentId ,
         	enabled ,
-        	menu_type 
+        	menu_type ,
+        	level ,
+        	menu_path ,
+        	sort
         ]]>
     </sql>
-    
+
     <sql id="where">
-    	<where>
-           	<if test="@Ognl@isNotEmpty(id)">
-            	<![CDATA[ AND id = #{id} ]]>
+        <where>
+            <if test="@Ognl@isNotEmpty(id)">
+                <![CDATA[ AND id = #{id} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(url)">
-            	<![CDATA[ AND url = #{url} ]]>
+            <if test="@Ognl@isNotEmpty(url)">
+                <![CDATA[ AND url = #{url} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(path)">
-            	<![CDATA[ AND path = #{path} ]]>
+            <if test="@Ognl@isNotEmpty(path)">
+                <![CDATA[ AND path = #{path} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(component)">
-            	<![CDATA[ AND component = #{component} ]]>
+            <if test="@Ognl@isNotEmpty(component)">
+                <![CDATA[ AND component = #{component} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(name)">
-            	<![CDATA[ AND name = #{name} ]]>
+            <if test="@Ognl@isNotEmpty(name)">
+                <![CDATA[ AND name = #{name} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(iconCls)">
-            	<![CDATA[ AND iconCls = #{iconCls} ]]>
+            <if test="@Ognl@isNotEmpty(iconCls)">
+                <![CDATA[ AND iconCls = #{iconCls} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(keepAlive)">
-            	<![CDATA[ AND keepAlive = #{keepAlive} ]]>
+            <if test="@Ognl@isNotEmpty(keepAlive)">
+                <![CDATA[ AND keepAlive = #{keepAlive} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(requireAuth)">
-            	<![CDATA[ AND requireAuth = #{requireAuth} ]]>
+            <if test="@Ognl@isNotEmpty(requireAuth)">
+                <![CDATA[ AND requireAuth = #{requireAuth} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(parentId)">
-            	<![CDATA[ AND parentId = #{parentId} ]]>
+            <if test="@Ognl@isNotEmpty(parentId)">
+                <![CDATA[ AND parentId = #{parentId} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(enabled)">
-            	<![CDATA[ AND enabled = #{enabled} ]]>
+            <if test="@Ognl@isNotEmpty(enabled)">
+                <![CDATA[ AND enabled = #{enabled} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(menuType)">
-            	<![CDATA[ AND menu_type = #{menuType} ]]>
+            <if test="@Ognl@isNotEmpty(menuType)">
+                <![CDATA[ AND menu_type = #{menuType} ]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(level)">
+                <![CDATA[ AND level = #{level} ]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(menuPath)">
+                <![CDATA[ AND menu_path = #{menuPath} ]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(sort)">
+                <![CDATA[ AND sort = #{sort} ]]>
             </if>
         </where>
     </sql>
-    
+
 
     <select id="queryList" resultMap="SysMenuMap">
         SELECT
-            <include refid="columns" />
+        <include refid="columns" />
         FROM
-            sys_menu 
+        sys_menu
         <include refid="where"/>
     </select>
-        
+
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
-	    INSERT INTO sys_menu (
-	        url,
-	        path,
-	        component,
-	        name,
-	        iconCls,
-	        keepAlive,
-	        requireAuth,
-	        parentId,
-	        enabled,
-	        menu_type
-	    ) VALUES (
-	        #{url},
-	        #{path},
-	        #{component},
-	        #{name},
-	        #{iconCls},
-	        #{keepAlive},
-	        #{requireAuth},
-	        #{parentId},
-	        #{enabled},
-	        #{menuType}
-	    )
+        INSERT INTO sys_menu (
+        url,
+        path,
+        component,
+        name,
+        iconCls,
+        keepAlive,
+        requireAuth,
+        parentId,
+        enabled,
+        menu_type,
+        level,
+        menu_path,
+        sort
+        ) VALUES (
+        #{url},
+        #{path},
+        #{component},
+        #{name},
+        #{iconCls},
+        #{keepAlive},
+        #{requireAuth},
+        #{parentId},
+        #{enabled},
+        #{menuType},
+        #{level},
+        #{menuPath},
+        #{sort}
+        )
     </insert>
 
     <insert id="saveBatch">
         INSERT INTO sys_menu (
-            url,
-            path,
-            component,
-            name,
-            iconCls,
-            keepAlive,
-            requireAuth,
-            parentId,
-            enabled,
-            menu_type
+        url,
+        path,
+        component,
+        name,
+        iconCls,
+        keepAlive,
+        requireAuth,
+        parentId,
+        enabled,
+        menu_type,
+        level,
+        menu_path,
+        sort
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
-                                #{item.url},
-                #{item.path},
-                #{item.component},
-                #{item.name},
-                #{item.iconCls},
-                #{item.keepAlive},
-                #{item.requireAuth},
-                #{item.parentId},
-                #{item.enabled},
-                #{item.menuType}
+            #{item.url},
+            #{item.path},
+            #{item.component},
+            #{item.name},
+            #{item.iconCls},
+            #{item.keepAlive},
+            #{item.requireAuth},
+            #{item.parentId},
+            #{item.enabled},
+            #{item.menuType},
+            #{item.level},
+            #{item.menuPath},
+            #{item.sort}
             )
         </foreach>
     </insert>
-    
+
 
     <delete id="deleteBatchByIds">
-        DELETE 
+        DELETE
         FROM
-            sys_menu
+        sys_menu
         WHERE
-            id IN
+        id IN
         <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-#{item}        </foreach>
+            #{item}        </foreach>
     </delete>
 
 
 
     <update id="updateById">
-            UPDATE
-            sys_menu
-            <set>
-                    <if test="url != null">
-                        <![CDATA[ url = #{url} ]]>,
-                     </if>
-                    <if test="path != null">
-                        <![CDATA[ path = #{path} ]]>,
-                     </if>
-                    <if test="component != null">
-                        <![CDATA[ component = #{component} ]]>,
-                     </if>
-                    <if test="name != null">
-                        <![CDATA[ name = #{name} ]]>,
-                     </if>
-                    <if test="iconCls != null">
-                        <![CDATA[ iconCls = #{iconCls} ]]>,
-                     </if>
-                    <if test="keepAlive != null">
-                        <![CDATA[ keepAlive = #{keepAlive} ]]>,
-                     </if>
-                    <if test="requireAuth != null">
-                        <![CDATA[ requireAuth = #{requireAuth} ]]>,
-                     </if>
-                    <if test="parentId != null">
-                        <![CDATA[ parentId = #{parentId} ]]>,
-                     </if>
-                    <if test="enabled != null">
-                        <![CDATA[ enabled = #{enabled} ]]>,
-                     </if>
-                    <if test="menuType != null">
-                        <![CDATA[ menu_type = #{menuType} ]]>
-                     </if>
-            </set>
-            <where>
-                id = #{id}
+        UPDATE
+        sys_menu
+        <set>
+            <if test="url != null">
+                <![CDATA[ url = #{url} ]]>,
+            </if>
+            <if test="path != null">
+                <![CDATA[ path = #{path} ]]>,
+            </if>
+            <if test="component != null">
+                <![CDATA[ component = #{component} ]]>,
+            </if>
+            <if test="name != null">
+                <![CDATA[ name = #{name} ]]>,
+            </if>
+            <if test="iconCls != null">
+                <![CDATA[ iconCls = #{iconCls} ]]>,
+            </if>
+            <if test="keepAlive != null">
+                <![CDATA[ keepAlive = #{keepAlive} ]]>,
+            </if>
+            <if test="requireAuth != null">
+                <![CDATA[ requireAuth = #{requireAuth} ]]>,
+            </if>
+            <if test="parentId != null">
+                <![CDATA[ parentId = #{parentId} ]]>,
+            </if>
+            <if test="enabled != null">
+                <![CDATA[ enabled = #{enabled} ]]>,
+            </if>
+            <if test="menuType != null">
+                <![CDATA[ menu_type = #{menuType} ]]>,
+            </if>
+            <if test="level != null">
+                <![CDATA[ level = #{level} ]]>,
+            </if>
+            <if test="menuPath != null">
+                <![CDATA[ menu_path = #{menuPath} ]]>,
+            </if>
+            <if test="sort != null">
+                <![CDATA[ sort = #{sort} ]]>
+            </if>
+        </set>
+        <where>
+            id = #{id}
         </where>
-        </update>
+    </update>
+    
+    
+    <select id="queryMenuTree" resultMap="queryMenuTree">
+        SELECT <include refid="columns" />
+        FROM  sys_menu
+        <where>
+             1 = 1
+            <if test="name != null and name != ''">
+                AND name like CONCAT(#{NAME },'%)
+            </if>
+        </where>
+    </select>
 </mapper>
+
+
 

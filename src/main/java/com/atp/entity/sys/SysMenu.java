@@ -19,7 +19,7 @@ public class SysMenu extends BasePageRequest implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     /**
      * url 
      */
@@ -51,7 +51,7 @@ public class SysMenu extends BasePageRequest implements Serializable {
     /**
      * 父级ID 
      */
-    private Integer parentId;
+    private Long parentId;
     /**
      * enabled 
      */
@@ -61,13 +61,7 @@ public class SysMenu extends BasePageRequest implements Serializable {
      */
     private String menuType;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public Integer getId() {
-        return this.id;
-    }
     public void setUrl(String url) {
         this.url = url;
     }
@@ -117,13 +111,6 @@ public class SysMenu extends BasePageRequest implements Serializable {
     public Boolean getRequireAuth() {
         return this.requireAuth;
     }
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public Integer getParentId() {
-        return this.parentId;
-    }
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
@@ -139,14 +126,21 @@ public class SysMenu extends BasePageRequest implements Serializable {
         return this.menuType;
     }
 
-    private SysMenu sysMenu;
 
-    public void setSysMenu(SysMenu sysMenu){
-        this.sysMenu = sysMenu;
+    public Long getId() {
+        return id;
     }
 
-    public SysMenu getSysMenu() {
-        return sysMenu;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }
 
