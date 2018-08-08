@@ -97,7 +97,23 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void addMenu(SysMenu sysMenu) throws ATPException {
+        // 1 校验
         validateForm(sysMenu);
+        // 2 保存
+        this.sysMenuDao.save(sysMenu);
+
+        Long id = sysMenu.getId();
+        Long parentId = sysMenu.getParentId();
+        SysMenu tempSysMenu = new SysMenu();
+        tempSysMenu.setId(id);
+        if(Objects.isNull(parentId) || Objects.equals(-1,parentId)){
+            tempSysMenu.setLevel(1);
+        }else{
+            SysMenu parentMenu =  sysMenuDao.selectByPrimaryKey(parentId);
+            tempSysMenu.setLevel(parentMenu.getLevel()+1);
+            tempSysMenu.setMenuPath(parentMenu.getPath()+","+id+",");
+        }
+        sysMenuDao.updateByPrimaryKeySelective(tempSysMenu);
     }
 
     private void validateForm(SysMenu sysMenu) throws ATPException{
@@ -107,16 +123,44 @@ public class SysMenuServiceImpl implements SysMenuService {
         if(StringUtils.isEmpty(sysMenu.getName())){
             throw new ATPException("请填写资源名称");
         }
-        if(StringUtils.isEmpty(sysMenu.getUrl()))
+        if(Objects.isNull(sysMenu.getSort())){
+            throw new ATPException("请填写排序号");
+        }
+        if(Objects.isNull(sysMenu.getEnabled())){
+            throw new ATPException("请选择状态");
+        }
+        if(StringUtils.isBlank(sysMenu.getMenuType())){
+            throw new ATPException("请选择资源类型");
+        }
+        if(StringUtils.isNotBlank(sysMenu.getMenuType()) && Objects.equals("menu",sysMenu.getMenuType()) ){
+            if(StringUtils.isEmpty(sysMenu.getComponent())){
+                throw new ATPException("请填写组件名称");
+            }
+        }
     }
 
     @Override
-    public void delMenu(SysMenu sysMenu) throws ATPException{
-
+    public void delMenu(Long id) throws ATPException{
+        this.sysMenuDao.deleteByPrimaryKey(id);
     }
 
     @Override
     public void editMenu(SysMenu sysMenu) throws ATPException{
-
+        // 1 校验
+        validateForm(sysMenu);
+        // 2 保存
+        this.sysMenuDao.updateByPrimaryKeySelective(sysMenu);
+        Long id = sysMenu.getId();
+        Long parentId = sysMenu.getParentId();
+        SysMenu tempSysMenu = new SysMenu();
+        tempSysMenu.setId(id);
+        if(Objects.isNull(parentId)|| Objects.equals(-1,parentId)){
+            tempSysMenu.setLevel(1);
+        }else{
+            SysMenu parentMenu =  sysMenuDao.selectByPrimaryKey(parentId);
+            tempSysMenu.setLevel(parentMenu.getLevel()+1);
+            tempSysMenu.setMenuPath(parentMenu.getPath()+","+id+",");
+        }
+        sysMenuDao.updateByPrimaryKeySelective(tempSysMenu);
     }
 }

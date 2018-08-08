@@ -41,13 +41,13 @@ public class SysMenuController extends BaseController {
     @PostMapping(value = "/addMenu.do")
     public ResultMessage addMenu(SysMenu sysMenu) throws ATPException{
         sysMenuService.addMenu(sysMenu);
-        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",);
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功");
     }
     //3 删除资源节点
     @DeleteMapping(value = "/delMenu.do")
-    public ResultMessage delMenu(SysMenu sysMenu) throws ATPException{
-        sysMenuService.delMenu(sysMenu);
-        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"删除成功",);
+    public ResultMessage delMenu(Long id) throws ATPException{
+        sysMenuService.delMenu(id);
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"删除成功");
     }
     //4 更新资源节点
     @DeleteMapping(value = "/editMenu.do")

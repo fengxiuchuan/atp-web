@@ -60,7 +60,18 @@ public class SysMenu extends BasePageRequest implements Serializable {
      * 资源类型(menu:菜单;btn:按钮) 
      */
     private String menuType;
-
+    /**
+     * 资源树级别
+     */
+    private Integer level;
+    /**
+     * 资源全路径
+     */
+    private String menuPath;
+    /**
+     * 排序
+     */
+    private Integer sort;
 
     public void setUrl(String url) {
         this.url = url;
@@ -141,6 +152,30 @@ public class SysMenu extends BasePageRequest implements Serializable {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public String getMenuPath() {
+        return menuPath;
+    }
+
+    public void setMenuPath(String menuPath) {
+        this.menuPath = menuPath;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }
 

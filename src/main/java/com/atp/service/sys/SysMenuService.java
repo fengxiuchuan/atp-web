@@ -87,7 +87,7 @@ public interface SysMenuService {
 
     void addMenu(SysMenu sysMenu)throws ATPException;
 
-    void delMenu(SysMenu sysMenu)throws ATPException;
+    void delMenu(Long id)throws ATPException;
 
     void editMenu(SysMenu sysMenu)throws ATPException ;
 }

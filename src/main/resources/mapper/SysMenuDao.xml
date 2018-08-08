@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="org.atp.dao.sys.SysMenuDao">
+<mapper namespace="com.atp.dao.sys.SysMenuDao">
 
-    <resultMap id="SysMenuMap" type="org.atp.dto.sys.SysMenuDTO">
+    <resultMap id="SysMenuMap" type="com.atp.dto.sys.SysMenuDTO">
         <result property="id" column="id"/>
         <result property="url" column="url"/>
         <result property="path" column="path"/>
@@ -229,7 +229,7 @@
     </update>
     
     
-    <select id="queryMenuTree" resultMap="queryMenuTree">
+    <select id="queryMenuTree" resultMap="SysMenuMap">
         SELECT <include refid="columns" />
         FROM  sys_menu
         <where>
