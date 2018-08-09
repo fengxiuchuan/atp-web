@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.atp.dao.sys.SysUserPermissionDao">
+<mapper namespace="com.atp.dao.sys.SysRoleMenuDao">
 
-    <resultMap id="SysUserPermissionMap" type="com.atp.dto.sys.SysUserPermissionDTO">
+    <resultMap id="SysRoleMenuMap" type="com.atp.dto.sys.SysRoleMenuDTO">
         <result property="id" column="id"/>
-        <result property="userId" column="user_id"/>
+        <result property="roleCode" column="role_code"/>
         <result property="menuId" column="menu_id"/>
     </resultMap>
     
     <sql id="columns">
         <![CDATA[
         	id ,
-        	user_id ,
+        	role_code ,
         	menu_id 
         ]]>
     </sql>
@@ -22,8 +22,8 @@
            	<if test="@Ognl@isNotEmpty(id)">
             	<![CDATA[ AND id = #{id} ]]>
             </if>
-           	<if test="@Ognl@isNotEmpty(userId)">
-            	<![CDATA[ AND user_id = #{userId} ]]>
+           	<if test="@Ognl@isNotEmpty(roleCode)">
+            	<![CDATA[ AND role_code = #{roleCode} ]]>
             </if>
            	<if test="@Ognl@isNotEmpty(menuId)">
             	<![CDATA[ AND menu_id = #{menuId} ]]>
@@ -32,33 +32,33 @@
     </sql>
     
 
-    <select id="queryList" resultMap="SysUserPermissionMap">
+    <select id="queryList" resultMap="SysRoleMenuMap">
         SELECT
             <include refid="columns" />
         FROM
-            sys_user_permission 
+            sys_role_menu 
         <include refid="where"/>
     </select>
         
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
-	    INSERT INTO sys_user_permission (
-	        user_id,
+	    INSERT INTO sys_role_menu (
+	        role_code,
 	        menu_id
 	    ) VALUES (
-	        #{userId},
+	        #{roleCode},
 	        #{menuId}
 	    )
     </insert>
 
     <insert id="saveBatch">
-        INSERT INTO sys_user_permission (
-            user_id,
+        INSERT INTO sys_role_menu (
+            role_code,
             menu_id
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
-                                #{item.userId},
+                                #{item.roleCode},
                 #{item.menuId}
             )
         </foreach>
@@ -68,7 +68,7 @@
     <delete id="deleteBatchByIds">
         DELETE 
         FROM
-            sys_user_permission
+            sys_role_menu
         WHERE
             id IN
         <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
@@ -79,10 +79,10 @@
 
     <update id="updateById">
             UPDATE
-            sys_user_permission
+            sys_role_menu
             <set>
-                    <if test="userId != null">
-                        <![CDATA[ user_id = #{userId} ]]>,
+                    <if test="roleCode != null">
+                        <![CDATA[ role_code = #{roleCode} ]]>,
                      </if>
                     <if test="menuId != null">
                         <![CDATA[ menu_id = #{menuId} ]]>
@@ -92,5 +92,12 @@
                 id = #{id}
         </where>
         </update>
+    
+    <delete id="deleteByRoleCode">
+          DELETE
+        FROM
+            sys_role_menu
+        WHERE role_code = #{roleCode}
+    </delete>
 </mapper>
 

@@ -59,4 +59,9 @@ public class SysRoleController extends BaseController {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"删除成功");
     }
 
+    //5 根据Id查询详情
+    @PostMapping(value = "/getRoleDetail.json")
+    public ResultMessage getRoleDetail(Long id) throws ATPException{
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",sysRoleService.getRoleDetail(id),true);
+    }
 }

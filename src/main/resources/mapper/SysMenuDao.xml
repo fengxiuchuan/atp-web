@@ -10,11 +10,11 @@
         <result property="path" column="path"/>
         <result property="component" column="component"/>
         <result property="name" column="name"/>
-        <result property="iconCls" column="iconCls"/>
-        <result property="keepAlive" column="keepAlive"/>
-        <result property="requireAuth" column="requireAuth"/>
-        <result property="parentId" column="parentId"/>
-        <result property="enabled" column="enabled"/>
+        <result property="iconCls" column="icon_cls"/>
+        <result property="keepAlive" column="keep_alive"/>
+        <result property="requireAuth" column="require_auth"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="state" column="state"/>
         <result property="menuType" column="menu_type"/>
         <result property="level" column="level"/>
         <result property="menuPath" column="menu_path"/>
@@ -30,11 +30,11 @@
         	path ,
         	component ,
         	name ,
-        	iconCls ,
-        	keepAlive ,
-        	requireAuth ,
-        	parentId ,
-        	enabled ,
+        	icon_cls ,
+        	keep_alive ,
+        	require_auth ,
+        	parent_id ,
+        	state ,
         	menu_type ,
         	level ,
         	menu_path ,
@@ -60,19 +60,19 @@
                 <![CDATA[ AND name = #{name} ]]>
             </if>
             <if test="@Ognl@isNotEmpty(iconCls)">
-                <![CDATA[ AND iconCls = #{iconCls} ]]>
+                <![CDATA[ AND icon_cls = #{iconCls} ]]>
             </if>
             <if test="@Ognl@isNotEmpty(keepAlive)">
-                <![CDATA[ AND keepAlive = #{keepAlive} ]]>
+                <![CDATA[ AND keep_alive = #{keepAlive} ]]>
             </if>
             <if test="@Ognl@isNotEmpty(requireAuth)">
-                <![CDATA[ AND requireAuth = #{requireAuth} ]]>
+                <![CDATA[ AND require_auth = #{requireAuth} ]]>
             </if>
             <if test="@Ognl@isNotEmpty(parentId)">
-                <![CDATA[ AND parentId = #{parentId} ]]>
+                <![CDATA[ AND parent_id = #{parentId} ]]>
             </if>
-            <if test="@Ognl@isNotEmpty(enabled)">
-                <![CDATA[ AND enabled = #{enabled} ]]>
+            <if test="@Ognl@isNotEmpty(state)">
+                <![CDATA[ AND state = #{state} ]]>
             </if>
             <if test="@Ognl@isNotEmpty(menuType)">
                 <![CDATA[ AND menu_type = #{menuType} ]]>
@@ -105,11 +105,11 @@
         path,
         component,
         name,
-        iconCls,
-        keepAlive,
-        requireAuth,
-        parentId,
-        enabled,
+        icon_cls,
+        keep_alive,
+        require_auth,
+        parent_id,
+        state,
         menu_type,
         level,
         menu_path,
@@ -123,7 +123,7 @@
         #{keepAlive},
         #{requireAuth},
         #{parentId},
-        #{enabled},
+        #{state},
         #{menuType},
         #{level},
         #{menuPath},
@@ -137,11 +137,11 @@
         path,
         component,
         name,
-        iconCls,
-        keepAlive,
-        requireAuth,
-        parentId,
-        enabled,
+        icon_cls,
+        keep_alive,
+        require_auth,
+        parent_id,
+        state,
         menu_type,
         level,
         menu_path,
@@ -157,7 +157,7 @@
             #{item.keepAlive},
             #{item.requireAuth},
             #{item.parentId},
-            #{item.enabled},
+            #{item.state},
             #{item.menuType},
             #{item.level},
             #{item.menuPath},
@@ -196,19 +196,19 @@
                 <![CDATA[ name = #{name} ]]>,
             </if>
             <if test="iconCls != null">
-                <![CDATA[ iconCls = #{iconCls} ]]>,
+                <![CDATA[ icon_cls = #{iconCls} ]]>,
             </if>
             <if test="keepAlive != null">
-                <![CDATA[ keepAlive = #{keepAlive} ]]>,
+                <![CDATA[ keep_alive = #{keepAlive} ]]>,
             </if>
             <if test="requireAuth != null">
-                <![CDATA[ requireAuth = #{requireAuth} ]]>,
+                <![CDATA[ require_auth = #{requireAuth} ]]>,
             </if>
             <if test="parentId != null">
-                <![CDATA[ parentId = #{parentId} ]]>,
+                <![CDATA[ parent_id = #{parentId} ]]>,
             </if>
-            <if test="enabled != null">
-                <![CDATA[ enabled = #{enabled} ]]>,
+            <if test="state != null">
+                <![CDATA[ state = #{state} ]]>,
             </if>
             <if test="menuType != null">
                 <![CDATA[ menu_type = #{menuType} ]]>,
@@ -230,7 +230,21 @@
     
     
     <select id="queryMenuTree" resultMap="SysMenuMap">
-        SELECT <include refid="columns" />
+        SELECT id ,
+        url ,
+        path ,
+        component ,
+        name ,
+        icon_cls ,
+        keep_alive ,
+        require_auth ,
+        parent_id ,
+        state ,
+        menu_type ,
+        level ,
+        menu_path ,
+        sort,
+        0  AS inEdit
         FROM  sys_menu
         <where>
              1 = 1

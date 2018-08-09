@@ -90,4 +90,6 @@ public interface SysRoleDao extends MyMapper<SysRole> {
      * @date: 2018/8/2 14:58
      */
     List<SysRoleDTO> queryRoleListByCode(String roleCode, Long id);
+
+    List<Long> queryRoleMenuList(String roleCode);
 }

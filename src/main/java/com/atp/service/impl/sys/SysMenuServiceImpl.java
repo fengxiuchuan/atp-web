@@ -91,7 +91,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenuDTO> queryMenuTree(SysMenuDTO menuDTO) throws ATPException {
         List<SysMenuDTO> menuList = sysMenuDao.queryMenuTree(menuDTO);
-        menuList = TreeUtil.getTreeList(0L,menuList);
+        menuList = TreeUtil.getTreeList(-1L,menuList);
         return menuList;
     }
 
@@ -106,7 +106,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         Long parentId = sysMenu.getParentId();
         SysMenu tempSysMenu = new SysMenu();
         tempSysMenu.setId(id);
-        if(Objects.isNull(parentId) || Objects.equals(-1,parentId)){
+        if(Objects.isNull(parentId) || Objects.equals(-1L,parentId)){
             tempSysMenu.setLevel(1);
         }else{
             SysMenu parentMenu =  sysMenuDao.selectByPrimaryKey(parentId);
@@ -123,10 +123,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         if(StringUtils.isEmpty(sysMenu.getName())){
             throw new ATPException("请填写资源名称");
         }
-        if(Objects.isNull(sysMenu.getSort())){
-            throw new ATPException("请填写排序号");
-        }
-        if(Objects.isNull(sysMenu.getEnabled())){
+        if(Objects.isNull(sysMenu.getState())){
             throw new ATPException("请选择状态");
         }
         if(StringUtils.isBlank(sysMenu.getMenuType())){

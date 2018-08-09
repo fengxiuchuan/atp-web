@@ -125,4 +125,14 @@ public interface SysRoleService {
      * @date: 2018/8/2 12:48
      */
     void delRole(Long id)throws ATPException;
+    /**
+     *
+     * 根据主键查询详情
+     *
+     * @param:id 主键
+     * @return:void
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:48
+     */
+    SysRoleDTO getRoleDetail(Long id)throws ATPException;
 }

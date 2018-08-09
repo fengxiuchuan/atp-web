@@ -5,6 +5,7 @@ import com.atp.dto.base.request.BasePageRequest;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -33,6 +34,19 @@ public class SysRole  extends BasePageRequest implements Serializable {
      */
     private String roleDesc;
 
+    /**
+     * 请求参数：菜单ID
+     */
+    @Transient
+    private Long [] menuIdArr;
+
+    public Long[] getMenuIdArr() {
+        return menuIdArr;
+    }
+
+    public void setMenuIdArr(Long[] menuIdArr) {
+        this.menuIdArr = menuIdArr;
+    }
     public void setId(Long id) {
         this.id = id;
     }

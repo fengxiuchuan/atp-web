@@ -1,14 +1,20 @@
 package com.atp.service.impl.sys;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.atp.common.GlobalConstants;
+import com.atp.dao.sys.SysRoleMenuDao;
 import com.atp.dto.base.response.BasePageResponse;
 import com.atp.dto.member.AtpMemCourseDTO;
+import com.atp.dto.sys.SysMenuDTO;
+import com.atp.entity.sys.SysRoleMenu;
 import com.atp.exception.ATPException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +34,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleDao sysRoleDao;
+
+    @Autowired
+    private SysRoleMenuDao sysRoleMenuDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -112,8 +121,42 @@ public class SysRoleServiceImpl implements SysRoleService {
         validateAddForm(sysRole);
         //2 保存
         sysRoleDao.save(sysRole);
+        //3 保存角色权限列表
+        saveOrUpdateRoleMenu(sysRole,GlobalConstants.SUBMIT_FORM_TYPE.ADD.getCode());
     }
 
+    /**
+     *
+     * 保存角色菜单权限列表
+     *
+     * @param:
+     * @return: 
+     * @auther: fengxiuchuan
+     * @date: 2018/8/9 18:15
+     */
+    private void saveOrUpdateRoleMenu(SysRole sysRole,String type) throws ATPException{
+        String roleCode = sysRole.getRoleCode();
+        if(Objects.equals(GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode(),type)){
+            sysRoleMenuDao.deleteByRoleCode(roleCode);
+        }
+        if(ArrayUtils.isNotEmpty(sysRole.getMenuIdArr())){
+            List<SysRoleMenu> roleMenuList = new ArrayList<>();
+            for(Long menuId : sysRole.getMenuIdArr()){
+                if(Objects.isNull(menuId)){
+                    continue;
+                }
+                SysRoleMenu sysRoleMenu = new SysRoleMenu();
+                sysRoleMenu.setRoleCode(roleCode);
+                sysRoleMenu.setMenuId(menuId);
+
+                roleMenuList.add(sysRoleMenu);
+            }
+
+            if(CollectionUtils.isNotEmpty(roleMenuList)){
+                sysRoleMenuDao.saveBatch(roleMenuList);
+            }
+        }
+    }
 
     private void validateAddForm(SysRole sysRole) throws ATPException{
         if(Objects.isNull(sysRole)){
@@ -135,6 +178,8 @@ public class SysRoleServiceImpl implements SysRoleService {
         validateAddForm(sysRole);
         //2 更新
         sysRoleDao.updateByPrimaryKeySelective(sysRole);
+        //3 保存角色权限列表
+        saveOrUpdateRoleMenu(sysRole,GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode());
     }
 
     @Override
@@ -143,5 +188,18 @@ public class SysRoleServiceImpl implements SysRoleService {
             throw new ATPException("非法的请求");
         }
         sysRoleDao.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public SysRoleDTO getRoleDetail(Long id) throws ATPException {
+        if(Objects.isNull(id)){
+            throw new IllegalArgumentException("非法的请求参数");
+        }
+        SysRoleDTO sysRoleDTO = (SysRoleDTO) sysRoleDao.selectByPrimaryKey(id);
+        List<Long> menuIdList = sysRoleDao.queryRoleMenuList(sysRoleDTO.getRoleCode());
+        if(CollectionUtils.isNotEmpty(menuIdList)){
+            sysRoleDTO.setMenuIdList(menuIdList);
+        }
+        return sysRoleDTO;
     }
 }

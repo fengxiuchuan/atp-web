@@ -7,65 +7,65 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.atp.entity.sys.SysUserPermission;
-import com.atp.dto.sys.SysUserPermissionDTO;
-import com.atp.service.sys.SysUserPermissionService;
-import com.atp.dao.sys.SysUserPermissionDao;
+import com.atp.entity.sys.SysRoleMenu;
+import com.atp.dto.sys.SysRoleMenuDTO;
+import com.atp.service.sys.SysRoleMenuService;
+import com.atp.dao.sys.SysRoleMenuDao;
 /**
- * @Description: SysUserPermissionService 实现类
+ * @Description: SysRoleMenuService 实现类
  * @author: fengxiuchuan
- * @date: 2018-08-01 17:57:47
+ * @date: 2018-08-09 17:04:19
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SysUserPermissionServiceImpl implements SysUserPermissionService {
+public class SysRoleMenuServiceImpl implements SysRoleMenuService {
 
     @Autowired
-    private SysUserPermissionDao sysUserPermissionDao;
+    private SysRoleMenuDao sysRoleMenuDao;
 
     @Override
     @Transactional(readOnly = true)
-    public SysUserPermission getById(Long id) throws ATPException {
+    public SysRoleMenu getById(Long id) throws ATPException {
         if (id == null) {
             return null;
         }
-        return sysUserPermissionDao.selectByPrimaryKey(id);
+        return sysRoleMenuDao.selectByPrimaryKey(id);
     }
     
 
     @Override
     @Transactional(readOnly = true)
-    public List<SysUserPermission> queryList(SysUserPermissionDTO dto)  throws ATPException{
+    public List<SysRoleMenu> queryList(SysRoleMenuDTO dto)  throws ATPException{
         if (dto == null) {
             return null;
         }
-        return sysUserPermissionDao.queryList(dto);
+        return sysRoleMenuDao.queryList(dto);
     }
     
 
 
     @Override
-    public int save(SysUserPermission record)  throws ATPException{
+    public int save(SysRoleMenu record)  throws ATPException{
         if (record == null) {
             return 0;
         }
-        return sysUserPermissionDao.save(record);
+        return sysRoleMenuDao.save(record);
     }
 
     @Override
-    public int saveBatch(List<SysUserPermission> recordList)  throws ATPException{
+    public int saveBatch(List<SysRoleMenu> recordList)  throws ATPException{
         if (CollectionUtils.isEmpty(recordList)) {
             return 0;
         }
-        return sysUserPermissionDao.saveBatch(recordList);
+        return sysRoleMenuDao.saveBatch(recordList);
     }
 
     @Override
-    public int updateById(SysUserPermission record)  throws ATPException{
+    public int updateById(SysRoleMenu record)  throws ATPException{
         if (record == null) {
             return 0;
         }
-        return sysUserPermissionDao.updateByPrimaryKey(record);
+        return sysRoleMenuDao.updateByPrimaryKey(record);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class SysUserPermissionServiceImpl implements SysUserPermissionService {
         if (id == null) {
             return 0;
         }
-        return sysUserPermissionDao.deleteByPrimaryKey(id);
+        return sysRoleMenuDao.deleteByPrimaryKey(id);
     }
 
     @Override
@@ -81,6 +81,6 @@ public class SysUserPermissionServiceImpl implements SysUserPermissionService {
         if (CollectionUtils.isEmpty(ids)) {
             return 0;
         }
-        return sysUserPermissionDao.deleteBatchByIds(ids);
+        return sysRoleMenuDao.deleteBatchByIds(ids);
     }
 }

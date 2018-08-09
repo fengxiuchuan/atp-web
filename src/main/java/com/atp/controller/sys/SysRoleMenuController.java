@@ -12,25 +12,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.atp.entity.sys.SysUserPermission;
-import com.atp.dto.sys.SysUserPermissionDTO;
-import com.atp.service.sys. SysUserPermissionService;
+import com.atp.entity.sys.SysRoleMenu;
+import com.atp.dto.sys.SysRoleMenuDTO;
+import com.atp.service.sys. SysRoleMenuService;
 import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * @Description: SysUserPermissioncontroller
+ * @Description: SysRoleMenucontroller
  * @author: fengxiuchuan
- * @date: 2018-08-01 17:57:47
+ * @date: 2018-08-09 17:04:19
  */
 @RestController
-@RequestMapping("/sysUserPermission")
-public class SysUserPermissionController extends BaseController {
+@RequestMapping("/sysRoleMenu")
+public class SysRoleMenuController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
-    private SysUserPermissionService sysUserPermissionService;
+    private SysRoleMenuService sysRoleMenuService;
 
 
 

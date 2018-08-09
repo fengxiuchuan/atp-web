@@ -1,6 +1,8 @@
 package com.atp.dto.sys;
 
 import java.io.Serializable;
+import java.util.List;
+
 import  com.atp.entity.sys.SysRole;
 
 /**
@@ -9,6 +11,21 @@ import  com.atp.entity.sys.SysRole;
  * @date: 2018-08-01 17:57:46
  */
 public class SysRoleDTO extends SysRole implements Serializable {
+
+    /**
+     *  选中的菜单
+     */
+    private List<Long> menuIdList;
+
+
+
+    public List<Long> getMenuIdList() {
+        return menuIdList;
+    }
+
+    public void setMenuIdList(List<Long> menuIdList) {
+        this.menuIdList = menuIdList;
+    }
 
 }
 
