@@ -50,7 +50,7 @@ public class SysMenuController extends BaseController {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"删除成功");
     }
     //4 更新资源节点
-    @DeleteMapping(value = "/editMenu.do")
+    @PostMapping(value = "/editMenu.do")
     public ResultMessage editMenu(SysMenu sysMenu) throws ATPException{
         sysMenuService.editMenu(sysMenu);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"更新成功");

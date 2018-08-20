@@ -46,20 +46,7 @@ public class BasePageRequest implements Serializable{
 	@Transient
 	private String sortorder;
 	
-	/**
-	 * 用于存放当前用户的所有信息
-	 */
-	@Transient
-	private Map<String,Object> powerMap;
-	
 
-	/**
-	 * 超级管理员用户ID
-	 * @return
-	 */
-	@Transient
-	private Integer superAdminUserId;
-	
 	@Transient
 	private String  ldapAccount;//用户账号
 	
@@ -135,14 +122,6 @@ public class BasePageRequest implements Serializable{
 		this.sortorder = sortorder;
 	}
 	
-	public Map<String, Object> getPowerMap() {
-		return powerMap;
-	}
-
-	public void setPowerMap(Map<String, Object> powerMap) {
-		this.powerMap = powerMap;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -152,13 +131,6 @@ public class BasePageRequest implements Serializable{
 	}
 
 
-	public Integer getSuperAdminUserId() {
-		return superAdminUserId;
-	}
-
-	public void setSuperAdminUserId(Integer superAdminUserId) {
-		this.superAdminUserId = superAdminUserId;
-	}
 
 	public String getLdapAccount() {
 		return ldapAccount;

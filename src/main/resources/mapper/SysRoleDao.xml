@@ -9,7 +9,7 @@
         <result property="roleName" column="role_name"/>
         <result property="roleDesc" column="role_desc"/>
     </resultMap>
-    
+
     <sql id="columns">
         <![CDATA[
         	id ,

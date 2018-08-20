@@ -3,6 +3,7 @@ package com.atp.service.impl.sys;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.atp.common.GlobalConstants;
 import com.atp.dao.sys.SysRoleMenuDao;
@@ -110,6 +111,11 @@ public class SysRoleServiceImpl implements SysRoleService {
             response.setRows(list);
             response.setTotal((int) page.getTotal());
             response.setTotalPage(roleDTO.getPageSize());
+            List<SysRoleMenu> roleMenuList = sysRoleMenuDao.selectAll();
+            //
+            for(SysRoleDTO iterRole : list){
+                roleMenuList.stream().filter(sysRoleMenu -> Objects.equals(sysRoleMenu.getRoleCode(),iterRole.getRoleCode())).collect(Collectors.toList());
+            }
         }
 
         return response;
@@ -137,7 +143,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     private void saveOrUpdateRoleMenu(SysRole sysRole,String type) throws ATPException{
         String roleCode = sysRole.getRoleCode();
         if(Objects.equals(GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode(),type)){
-            sysRoleMenuDao.deleteByRoleCode(roleCode);
+            // 需要删除原来的角色菜单授权
+            Long id = sysRole.getId();
+            SysRole orginRole =  sysRoleDao.selectByPrimaryKey(id);
+            sysRoleMenuDao.deleteByRoleCode(orginRole.getRoleCode());
         }
         if(ArrayUtils.isNotEmpty(sysRole.getMenuIdArr())){
             List<SysRoleMenu> roleMenuList = new ArrayList<>();
@@ -149,6 +158,7 @@ public class SysRoleServiceImpl implements SysRoleService {
                 sysRoleMenu.setRoleCode(roleCode);
                 sysRoleMenu.setMenuId(menuId);
 
+                //添加到待保存的集合中
                 roleMenuList.add(sysRoleMenu);
             }
 

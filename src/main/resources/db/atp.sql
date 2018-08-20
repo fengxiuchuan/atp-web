@@ -38,11 +38,11 @@ CREATE TABLE `atp_coach` (
   `last_updated_name` varchar(20) DEFAULT NULL COMMENT '更新人名称',
   `last_updated_time` datetime DEFAULT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='教练表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='教练表';
 
 /*Data for the table `atp_coach` */
 
-insert  into `atp_coach`(`id`,`coach_no`,`coach_name`,`sex`,`birth`,`age`,`gym_id`,`phone`,`job_state`,`user_account`,`user_passwd`,`created_by`,`created_name`,`created_time`,`last_updated_by`,`last_updated_name`,`last_updated_time`) values (1,'C001','小A',1,'2018-07-03',34,1,'15106357772','Y','xiaohuidd','7654321',-1,'super_admin','2018-05-29 15:32:29',-1,'super_admin','2018-05-29 18:04:40'),(2,'C002','小B',0,'2018-07-03',27,1,'15106357772','Y','xiaohui','123456',-1,'super_admin','2018-06-05 11:04:22',NULL,NULL,NULL),(3,'C003','小强',1,'2018-07-03',27,1,'15106357772','Y',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'C004','小帅',1,'2018-07-03',27,1,'15106357772','Y',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `atp_coach`(`id`,`coach_no`,`coach_name`,`sex`,`birth`,`age`,`gym_id`,`phone`,`job_state`,`user_account`,`user_passwd`,`created_by`,`created_name`,`created_time`,`last_updated_by`,`last_updated_name`,`last_updated_time`) values (1,'C001','小A',1,'2018-07-03',34,1,'15106357772','Y','xiaohuidd','7654321',-1,'super_admin','2018-05-29 15:32:29',-1,'super_admin','2018-05-29 18:04:40'),(2,'C002','小B',0,'2018-07-03',27,1,'15106357772','Y','xiaohui','123456',-1,'super_admin','2018-06-05 11:04:22',NULL,NULL,NULL),(3,'C003','小强',1,'2018-07-03',27,1,'15106357772','Y',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'C004','小帅',1,'2018-07-03',27,1,'15106357772','Y',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,NULL,'华润（集团）供公司',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,NULL,'华润(集团)有限公司',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `atp_coach_course` */
 
@@ -284,11 +284,11 @@ CREATE TABLE `sys_menu` (
   `sort` int(10) DEFAULT NULL COMMENT '排序号',
   PRIMARY KEY (`id`),
   KEY `parentId` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_menu` */
 
-insert  into `sys_menu`(`id`,`url`,`path`,`component`,`name`,`icon_cls`,`keep_alive`,`require_auth`,`parent_id`,`state`,`menu_type`,`level`,`menu_path`,`sort`) values (3,'','',NULL,'用户管理','',NULL,1,-1,1,'module',1,NULL,NULL),(4,'/sysuser/*','sys:user','User','会员管理','icon-user',NULL,1,3,1,'menu',2,',4,',NULL),(5,'','','','课程管理','',NULL,1,-1,0,'module',1,NULL,NULL),(6,'/sysUser/addUser.do','sys:user:add','','新增','icon-add',NULL,1,4,0,'btn',3,'sys:user,6,',NULL);
+insert  into `sys_menu`(`id`,`url`,`path`,`component`,`name`,`icon_cls`,`keep_alive`,`require_auth`,`parent_id`,`state`,`menu_type`,`level`,`menu_path`,`sort`) values (15,'','','','课程管理','',1,1,-1,1,'module',1,'15,',NULL),(16,'','','','课耗','',1,1,-1,1,'module',1,'16,',NULL),(17,'','','','会员管理','',1,1,-1,1,'module',1,'17,',NULL),(18,'/sys/courseList.json','sys:course:list','Course','课程管理','',1,1,15,1,'menu',2,'15,18,',NULL),(19,'/sys/addCourse','/sys/addCourse','','删除','icon-add',1,1,16,1,'btn',2,'16,19,',NULL),(20,'/sys/addCourse','/sys/addCourse','','编辑','icon-add',1,1,16,1,'btn',2,'16,20,',NULL),(21,'/sys/addCourse','/sys/addCourse','','新增','icon-add',1,1,16,1,'btn',2,'16,21,',NULL),(22,'/sys/addCourse','sys:course:add','','删除','icon-add',1,1,18,1,'btn',3,'15,18,22,',NULL),(23,'/sys/addCourse','sys:course:add','','编辑','icon-add',1,1,18,1,'btn',3,'15,18,23,',NULL),(24,'/sys/addCourse','sys:course:add','','新增','icon-add',1,1,18,1,'btn',3,'15,18,24,',NULL);
 
 /*Table structure for table `sys_role` */
 
@@ -300,9 +300,11 @@ CREATE TABLE `sys_role` (
   `role_name` varchar(50) DEFAULT NULL COMMENT '角色名称',
   `role_desc` varchar(200) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_role` */
+
+insert  into `sys_role`(`id`,`role_code`,`role_name`,`role_desc`) values (1,'superadmin','超级管理员','');
 
 /*Table structure for table `sys_role_menu` */
 
@@ -313,9 +315,11 @@ CREATE TABLE `sys_role_menu` (
   `role_code` varchar(20) DEFAULT NULL COMMENT '角色编码',
   `menu_id` bigint(20) DEFAULT NULL COMMENT '资源主键',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `sys_role_menu` */
+
+insert  into `sys_role_menu`(`id`,`role_code`,`menu_id`) values (1,'superadmin',22),(2,'superadmin',24),(3,'superadmin',20),(4,'superadmin',17),(5,'superadmin',15),(6,'superadmin',18),(7,'superadmin',16);
 
 /*Table structure for table `sys_user` */
 

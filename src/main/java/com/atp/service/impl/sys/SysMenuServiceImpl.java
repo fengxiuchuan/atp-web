@@ -108,10 +108,11 @@ public class SysMenuServiceImpl implements SysMenuService {
         tempSysMenu.setId(id);
         if(Objects.isNull(parentId) || Objects.equals(-1L,parentId)){
             tempSysMenu.setLevel(1);
+            tempSysMenu.setMenuPath(id +",");
         }else{
             SysMenu parentMenu =  sysMenuDao.selectByPrimaryKey(parentId);
             tempSysMenu.setLevel(parentMenu.getLevel()+1);
-            tempSysMenu.setMenuPath(parentMenu.getPath()+","+id+",");
+            tempSysMenu.setMenuPath(parentMenu.getMenuPath()+id+",");
         }
         sysMenuDao.updateByPrimaryKeySelective(tempSysMenu);
     }
@@ -153,10 +154,11 @@ public class SysMenuServiceImpl implements SysMenuService {
         tempSysMenu.setId(id);
         if(Objects.isNull(parentId)|| Objects.equals(-1,parentId)){
             tempSysMenu.setLevel(1);
+            tempSysMenu.setMenuPath(id +",");
         }else{
             SysMenu parentMenu =  sysMenuDao.selectByPrimaryKey(parentId);
             tempSysMenu.setLevel(parentMenu.getLevel()+1);
-            tempSysMenu.setMenuPath(parentMenu.getPath()+","+id+",");
+            tempSysMenu.setMenuPath(parentMenu.getMenuPath()+id+",");
         }
         sysMenuDao.updateByPrimaryKeySelective(tempSysMenu);
     }

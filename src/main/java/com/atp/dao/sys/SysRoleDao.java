@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.atp.exception.ATPException;
 import com.atp.util.MyMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import com.atp.entity.sys.SysRole;
 import com.atp.dto.sys.SysRoleDTO;
@@ -89,7 +90,7 @@ public interface SysRoleDao extends MyMapper<SysRole> {
      * @auther: fengxiuchuan
      * @date: 2018/8/2 14:58
      */
-    List<SysRoleDTO> queryRoleListByCode(String roleCode, Long id);
+    List<SysRoleDTO> queryRoleListByCode(@Param("roleCode") String roleCode, @Param("id")Long id);
 
     List<Long> queryRoleMenuList(String roleCode);
 }

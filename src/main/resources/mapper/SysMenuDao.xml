@@ -236,14 +236,14 @@
         component ,
         name ,
         icon_cls ,
-        keep_alive ,
-        require_auth ,
+        IFNULL(keep_alive ,0) keep_alive,
+        IFNULL(require_auth ,0) require_auth ,
         parent_id ,
-        state ,
+        IFNULL(state,0) AS state ,
         menu_type ,
         level ,
         menu_path ,
-        sort,
+        IFNULL(sort,'') sort,
         0  AS inEdit
         FROM  sys_menu
         <where>
