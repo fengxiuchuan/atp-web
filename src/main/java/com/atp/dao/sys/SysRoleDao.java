@@ -93,4 +93,6 @@ public interface SysRoleDao extends MyMapper<SysRole> {
     List<SysRoleDTO> queryRoleListByCode(@Param("roleCode") String roleCode, @Param("id")Long id);
 
     List<Long> queryRoleMenuList(String roleCode);
+
+    List<SysRoleDTO> getRoleList();
 }

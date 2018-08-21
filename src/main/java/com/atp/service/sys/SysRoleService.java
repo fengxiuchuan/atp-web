@@ -135,4 +135,13 @@ public interface SysRoleService {
      * @date: 2018/8/2 12:48
      */
     SysRoleDTO getRoleDetail(Long id)throws ATPException;
+    /**
+     *
+     * 角色列表
+     *
+     * @return:void
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:48
+     */
+    List<SysRoleDTO> getRoleList()throws ATPException;
 }

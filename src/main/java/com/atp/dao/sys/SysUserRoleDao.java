@@ -68,4 +68,24 @@ public interface SysUserRoleDao extends MyMapper<SysUserRole> {
      * @date: 2018-08-01 17:57:47
      */
     int updateById(SysUserRoleDTO dto);
+    /**
+     * 根据用户主键查询用户授权的角色列表
+     *
+     * @param userId 用户主键
+     * @return List<SysUserRole>
+     * @author: fengxiuchuan
+     * @date: 2018-08-01 17:57:47
+     */
+    List<SysUserRole> getListByUserId(Long userId);
+    /**
+     * 根据用户主键删除用户角色授权记录
+     *
+     * @param userId 用户主键
+     * @return int
+     * @author: fengxiuchuan
+     * @date: 2018-08-01 17:57:47
+     */
+    int delByUserId(Long userId);
+
+    List<SysUserRoleDTO> getUserGroupRoleList();
 }

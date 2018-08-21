@@ -114,7 +114,16 @@ public class SysRoleServiceImpl implements SysRoleService {
             List<SysRoleMenu> roleMenuList = sysRoleMenuDao.selectAll();
             //
             for(SysRoleDTO iterRole : list){
-                roleMenuList.stream().filter(sysRoleMenu -> Objects.equals(sysRoleMenu.getRoleCode(),iterRole.getRoleCode())).collect(Collectors.toList());
+                List<SysRoleMenu> roleMenuList1 = roleMenuList.stream().filter(sysRoleMenu -> Objects.equals(sysRoleMenu.getRoleCode(),iterRole.getRoleCode())).collect(Collectors.toList());
+                if(CollectionUtils.isEmpty(roleMenuList1)){
+                    continue;
+                }
+                int size = roleMenuList1.size();
+                Long [] menuIdArr = new Long[size];
+                for (int i = 0; i < size; i++) {
+                    menuIdArr[i] = roleMenuList1.get(i).getMenuId();
+                }
+                iterRole.setMenuIdArr(menuIdArr);
             }
         }
 
@@ -211,5 +220,10 @@ public class SysRoleServiceImpl implements SysRoleService {
             sysRoleDTO.setMenuIdList(menuIdList);
         }
         return sysRoleDTO;
+    }
+
+    @Override
+    public List<SysRoleDTO> getRoleList() throws ATPException {
+        return sysRoleDao.getRoleList();
     }
 }

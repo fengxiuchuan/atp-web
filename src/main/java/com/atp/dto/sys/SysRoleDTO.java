@@ -12,6 +12,9 @@ import  com.atp.entity.sys.SysRole;
  */
 public class SysRoleDTO extends SysRole implements Serializable {
 
+    private String key;
+
+    private String value;
     /**
      *  选中的菜单
      */
@@ -27,5 +30,20 @@ public class SysRoleDTO extends SysRole implements Serializable {
         this.menuIdList = menuIdList;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.atp.exception.ATPException;
 import com.atp.util.MyMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import com.atp.entity.sys.SysUser;
 import com.atp.dto.sys.SysUserDTO;
@@ -71,7 +72,7 @@ public interface SysUserDao extends MyMapper<SysUser> {
 
     List<SysUserDTO> queryAllList(SysUserDTO userDTO);
 
-    List<SysUser> authUserByUserName(String userName, Long id);
+    List<SysUser> authUserByUserName(@Param("userName") String userName,@Param("id") Long id);
 
-    List<SysUser> authUserByUserPhone(String phone, Long id);
+    List<SysUser> authUserByUserPhone(@Param("phone")String phone,@Param("id") Long id);
 }

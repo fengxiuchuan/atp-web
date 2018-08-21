@@ -10,5 +10,17 @@ import  com.atp.entity.sys.SysUser;
  */
 public class SysUserDTO extends SysUser implements Serializable {
 
+    /**
+     * 用户角色列表
+     */
+    private String [] userRoleArr;
+
+    public String[] getUserRoleArr() {
+        return userRoleArr;
+    }
+
+    public void setUserRoleArr(String[] userRoleArr) {
+        this.userRoleArr = userRoleArr;
+    }
 }
 

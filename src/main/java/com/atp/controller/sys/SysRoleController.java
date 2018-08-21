@@ -64,4 +64,9 @@ public class SysRoleController extends BaseController {
     public ResultMessage getRoleDetail(Long id) throws ATPException{
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",sysRoleService.getRoleDetail(id),true);
     }
+
+    @PostMapping(value = "/getRoleList.json")
+    public ResultMessage getRoleList() throws ATPException{
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",sysRoleService.getRoleList(),true);
+    }
 }

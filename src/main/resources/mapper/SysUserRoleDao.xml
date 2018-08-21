@@ -7,6 +7,9 @@
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="roleCode" column="role_code"/>
+
+        <!--拓展属性-->
+        <result property="roleCodes" column="roleCodes"/>
     </resultMap>
     
     <sql id="columns">
@@ -92,5 +95,29 @@
                 id = #{id}
         </where>
         </update>
+
+    <select id="getListByUserId" resultMap="SysUserRoleMap">
+        SELECT
+        <include refid="columns" />
+        FROM
+        sys_user_role
+        <where>
+            user_id = #{userId}
+        </where>
+    </select>
+    <delete id="delByUserId" >
+        DELETE
+        FROM
+            sys_user_role
+        WHERE
+            user_id #{userId}
+    </delete>
+    
+    <select id="getUserGroupRoleList" resultMap="SysUserRoleMap">
+      SELECT user_id,group_concat(role_code) AS roleCodes
+      FROM
+    sys_user_role
+    GROUP by user_id
+    </select>
 </mapper>
 

@@ -2,9 +2,13 @@ package com.atp.service.impl.sys;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+import com.atp.dao.sys.SysUserRoleDao;
 import com.atp.dto.base.response.BasePageResponse;
 import com.atp.dto.sys.SysRoleDTO;
+import com.atp.dto.sys.SysUserRoleDTO;
+import com.atp.entity.sys.SysUserRole;
 import com.atp.exception.ATPException;
 import com.atp.util.StringUtil;
 import com.github.pagehelper.Page;
@@ -29,6 +33,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserDao sysUserDao;
+
+    @Autowired
+    private SysUserRoleDao sysUserRoleDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -102,6 +109,19 @@ public class SysUserServiceImpl implements SysUserService {
             response.setRows(list);
             response.setTotal((int) page.getTotal());
             response.setTotalPage(userDTO.getPageSize());
+
+            //设置选中的角色
+           List<SysUserRoleDTO>  userRoleList = sysUserRoleDao.getUserGroupRoleList();
+           if(CollectionUtils.isNotEmpty(userRoleList)){
+               for (SysUserDTO iterUser : list) {
+                   List<SysUserRoleDTO>  iterUserRoleList = userRoleList.stream().filter(sysUserRoleDTO -> Objects.equals(iterUser.getId(),sysUserRoleDTO.getUserId())).collect(Collectors.toList());
+                   if(CollectionUtils.isEmpty(iterUserRoleList) || StringUtils.isBlank(iterUserRoleList.get(0).getRoleCodes())){
+                       continue;
+                   }
+                   iterUser.setUserRoleArr(iterUserRoleList.get(0).getRoleCodes().split(","));
+               }
+           }
+
         }
 
         return response;
@@ -129,12 +149,12 @@ public class SysUserServiceImpl implements SysUserService {
             throw new ATPException("请填写联系方式");
         }
         List<SysUser> userList = sysUserDao.authUserByUserName(sysUser.getUserName(),sysUser.getId());
-        if(CollectionUtils.isEmpty(userList)){
+        if(CollectionUtils.isNotEmpty(userList)){
             throw new ATPException("用户名重复");
         }
 
         List<SysUser> userList2 = sysUserDao.authUserByUserPhone(sysUser.getPhone(),sysUser.getId());
-        if(CollectionUtils.isEmpty(userList2)){
+        if(CollectionUtils.isNotEmpty(userList2)){
             throw new ATPException("手机号重复");
         }
     }

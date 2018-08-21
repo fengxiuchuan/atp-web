@@ -10,5 +10,14 @@ import  com.atp.entity.sys.SysUserRole;
  */
 public class SysUserRoleDTO extends SysUserRole implements Serializable {
 
+    private String roleCodes;
+
+    public String getRoleCodes() {
+        return roleCodes;
+    }
+
+    public void setRoleCodes(String roleCodes) {
+        this.roleCodes = roleCodes;
+    }
 }
 

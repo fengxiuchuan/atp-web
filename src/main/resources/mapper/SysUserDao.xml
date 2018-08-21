@@ -189,8 +189,8 @@
         FROM sys_user
         <where>
             1 = 1
-            <if test="userName != null and userName != '' ">
-                <![CDATA[ AND user_name LIKE CONCAT(#{userName},'%') ]]>
+            <if test="phone != null and phone != '' ">
+                <![CDATA[ AND phone LIKE CONCAT(#{phone},'%') ]]>
             </if>
             <if test="id != null ">
                 <![CDATA[ AND id <> #{id} ]]>
