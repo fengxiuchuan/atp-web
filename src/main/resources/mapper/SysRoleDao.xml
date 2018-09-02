@@ -9,9 +9,6 @@
         <result property="roleName" column="role_name"/>
         <result property="roleDesc" column="role_desc"/>
 
-        <!--拓展属性-->
-        <result property="key" column="key"/>
-        <result property="label" column="label"/>
     </resultMap>
 
     <sql id="columns">
@@ -19,9 +16,7 @@
         	id ,
         	role_code ,
         	role_name ,
-        	role_desc ,
-        	role_code AS key,
-        	role_name AS label
+        	role_desc
         ]]>
     </sql>
     

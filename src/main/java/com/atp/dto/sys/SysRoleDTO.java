@@ -31,19 +31,13 @@ public class SysRoleDTO extends SysRole implements Serializable {
     }
 
     public String getKey() {
-        return key;
+        return this.getRoleCode();
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     public String getValue() {
-        return value;
+        return this.getRoleDesc();
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
 }
 

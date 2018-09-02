@@ -60,4 +60,5 @@ public class SysUserController extends BaseController {
         sysUserService.delUser(id);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"新增用户成功");
     }
+
 }
