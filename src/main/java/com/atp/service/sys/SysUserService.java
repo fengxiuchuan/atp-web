@@ -125,4 +125,14 @@ public interface SysUserService {
      * @date: 2018/8/2 12:42
      */
     void delUser(Long id)throws ATPException;
+    /**
+     *
+     * 给用户分配角色
+     *
+     * @param:
+     * @return:
+     * @auther: fengxiuchuan
+     * @date: 2018/8/2 12:42
+     */
+    void grantRole(SysUserDTO sysUserDTO)throws ATPException;
 }

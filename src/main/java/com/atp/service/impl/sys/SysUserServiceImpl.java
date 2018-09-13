@@ -116,6 +116,7 @@ public class SysUserServiceImpl implements SysUserService {
                for (SysUserDTO iterUser : list) {
                    List<SysUserRoleDTO>  iterUserRoleList = userRoleList.stream().filter(sysUserRoleDTO -> Objects.equals(iterUser.getId(),sysUserRoleDTO.getUserId())).collect(Collectors.toList());
                    if(CollectionUtils.isEmpty(iterUserRoleList) || StringUtils.isBlank(iterUserRoleList.get(0).getRoleCodes())){
+                       iterUser.setUserRoleArr(new String[]{});
                        continue;
                    }
                    iterUser.setUserRoleArr(iterUserRoleList.get(0).getRoleCodes().split(","));
@@ -178,5 +179,18 @@ public class SysUserServiceImpl implements SysUserService {
             throw new ATPException("请求参数为空");
         }
         sysUserDao.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void grantRole(SysUserDTO sysUserDTO) throws ATPException {
+        if(Objects.isNull(sysUserDTO) || Objects.isNull(sysUserDTO.getId())){
+            throw new IllegalArgumentException("非法的请求参数");
+        }
+        this.sysUserRoleDao.delByUserId(sysUserDTO.getId());
+        List<SysUserRole> userRoleList = sysUserDTO.getUserRoleList();
+        if(CollectionUtils.isNotEmpty(userRoleList)){
+            this.sysUserRoleDao.saveBatch(userRoleList);
+        }
     }
 }

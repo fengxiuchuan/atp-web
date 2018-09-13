@@ -5,7 +5,9 @@ import com.atp.dto.base.request.BasePageRequest;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Description: SysUserentity 值对象
@@ -48,6 +50,7 @@ public class SysUser  extends BasePageRequest implements Serializable {
      * 用户姓名
      */
     private String displayName;
+
 
     public void setId(Long id) {
         this.id = id;
