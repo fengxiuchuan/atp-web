@@ -21,6 +21,7 @@
         <result property="sort" column="sort"/>
 
         <result property="inEdit" column="inEdit"/>
+        <result property="parentName" column="parentName"/>
     </resultMap>
 
     <sql id="columns">
@@ -230,26 +231,29 @@
     
     
     <select id="queryMenuTree" resultMap="SysMenuMap">
-        SELECT id ,
-        url ,
-        path ,
-        component ,
-        name ,
-        icon_cls ,
-        IFNULL(keep_alive ,0) keep_alive,
-        IFNULL(require_auth ,0) require_auth ,
-        parent_id ,
-        IFNULL(state,0) AS state ,
-        menu_type ,
-        level ,
-        menu_path ,
-        IFNULL(sort,'') sort,
-        0  AS inEdit
-        FROM  sys_menu
+        SELECT
+        s1.id ,
+        s1.url ,
+        s1.path ,
+        s1.component ,
+        s1.name ,
+        s1.icon_cls ,
+        IFNULL(s1.keep_alive ,0) keep_alive,
+        IFNULL(s1.require_auth ,0) require_auth ,
+        s1.parent_id ,
+        IFNULL(s1.state,0) AS state ,
+        s1.menu_type ,
+        s1.level ,
+        s1.menu_path ,
+        IFNULL(s1.sort,'') sort,
+        0  AS inEdit,
+        IFNULL(s2.name,'菜单') AS parentName
+        FROM  sys_menu s1
+        LEFT JOIN sys_menu s2 ON (s1.parent_id = s2.id)
         <where>
              1 = 1
             <if test="name != null and name != ''">
-                AND name like CONCAT(#{NAME },'%)
+                AND s1.name like CONCAT(#{NAME },'%)
             </if>
         </where>
     </select>

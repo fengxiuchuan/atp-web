@@ -23,6 +23,11 @@ public class SysMenuDTO extends SysMenu implements Serializable,DataTree<SysMenu
      */
     private List<SysMenuDTO> children;
 
+
+    private String label;
+
+    private String parentName;
+
     public List<SysMenuDTO> getChildren() {
         return children;
     }
@@ -39,6 +44,18 @@ public class SysMenuDTO extends SysMenu implements Serializable,DataTree<SysMenu
     @Override
     public List<SysMenuDTO> getChildList() {
         return this.children;
+    }
+
+    public String getLabel() {
+        return this.getName();
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 }
 

@@ -152,7 +152,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         Long parentId = sysMenu.getParentId();
         SysMenu tempSysMenu = new SysMenu();
         tempSysMenu.setId(id);
-        if(Objects.isNull(parentId)|| Objects.equals(-1,parentId)){
+        if(Objects.isNull(parentId)|| Objects.equals(-1L,parentId)){
             tempSysMenu.setLevel(1);
             tempSysMenu.setMenuPath(id +",");
         }else{

@@ -55,7 +55,7 @@ public class SysMenu extends BasePageRequest implements Serializable {
     /**
      * state 
      */
-    private Boolean state;
+    private String state;
     /**
      * 资源类型(menu:菜单;btn:按钮) 
      */
@@ -123,11 +123,11 @@ public class SysMenu extends BasePageRequest implements Serializable {
         return this.requireAuth;
     }
 
-    public Boolean getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Boolean state) {
+    public void setState(String state) {
         this.state = state;
     }
 

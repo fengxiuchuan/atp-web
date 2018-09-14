@@ -14,6 +14,7 @@ import com.atp.util.StringUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -187,10 +188,19 @@ public class SysUserServiceImpl implements SysUserService {
         if(Objects.isNull(sysUserDTO) || Objects.isNull(sysUserDTO.getId())){
             throw new IllegalArgumentException("非法的请求参数");
         }
-        this.sysUserRoleDao.delByUserId(sysUserDTO.getId());
-        List<SysUserRole> userRoleList = sysUserDTO.getUserRoleList();
-        if(CollectionUtils.isNotEmpty(userRoleList)){
-            this.sysUserRoleDao.saveBatch(userRoleList);
+        Long userId = sysUserDTO.getId();
+        this.sysUserRoleDao.delByUserId(userId);
+        String roleCodes = sysUserDTO.getRoleCodes();
+
+        if(StringUtils.isNotEmpty(roleCodes)){
+            for(String roleCode : roleCodes.split(",")){
+                if(StringUtils.isNotBlank(roleCode)){
+                    SysUserRole userRole = new SysUserRole();
+                    userRole.setUserId(userId);
+                    userRole.setRoleCode(roleCode);
+                    sysUserRoleDao.save(userRole);
+                }
+            }
         }
     }
 }

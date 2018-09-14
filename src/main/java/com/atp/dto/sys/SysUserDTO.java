@@ -21,7 +21,7 @@ public class SysUserDTO extends SysUser implements Serializable {
     private String [] userRoleArr;
 
     @Transient
-    private List<SysUserRole> userRoleList;
+    private String roleCodes;
 
     public String[] getUserRoleArr() {
         return userRoleArr;
@@ -31,12 +31,12 @@ public class SysUserDTO extends SysUser implements Serializable {
         this.userRoleArr = userRoleArr;
     }
 
-    public List<SysUserRole> getUserRoleList() {
-        return userRoleList;
+    public String getRoleCodes() {
+        return roleCodes;
     }
 
-    public void setUserRoleList(List<SysUserRole> userRoleList) {
-        this.userRoleList = userRoleList;
+    public void setRoleCodes(String roleCodes) {
+        this.roleCodes = roleCodes;
     }
 }
 
