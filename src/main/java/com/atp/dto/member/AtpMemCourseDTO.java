@@ -2,6 +2,7 @@ package com.atp.dto.member;
 
 import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.member.AtpMemCourse;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -15,6 +16,18 @@ import java.util.List;
  * @date: 2018-05-23 18:51:26
  */
 public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
+
+    private Long execCoachId   ;
+    private String execCoachNo   ;
+    private String execCoachName ;
+    private Integer courseNum     ;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date consumeTime   ;
+    private Integer integral      ;
+    private String remark        ;
+    private Long memCourseId   ;
+    private String consumeNo      ;
 
     // 开始日期
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -163,6 +176,78 @@ public class AtpMemCourseDTO extends AtpMemCourse implements Serializable {
 
     public void setCoachNameArr(String[] coachNameArr) {
         this.coachNameArr = coachNameArr;
+    }
+
+    public Long getExecCoachId() {
+        return execCoachId;
+    }
+
+    public void setExecCoachId(Long execCoachId) {
+        this.execCoachId = execCoachId;
+    }
+
+    public String getExecCoachNo() {
+        return execCoachNo;
+    }
+
+    public void setExecCoachNo(String execCoachNo) {
+        this.execCoachNo = execCoachNo;
+    }
+
+    public String getExecCoachName() {
+        return execCoachName;
+    }
+
+    public void setExecCoachName(String execCoachName) {
+        this.execCoachName = execCoachName;
+    }
+
+    public Integer getCourseNum() {
+        return courseNum;
+    }
+
+    public void setCourseNum(Integer courseNum) {
+        this.courseNum = courseNum;
+    }
+
+    public Date getConsumeTime() {
+        return consumeTime;
+    }
+
+    public void setConsumeTime(Date consumeTime) {
+        this.consumeTime = consumeTime;
+    }
+
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Long getMemCourseId() {
+        return memCourseId;
+    }
+
+    public void setMemCourseId(Long memCourseId) {
+        this.memCourseId = memCourseId;
+    }
+
+    public String getConsumeNo() {
+        return consumeNo;
+    }
+
+    public void setConsumeNo(String consumeNo) {
+        this.consumeNo = consumeNo;
     }
 }
 

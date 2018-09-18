@@ -27,11 +27,21 @@
         <result property="unitPrice" column="unit_price"/>
         <result property="memName" column="mem_name"/>
         <result property="coachName" column="coach_name"/>
+
         <!--拓展字段-->
 
         <result property="value" column="value"/>
         <result property="label" column="label"/>
 
+        <result property="execCoachId" column="exec_coach_id"/>
+        <result property="execCoachNo" column="exec_coach_no"/>
+        <result property="execCoachName" column="exec_coach_name"/>
+        <result property="courseNum" column="course_num"/>
+        <result property="consumeTime" column="consume_time"/>
+        <result property="integral" column="integral"/>
+        <result property="remark" column="remark"/>
+        <result property="memCourseId" column="mem_course_id"/>
+        <result property="consumeNo" column="consume_no"/>
     </resultMap>
     
     <sql id="columns">

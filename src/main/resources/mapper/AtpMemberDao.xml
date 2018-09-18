@@ -450,7 +450,7 @@
         SELECT
         id ,
         mem_id ,
-        mem_card_no ,
+        mem_card_no AS card_no,
         course_id ,
         course_no ,
         course_name ,
