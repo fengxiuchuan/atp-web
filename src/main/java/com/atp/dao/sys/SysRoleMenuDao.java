@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.atp.exception.ATPException;
 import com.atp.util.MyMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import com.atp.entity.sys.SysRoleMenu;
 import com.atp.dto.sys.SysRoleMenuDTO;
@@ -79,4 +80,6 @@ public interface SysRoleMenuDao extends MyMapper<SysRoleMenu> {
      * @date: 2018/8/9 18:06
      */
     int deleteByRoleCode(String roleCode) throws ATPException;
+
+    String getMenuIdsByRoleCodes(@Param("roleCodeArr") String [] roleCodeArr);
 }

@@ -23,6 +23,8 @@ public class SysUserDTO extends SysUser implements Serializable {
     @Transient
     private String roleCodes;
 
+    private List<SysMenuDTO> menuList;
+
     public String[] getUserRoleArr() {
         return userRoleArr;
     }
@@ -37,6 +39,14 @@ public class SysUserDTO extends SysUser implements Serializable {
 
     public void setRoleCodes(String roleCodes) {
         this.roleCodes = roleCodes;
+    }
+
+    public List<SysMenuDTO> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<SysMenuDTO> menuList) {
+        this.menuList = menuList;
     }
 }
 

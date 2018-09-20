@@ -117,5 +117,14 @@ public interface AtpMemberService {
      * @date: 2018/7/20 16:10
      */
     BasePageResponse<AtpMemCourseConsumeDTO> queryConsumeList(AtpMemCourseConsumeDTO consumeDTO)throws ATPException;
-
+    /**
+     *
+     * 校验用户密码
+     *
+     * @param: member
+     * @return:
+     * @auther: fengxiuchuan
+     * @date: 2018/7/20 16:10
+     */
+    boolean authPwd(AtpMemberDTO member)throws ATPException;
 }

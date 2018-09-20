@@ -350,4 +350,18 @@ public class AtpMemberServiceImpl implements AtpMemberService {
 
         return response;
     }
+
+    @Override
+    public boolean authPwd(AtpMemberDTO member) throws ATPException {
+        if(Objects.isNull(member.getId()) && StringUtils.isBlank(member.getCardPwd())){
+            throw new IllegalArgumentException("用输入用户名或密码");
+        }
+        String cardPwd = MD5Util.encrypt(member.getCardPwd());
+        member.setCardPwd(cardPwd);
+        AtpMemberDTO authMem =  atpMemberDao.authPwd(member);
+        if(!Objects.isNull(authMem)){
+            return true;
+        }
+        return false;
+    }
 }

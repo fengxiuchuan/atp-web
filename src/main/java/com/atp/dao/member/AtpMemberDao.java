@@ -87,4 +87,6 @@ public interface AtpMemberDao extends MyMapper<AtpMember> {
     List<AtpMemCourseDTO> queryMemCourseList(AtpMemCourseDTO memCourseDTO);
 
     List<AtpMemCourseConsumeDTO> queryConsumeList(AtpMemCourseConsumeDTO consumeDTO);
+
+    AtpMemberDTO authPwd(AtpMemberDTO member);
 }

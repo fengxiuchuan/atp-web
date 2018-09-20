@@ -12,6 +12,8 @@
         <result property="faceImg" column="face_img"/>
         <result property="remark" column="remark"/>
         <result property="displayName" column="display_name"/>
+
+        <result property="roleCodes" column="roleCodes"/>
     </resultMap>
     
     <sql id="columns">
@@ -196,6 +198,23 @@
                 <![CDATA[ AND id <> #{id} ]]>
             </if>
         </where>
+    </select>
+    
+    <select id="authByPwd" resultMap="SysUserMap">
+        SELECT
+        u.*,
+        GROUP_CONCAT(ur.`role_code`) AS roleCodes
+        FROM sys_user u
+        LEFT JOIN sys_user_role ur ON (u.`id` = ur.`user_id`)
+        <where>
+            <if test="userName != null and userName != ''">
+                AND u.`user_name` = #{userName}
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                AND u.`user_pwd` = #{userPwd}
+            </if>
+        </where>
+
     </select>
 </mapper>
 

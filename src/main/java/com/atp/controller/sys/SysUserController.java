@@ -67,4 +67,10 @@ public class SysUserController extends BaseController {
         sysUserService.grantRole(sysUserDTO);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"分配角色成功");
     }
+
+    //5 登录
+    @PostMapping(value = "/login.do")
+    public ResultMessage login(SysUserDTO sysUserDTO) throws ATPException{
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"登录成功",sysUserService.login(sysUserDTO),true);
+    }
 }

@@ -491,5 +491,18 @@
         </where>
     </select>
 
+    <select id="authPwd" resultMap="AtpMemberMap">
+    SELECT <include refid="columns" />
+        FROM
+        atp_member
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="cardPwd != null">
+                AND card_pwd = #{cardPwd}
+            </if>
+        </where>
+    </select>
 </mapper>
 

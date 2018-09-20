@@ -135,4 +135,15 @@ public interface SysUserService {
      * @date: 2018/8/2 12:42
      */
     void grantRole(SysUserDTO sysUserDTO)throws ATPException;
+
+    /**
+     *
+     * 用户登录
+     *
+     * @param:
+     * @return: 
+     * @auther: fengxiuchuan
+     * @date: 2018/9/20 15:10
+     */
+    SysUserDTO login(SysUserDTO sysUserDTO)throws ATPException;
 }

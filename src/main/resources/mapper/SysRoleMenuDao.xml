@@ -99,5 +99,18 @@
             sys_role_menu
         WHERE role_code = #{roleCode}
     </delete>
+
+    <select id="getMenuIdsByRoleCodes" resultType="java.lang.String">
+        SELECT GROUP_CONCAT(menu_id)
+        FROM sys_role_menu
+        <where>
+            <if test="roleCodeArr != null and roleCodeArr.length > 0">
+                AND role_code IN
+                <foreach collection="roleCodeArr" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
 </mapper>
 

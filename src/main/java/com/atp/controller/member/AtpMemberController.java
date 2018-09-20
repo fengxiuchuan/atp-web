@@ -110,6 +110,11 @@ public class AtpMemberController extends BaseController {
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.queryConsumeList(consumeDTO),true);
     }
 
+    // 校验用户密码
+    @PostMapping(value = "/authPwd.do")
+    public ResultMessage authPwd(AtpMemberDTO member) throws ATPException{
+        return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"查询成功",atpMemberService.authPwd(member),true);
+    }
     @PostMapping(value = "/testJson.do")
     public void testJson(String json) throws ATPException {
        logger.info("--------------开始提交---------------");

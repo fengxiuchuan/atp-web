@@ -75,4 +75,6 @@ public interface SysUserDao extends MyMapper<SysUser> {
     List<SysUser> authUserByUserName(@Param("userName") String userName,@Param("id") Long id);
 
     List<SysUser> authUserByUserPhone(@Param("phone")String phone,@Param("id") Long id);
+
+    SysUserDTO authByPwd(SysUserDTO sysUserDTO);
 }

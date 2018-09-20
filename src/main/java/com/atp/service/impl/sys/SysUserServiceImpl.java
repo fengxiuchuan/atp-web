@@ -4,13 +4,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.atp.common.GlobalConstants;
+import com.atp.dao.sys.SysMenuDao;
+import com.atp.dao.sys.SysRoleMenuDao;
 import com.atp.dao.sys.SysUserRoleDao;
 import com.atp.dto.base.response.BasePageResponse;
+import com.atp.dto.sys.SysMenuDTO;
 import com.atp.dto.sys.SysRoleDTO;
 import com.atp.dto.sys.SysUserRoleDTO;
 import com.atp.entity.sys.SysUserRole;
 import com.atp.exception.ATPException;
+import com.atp.util.MD5Util;
 import com.atp.util.StringUtil;
+import com.atp.util.TreeUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.collections4.CollectionUtils;
@@ -37,6 +43,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserRoleDao sysUserRoleDao;
+
+    @Autowired
+    private SysMenuDao sysMenuDao;
+
+    @Autowired
+    private SysRoleMenuDao sysRoleMenuDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -133,6 +145,7 @@ public class SysUserServiceImpl implements SysUserService {
     public void addUser(SysUser sysUser) throws ATPException {
         // 1 校验
         validateUser(sysUser);
+        sysUser.setUserPwd(MD5Util.encrypt(sysUser.getUserPwd()));
         // 2 保存
         sysUserDao.save(sysUser);
     }
@@ -202,5 +215,39 @@ public class SysUserServiceImpl implements SysUserService {
                 }
             }
         }
+    }
+
+    @Override
+    public SysUserDTO login(SysUserDTO sysUserDTO) throws ATPException {
+        if(StringUtils.isBlank(sysUserDTO.getUserName()) || StringUtils.isBlank(sysUserDTO.getUserPwd())){
+            throw new IllegalArgumentException("请输入用户名和密码");
+        }
+        boolean isSuperAdmin = false;
+        // 根据用户角色获取菜单
+
+        String userPwd = sysUserDTO.getUserPwd();
+        userPwd = MD5Util.encrypt(userPwd);
+        sysUserDTO.setUserPwd(userPwd);
+        SysUserDTO curUser = sysUserDao.authByPwd(sysUserDTO);
+        if(Objects.isNull(curUser)){
+            throw new ATPException("用户名或密码错误");
+        }
+        if(Objects.equals(GlobalConstants.SUPER_ADMIN_NAME,sysUserDTO.getUserName())
+                || (StringUtils.isNotBlank(curUser.getRoleCodes()) && curUser.getRoleCodes().indexOf(GlobalConstants.SUPER_ADMIN_NAME) > -1)){
+            isSuperAdmin = true;
+        }
+        if(!isSuperAdmin && StringUtils.isBlank(curUser.getRoleCodes())){
+            return curUser;
+        }
+        List<SysMenuDTO> menuList = sysMenuDao.queryMenuTree(new SysMenuDTO());
+        if(!isSuperAdmin){
+            String menuIds =  sysRoleMenuDao.getMenuIdsByRoleCodes(curUser.getRoleCodes().split(","));
+            if(StringUtils.isNotBlank(menuIds)){
+                menuList = menuList.stream().filter(SysMenuDTO -> menuIds.indexOf(String.valueOf(SysMenuDTO.getId())) > 0).collect(Collectors.toList());;
+            }
+        }
+        menuList = TreeUtil.getTreeList(-1L,menuList);
+        curUser.setMenuList(menuList);
+        return curUser;
     }
 }
