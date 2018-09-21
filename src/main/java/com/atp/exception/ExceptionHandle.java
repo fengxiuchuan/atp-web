@@ -30,4 +30,16 @@ public class ExceptionHandle {
             return ResultUtil.error(GlobalConstants.ResultEnum.UNKOWN_ERROR.getCode(), GlobalConstants.ResultEnum.UNKOWN_ERROR.getMsg());
         }
     }
+
+    @ExceptionHandler(value = LoginTimeOutException.class)
+    @ResponseBody
+    public ResultMessage handlerLoginTimeOut(Exception e){
+        if( e instanceof LoginTimeOutException){
+            LoginTimeOutException studentException = (LoginTimeOutException) e;
+            return ResultUtil.error( studentException.getCode(), studentException.getMessage());
+        }else {
+            logger.info("[系统异常] {}",e);
+            return ResultUtil.error(GlobalConstants.ResultEnum.UNKOWN_ERROR.getCode(), GlobalConstants.ResultEnum.UNKOWN_ERROR.getMsg());
+        }
+    }
 }

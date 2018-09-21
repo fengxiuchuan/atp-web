@@ -22,13 +22,15 @@ public interface GlobalConstants {
     // 会员销课订单编号前缀
     public static final String MEM_CONSUME_NO_PREFIX = "MC";
 
+    public static final String GLOBAL_TOKEN = "token";
     //订单生产前缀
     public  static final String MEM_ORDER_SERIID = "mem_course_order";
     // 会员销课记录编号
     public static final String MEM_COURSE_CONSUME_NO = "mem_course_consume_no";
     enum ResultEnum{
         UNKOWN_ERROR("-1","未知错误"),
-        SUCCESS("A_SYS_00010","成功");
+        SUCCESS("A_SYS_00010","成功"),
+        LOGIN_TIME_OUT("A_SYS_00011","登录超时,请重新登录");
 
         String code;
 

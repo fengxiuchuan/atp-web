@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.atp.common.GlobalConstants;
+import com.atp.common.SystemContext;
 import com.atp.dao.sys.SysMenuDao;
 import com.atp.dao.sys.SysRoleMenuDao;
 import com.atp.dao.sys.SysUserRoleDao;
@@ -14,6 +17,7 @@ import com.atp.dto.sys.SysRoleDTO;
 import com.atp.dto.sys.SysUserRoleDTO;
 import com.atp.entity.sys.SysUserRole;
 import com.atp.exception.ATPException;
+import com.atp.service.TokenService;
 import com.atp.util.MD5Util;
 import com.atp.util.StringUtil;
 import com.atp.util.TreeUtil;
@@ -49,6 +53,10 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysRoleMenuDao sysRoleMenuDao;
+
+    @Autowired
+    private TokenService tokenService;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -226,19 +234,26 @@ public class SysUserServiceImpl implements SysUserService {
         // 根据用户角色获取菜单
 
         String userPwd = sysUserDTO.getUserPwd();
-        userPwd = MD5Util.encrypt(userPwd);
-        sysUserDTO.setUserPwd(userPwd);
+        sysUserDTO.setUserPwd(MD5Util.encrypt(userPwd));
         SysUserDTO curUser = sysUserDao.authByPwd(sysUserDTO);
         if(Objects.isNull(curUser)){
             throw new ATPException("用户名或密码错误");
         }
+
         if(Objects.equals(GlobalConstants.SUPER_ADMIN_NAME,sysUserDTO.getUserName())
                 || (StringUtils.isNotBlank(curUser.getRoleCodes()) && curUser.getRoleCodes().indexOf(GlobalConstants.SUPER_ADMIN_NAME) > -1)){
             isSuperAdmin = true;
         }
+
+        String token = tokenService.getToken(curUser);
+        SystemContext.getRequest().getSession().setMaxInactiveInterval(2 * 60 * 60);
+        SystemContext.getRequest().getSession().setAttribute(GlobalConstants.GLOBAL_TOKEN,token);
+        SystemContext.getRequest().getSession().setAttribute(token, JSON.toJSONString(curUser, SerializerFeature.WriteMapNullValue));
+        curUser.setToken(token);
         if(!isSuperAdmin && StringUtils.isBlank(curUser.getRoleCodes())){
             return curUser;
         }
+
         List<SysMenuDTO> menuList = sysMenuDao.queryMenuTree(new SysMenuDTO());
         if(!isSuperAdmin){
             String menuIds =  sysRoleMenuDao.getMenuIdsByRoleCodes(curUser.getRoleCodes().split(","));
@@ -249,5 +264,13 @@ public class SysUserServiceImpl implements SysUserService {
         menuList = TreeUtil.getTreeList(-1L,menuList);
         curUser.setMenuList(menuList);
         return curUser;
+    }
+
+    @Override
+    public SysUser findByUserName(String userName) throws ATPException {
+        if(StringUtils.isBlank(userName)){
+            return null;
+        }
+        return sysUserDao.findByUserName(userName);
     }
 }

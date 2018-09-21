@@ -146,4 +146,6 @@ public interface SysUserService {
      * @date: 2018/9/20 15:10
      */
     SysUserDTO login(SysUserDTO sysUserDTO)throws ATPException;
+
+    SysUser findByUserName(String userName) throws ATPException;
 }

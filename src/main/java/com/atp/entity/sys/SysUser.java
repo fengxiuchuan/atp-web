@@ -1,6 +1,8 @@
 package com.atp.entity.sys;
 
 import com.atp.dto.base.request.BasePageRequest;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -109,5 +111,7 @@ public class SysUser  extends BasePageRequest implements Serializable {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+
 }
 

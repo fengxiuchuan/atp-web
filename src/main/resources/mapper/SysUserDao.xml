@@ -216,5 +216,14 @@
         </where>
 
     </select>
+
+    <select id="findByUserName" resultMap="SysUserMap">
+        SELECT
+        <include refid="columns" />
+        FROM sys_user
+        <where>
+        user_name = #{userName}
+        </where>
+    </select>
 </mapper>
 
