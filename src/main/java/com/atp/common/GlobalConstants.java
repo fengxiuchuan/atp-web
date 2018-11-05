@@ -16,7 +16,7 @@ public interface GlobalConstants {
     /**
      *  超级管理员用户名
      */
-    public static final String SUPER_ADMIN_NAME = "super_admin";
+    public static final String SUPER_ADMIN_NAME = "superadmin";
     // 会员订单编号前缀
     public static final String MEM_ORDER_NO_PREFIX = "AOM";
     // 会员销课订单编号前缀

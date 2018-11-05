@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atp.dao.sys.DeptDao">
+
+    <resultMap id="DeptMap" type="com.atp.dto.sys.DeptDTO">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="parentCode" column="parent_code"/>
+        <result property="type" column="type"/>
+        <result property="deptAllPath" column="dept_all_path"/>
+        <result property="name" column="name"/>
+        <result property="level" column="level"/>
+    </resultMap>
+    
+    <sql id="columns">
+        <![CDATA[
+        	id ,
+        	code ,
+        	parent_code ,
+        	type ,
+        	dept_all_path ,
+        	name ,
+        	level 
+        ]]>
+    </sql>
+    
+    <sql id="where">
+    	<where>
+           	<if test="@Ognl@isNotEmpty(id)">
+            	<![CDATA[ AND id = #{id} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(code)">
+            	<![CDATA[ AND code = #{code} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(parentCode)">
+            	<![CDATA[ AND parent_code = #{parentCode} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(type)">
+            	<![CDATA[ AND type = #{type} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(deptAllPath)">
+            	<![CDATA[ AND dept_all_path = #{deptAllPath} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(name)">
+            	<![CDATA[ AND name = #{name} ]]>
+            </if>
+           	<if test="@Ognl@isNotEmpty(level)">
+            	<![CDATA[ AND level = #{level} ]]>
+            </if>
+        </where>
+    </sql>
+    
+
+    <select id="queryList" resultMap="DeptMap">
+        SELECT
+            <include refid="columns" />
+        FROM
+            dept 
+        <include refid="where"/>
+    </select>
+        
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO dept (
+	        code,
+	        parent_code,
+	        type,
+	        dept_all_path,
+	        name,
+	        level
+	    ) VALUES (
+	        #{code},
+	        #{parentCode},
+	        #{type},
+	        #{deptAllPath},
+	        #{name},
+	        #{level}
+	    )
+    </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO dept (
+            code,
+            parent_code,
+            type,
+            dept_all_path,
+            name,
+            level
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                                #{item.code},
+                #{item.parentCode},
+                #{item.type},
+                #{item.deptAllPath},
+                #{item.name},
+                #{item.level}
+            )
+        </foreach>
+    </insert>
+    
+
+    <delete id="deleteBatchByIds">
+        DELETE 
+        FROM
+            dept
+        WHERE
+            id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+#{item}        </foreach>
+    </delete>
+
+
+
+    <update id="updateById">
+            UPDATE
+            dept
+            <set>
+                    <if test="code != null">
+                        <![CDATA[ code = #{code} ]]>,
+                     </if>
+                    <if test="parentCode != null">
+                        <![CDATA[ parent_code = #{parentCode} ]]>,
+                     </if>
+                    <if test="type != null">
+                        <![CDATA[ type = #{type} ]]>,
+                     </if>
+                    <if test="deptAllPath != null">
+                        <![CDATA[ dept_all_path = #{deptAllPath} ]]>,
+                     </if>
+                    <if test="name != null">
+                        <![CDATA[ name = #{name} ]]>,
+                     </if>
+                    <if test="level != null">
+                        <![CDATA[ level = #{level} ]]>
+                     </if>
+            </set>
+            <where>
+                    id = #{id}
+            </where>
+     </update>
+
+</mapper>
+

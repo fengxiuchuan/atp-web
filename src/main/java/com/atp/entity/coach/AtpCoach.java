@@ -1,5 +1,8 @@
 package com.atp.entity.coach;
 
+import com.atp.annotation.validate.IsEmpty;
+import com.atp.annotation.validate.MaxSize;
+import com.atp.annotation.validate.MinSize;
 import com.atp.dto.base.request.BasePageRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,10 +30,13 @@ public class AtpCoach extends BasePageRequest implements Serializable {
     /**
      * 教练编号 
      */
+    @IsEmpty(message = "教练编号不能为空")
     private String coachNo;
     /**
      * 教练名称 
      */
+    @MinSize(min=3,message = "教练名称长度不能少于3字符")
+    @MaxSize(max=30, message = "教练名称长度超出30字符")
     private String coachName;
     /**
      * 出生日期
@@ -48,6 +55,7 @@ public class AtpCoach extends BasePageRequest implements Serializable {
     /**
      * 联系方式:
      */
+    @Pattern(regexp = "\\d+(\\.\\d+)?", message = "费率必须为数字格式")
     private String phone;
     /**
      * 所在健身场馆 

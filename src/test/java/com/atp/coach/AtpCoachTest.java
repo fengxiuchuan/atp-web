@@ -7,6 +7,7 @@ import com.atp.dto.coach.AtpCoachDTO;
 import com.atp.entity.coach.AtpCoach;
 import com.atp.exception.ATPException;
 import com.atp.service.coach.AtpCoachService;
+import com.atp.util.ValidateUtil;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -94,6 +95,14 @@ public class AtpCoachTest {
         System.out.println(checkNumber("1.1"));
     }
 
+    @Test
+    public void testValidate(){
+        AtpCoach atpCoach = new AtpCoach();
+        atpCoach.setCoachNo("333");
+        atpCoach.setCoachName("叫eeee");
+        atpCoach.setPhone("ldjfldj");
+        System.out.println(ValidateUtil.validate(atpCoach));
+    }
     /**
      * 校验字符串是否是数值(包含小数与负数)
      * 示例：

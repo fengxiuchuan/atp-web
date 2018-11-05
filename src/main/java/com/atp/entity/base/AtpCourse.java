@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Description: AtpCourseentity 值对象
@@ -128,6 +130,28 @@ public class AtpCourse extends BasePageRequest implements Serializable {
 
     public Date getLastUpdatedTime() {
         return this.lastUpdatedTime;
+    }
+
+    public static void main(String[] args) {
+        List<AtpCourse> courses = new ArrayList<AtpCourse>();
+        AtpCourse course = new AtpCourse();
+        course.setCourseNo("2");
+        course.setCourseName("测试");
+        courses.add(course);
+
+        course = new AtpCourse();
+        course.setCourseNo("4");
+        course.setCourseName("测试4");
+        courses.add(course);
+        changeCourse(courses);
+        System.out.println(courses.get(1).getCourseName());
+        System.out.println(courses.get(0).getCourseName());
+    }
+
+    private static void changeCourse(List<AtpCourse> courses) {
+        for (int i = 0; i < courses.size(); i++) {
+            courses.get(i).setCourseName("balbal"+(i+8));
+        }
     }
 }
 

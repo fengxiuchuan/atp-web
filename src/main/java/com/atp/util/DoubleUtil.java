@@ -152,5 +152,8 @@ public class DoubleUtil {
 	    //System.out.println(compare(a, b));
 	    //System.out.println(roundDouble(roundDouble(roundDouble(c))));
 	    System.out.println(DoubleUtil.add(9500.0, 100.895));
+
+	    String a = "YN2929";
+		System.out.println(a.substring(0,4));
 	}  
 }
