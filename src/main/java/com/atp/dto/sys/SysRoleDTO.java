@@ -15,6 +15,8 @@ public class SysRoleDTO extends SysRole implements Serializable {
     private String key;
 
     private String value;
+
+    private String label;
     /**
      *  选中的菜单
      */
@@ -36,8 +38,11 @@ public class SysRoleDTO extends SysRole implements Serializable {
 
 
     public String getValue() {
-        return this.getRoleDesc();
+        return this.getRoleCode();
     }
 
+    public String getLabel() {
+        return this.getRoleName();
+    }
 }
 

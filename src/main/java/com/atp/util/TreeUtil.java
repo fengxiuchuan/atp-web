@@ -37,6 +37,11 @@ public class TreeUtil {
                 treeMap.put(itemTree.getParentId(), data);//把放好的数据放回map当中
             }
         }
+
+        Iterator<Map.Entry<Object, T>> entries = treeMap.entrySet().iterator();
+        while (entries.hasNext()){
+            resultList.add( entries.next().getValue());
+        }
         return resultList;
     }
 }

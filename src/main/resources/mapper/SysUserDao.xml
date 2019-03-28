@@ -214,7 +214,7 @@
                 AND u.`user_pwd` = #{userPwd}
             </if>
         </where>
-
+        GROUP BY u.id
     </select>
 
     <select id="findByUserName" resultMap="SysUserMap">

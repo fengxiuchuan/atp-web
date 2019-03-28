@@ -63,7 +63,7 @@ public class SysUserController extends BaseController {
 
     //4 授权角色
     @PostMapping(value = "/grantRole.do")
-    public ResultMessage grantRole(SysUserDTO sysUserDTO) throws ATPException{
+    public ResultMessage grantRole(@RequestBody SysUserDTO sysUserDTO) throws ATPException{
         sysUserService.grantRole(sysUserDTO);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"分配角色成功");
     }
