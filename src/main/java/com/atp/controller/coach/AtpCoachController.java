@@ -10,10 +10,7 @@ import com.atp.exception.ATPException;
 import com.atp.service.coach.AtpCoachService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -58,7 +55,7 @@ public class AtpCoachController extends BaseController {
      * @date: 2018/5/24 15:23
      */
     @PostMapping(value = "/addCoach.do")
-    public ResultMessage addCoach(AtpCoachDTO atpCoachDTO) throws ATPException {
+    public ResultMessage addCoach(@RequestBody AtpCoachDTO atpCoachDTO) throws ATPException {
         atpCoachService.addCoach(atpCoachDTO);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"保存成功");
     }
@@ -73,7 +70,7 @@ public class AtpCoachController extends BaseController {
      * @date: 2018/5/24 15:23
      */
     @PostMapping(value = "/updateCoach.do")
-    public ResultMessage updateCoach(AtpCoachDTO atpCoachDTO) throws ATPException {
+    public ResultMessage updateCoach(@RequestBody AtpCoachDTO atpCoachDTO) throws ATPException {
         atpCoachService.updateCoach(atpCoachDTO);
         return new ResultMessage(GlobalConstants.RESPONSE_CODE_SUCCESS_DEFAULT,"更新成功");
     }

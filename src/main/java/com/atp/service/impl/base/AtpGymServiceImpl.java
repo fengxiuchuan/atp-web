@@ -160,14 +160,17 @@ public class AtpGymServiceImpl implements AtpGymService {
         if(StringUtils.isBlank(atpGymDTO.getAddress())){
             throw new ATPException("请填写地址");
         }
-        if(ArrayUtils.isEmpty(atpGymDTO.getCourseIdArr())){
+       /* if(ArrayUtils.isEmpty(atpGymDTO.getCourseIdArr())){
             throw new ATPException("请选择经营课程");
-        }
+        }*/
         Long id = null;
         if(StringUtils.isNotBlank(submitFormType) && Objects.equals(GlobalConstants.SUBMIT_FORM_TYPE.EDIT.getCode(),submitFormType)){
             id = atpGymDTO.getId();
         }
         List<AtpGym> gymList = atpGymDao.queryByGymName(atpGymDTO.getGymName(),id);
+        if(CollectionUtils.isNotEmpty(gymList)){
+            throw new ATPException("场馆名称重复");
+        }
     }
     @Override
     @Transactional(rollbackFor = Exception.class)

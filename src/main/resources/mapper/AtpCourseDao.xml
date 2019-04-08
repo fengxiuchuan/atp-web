@@ -211,7 +211,7 @@
         FROM  atp_course
         <where>
            course_name = #{courseName}
-          <if test="id != null">
+          <if test="excludId != null and excludId != ''">
               <![CDATA[ id <> #{excludId}]]>
           </if>
         </where>

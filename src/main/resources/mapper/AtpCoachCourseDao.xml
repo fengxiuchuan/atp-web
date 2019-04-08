@@ -202,7 +202,7 @@
         </update>
     
     <delete id="deleteByCoachId">
-        DELETE atp_coach_course
+        DELETE FROM atp_coach_course
         WHERE coach_id =#{coachId}
     </delete>
     

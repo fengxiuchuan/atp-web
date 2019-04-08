@@ -286,8 +286,8 @@
         FROM atp_coach
         <where>
             ( coach_no = #{coachNo} OR  coach_name = #{coachName})
-            <if test="excludId != null">
-                <![CDATA[ AND id <> !{excludId}]]>
+            <if test="excludId != null and excludId != ''">
+                <![CDATA[ AND id <> #{excludId}]]>
             </if>
         </where>
     </select>

@@ -20,7 +20,8 @@ public class TreeUtil {
         for(int i=0;i<entityList.size()&&!entityList.isEmpty();i++) {
             itemTree = entityList.get(i);
             treeMap.put(itemTree.getId(),itemTree);//把所有的数据放到map当中，id为key
-            if(Objects.equals(topId,itemTree.getParentId()) || itemTree.getParentId() == null) {//把顶层数据放到集合中
+            // 如果当前几点主键为-1或者上级几点为空；则为根节点
+            if(Objects.equals(topId,itemTree.getId()) || itemTree.getParentId() == null) {//把顶层数据放到集合中
                 resultList.add(itemTree);
             }
         }
@@ -38,10 +39,10 @@ public class TreeUtil {
             }
         }
 
-        Iterator<Map.Entry<Object, T>> entries = treeMap.entrySet().iterator();
+       /* Iterator<Map.Entry<Object, T>> entries = treeMap.entrySet().iterator();
         while (entries.hasNext()){
             resultList.add( entries.next().getValue());
-        }
+        }*/
         return resultList;
     }
 }
